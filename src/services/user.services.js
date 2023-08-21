@@ -1,6 +1,6 @@
 import { get, set, ref, query, equalTo, update, remove, orderByChild } from 'firebase/database';
 import { db } from '../config/firebase-config';
-// import { USER_ROLES } from '../common/constants';
+import { USER_ROLES } from '../constants/userRoles';
 
 export const getUserByHandle = (username) => {
 
@@ -15,14 +15,7 @@ export const createUserHandle = (username, uid, email, firstName, lastName) => {
     firstName,
     lastName,
     createdOn: Date.now(),
-    // userRole: USER_ROLES.RegularUser,
-    statistics: {
-      events: 0,
-      comments: 0,
-      likes: 0
-      // Add other initial statistics fields as needed
-      // This has to be reviewed and reworked probably
-    }
+     userRole: USER_ROLES.RegularUser,
   };
 
   return set(ref(db, `users/${username}`), userData);
