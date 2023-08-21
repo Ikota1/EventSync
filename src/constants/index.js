@@ -1,22 +1,22 @@
 export const navLinksNavbar = [
   {
-    id: "home",
+    id: "",
     title: "Home",
-  },
-  {
-    id: "faq",
-    title: "FAQ",
   },
   {
     id: "news",
     title: "News",
   },
   {
+    id: "faq",
+    title: "FAQ",
+  },
+  {
     id: "login",
     title: "Login",
   },
   {
-    id: "getStarted",
+    id: "singup",
     title: "Get Started",
   },
 ];
