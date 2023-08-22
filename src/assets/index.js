@@ -6,6 +6,7 @@ import people01 from "./people01.png";
 import people02 from "./people02.png";
 import people03 from "./people03.png";
 import quotes from "./quotes.svg";
+import logoIcon from "./just-logo-icon.png"
 
 export {
   menu,
@@ -16,4 +17,5 @@ export {
   people02,
   people03,
   quotes,
+  logoIcon,
 };
