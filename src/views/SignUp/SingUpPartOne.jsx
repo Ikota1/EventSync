@@ -1,12 +1,12 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { logo } from '../../assets';
 import { countries } from '../../constants/countries';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-const SignUp = () => {
-  const navigate = useNavigate();
+const SignUpPartOne = ({ stageOneFormData }) => {
+
 
   const userSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is mandatory.')
@@ -17,26 +17,20 @@ const SignUp = () => {
   })
 
   const formOptions = { resolver: yupResolver(userSchema) }
-  const { register, handleSubmit, reset, formState } = useForm(formOptions);
-  const { errors } = formState;
+  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { isValid, errors } = formState;
 
-  const createUser = async (e) => {
-    try {
-      // let formData = {
-      //   firstName: e.target[0].value,
-      //   lastName: e.target[1].value,
-      //   country: e.target[2].value,
-      // }
+  const  onSubmit = (data) => {
+    if(isValid) {
+      JSON.stringify(data, null, 4)
+      console.log('Form data submitted:', data);
+      stageOneFormData(data.firstName, data.lastName, data.country)
+     }
+  } 
 
-      console.log(e);
-
-      navigate('/signupparttwo');
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   return (
+
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <NavLink to='/'><img src={logo} alt='eventSync' className='w-[124px] h-[50px] mb-[20px]' /></NavLink>
@@ -45,7 +39,9 @@ const SignUp = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Start of the reg process
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={(e) => handleSubmit(createUser)(e)} >
+            { }
+            <form onSubmit={handleSubmit(onSubmit)}
+              className="space-y-4 md:space-y-6">
               <div>
                 <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Your name
@@ -92,12 +88,29 @@ const SignUp = () => {
                 </select>
                 <div className="invalid-feedback">{errors.country?.message}</div>
               </div>
-              <button
-                type='submit'
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Continue
-              </button>
+              <div className="flex justify-between">
+
+
+                <NavLink to='/'>
+                <button
+                  type='submit'
+                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
+                  Back to
+                </button>
+                  
+  
+                  </NavLink>
+
+                <button
+                  type='submit'
+                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
+                  Cont
+                </button>
+
+              </div>
+
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already got account? <NavLink to='/login' className="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</NavLink>
               </p>
@@ -106,7 +119,8 @@ const SignUp = () => {
         </div>
       </div>
     </section>
+
   );
 };
 
-export default SignUp;
+export default SignUpPartOne;
