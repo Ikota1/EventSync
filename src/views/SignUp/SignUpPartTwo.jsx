@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
-const SignUpPartTwo = () => {
+const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const formSchema = Yup.object().shape({
         password: Yup.string()
             .required('Password is mandatory')
@@ -12,15 +12,19 @@ const SignUpPartTwo = () => {
         confirmPwd: Yup.string()
             .required('Password is mandatory')
             .oneOf([Yup.ref('password')], 'Passwords does not match'),
+         email: Yup.string().email('Must be a valid email').max(30).required('Email is required')
     })
     const formOptions = { resolver: yupResolver(formSchema) }
-    const { register, handleSubmit, reset, formState } = useForm(formOptions)
-    const { errors } = formState
-    function onSubmit(data) {
-        console.log(JSON.stringify(data, null, 4))
-        return false
-    }
+    const { register, handleSubmit, formState } = useForm(formOptions)
+    const { isValid, errors } = formState
 
+    const  onSubmit = (data) => {
+        if(isValid) {
+          JSON.stringify(data, null, 4)
+          console.log('Form data submitted:', data);
+          stageTwoFormData(data.email, data.password)
+         }
+      } 
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -37,11 +41,13 @@ const SignUpPartTwo = () => {
                                     Your email
                                 </label>
                                 <input
-                                    type="email"
+                                    type="text"
                                     name="email"
                                     id="email"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="name@company.com"
+                                    {...register('email')}
+
                                 />
                             </div>
                             <div>
@@ -89,14 +95,16 @@ const SignUpPartTwo = () => {
                                 </div>
 
                             </div>
+
                             <div className='flex'>
-                                <NavLink to='/signup'>
-                                    <button
+                              
+                                    <button onClick={handleBackBtnClick}
                                         type="submit"
                                         className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                     >
                                         Back
-                                    </button></NavLink>
+                                    </button>
+                                  
                                 <button
                                     type="submit"
                                     className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
