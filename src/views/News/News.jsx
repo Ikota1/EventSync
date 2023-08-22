@@ -1,7 +1,7 @@
 import Navbar from '../../components/Navbar/Navbar';
 import styles from '../../style';
 
-const FAQ = () => (
+const News = () => (
   <>
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
@@ -18,4 +18,4 @@ const FAQ = () => (
 )
 
 
-export default FAQ;
+export default News;
