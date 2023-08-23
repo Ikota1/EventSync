@@ -1,10 +1,10 @@
-import SignUpPartTwo from "./SignUpPartTwo"
-import { useState } from "react"
-import SignUpPartOne from "./SingUpPartOne"
-import { registerUser } from "../../services/auth.service"
-import { createUserHandle } from "../../services/user.services"
+import SignUpPartTwo from "./SignUpPartTwo";
+import SignUpPartOne from "./SignUpPartOne";
+import { useState } from "react";
+import { registerUser } from "../../../services/auth.service";
+import { createUserHandle } from "../../../services/user.services";
 
-const SingUp = () => {
+const SignUp = () => {
   const [stage, setStage] = useState(0)
   const [formData, setFormData] = useState({
     firstName: '',
@@ -53,6 +53,6 @@ const SingUp = () => {
   )
 }
 
-export default SingUp
+export default SignUp;
 
 // handleContinueBtnClick={handleContinueBtnClick}

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import SignUp from "../../views/SignUp/SingUpPartOne";
 
 export const SingleAccordion = () => {
   const [isBodyVisible, setIsBodyVisible] = useState(false);
@@ -46,14 +44,14 @@ export const SingleAccordion = () => {
       >
         <div className="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
           <p className="font-poppins font-normal mb-2 text-gray-500 dark:text-gray-400">
-          Welcome to  
-          <a className="text-blue-600 dark:text-blue-500"> EventSync</a>, 
-          the premier web application designed to revolutionize the way you 
-          <a className="text-blue-600 dark:text-blue-500"> discover, create</a>,
-          and 
-          <a className="text-blue-600 dark:text-blue-500"> connect</a> through events! Whether you're a social butterfly, 
-          an event organizer, or someone looking to explore exciting activities, EventSync is your all-in-one solution. Get ready 
-          to immerse yourself in a world of endless possibilities, where every event is just a click away.
+            Welcome to
+            <a className="text-blue-600 dark:text-blue-500"> EventSync</a>,
+            the premier web application designed to revolutionize the way you
+            <a className="text-blue-600 dark:text-blue-500"> discover, create</a>,
+            and
+            <a className="text-blue-600 dark:text-blue-500"> connect</a> through events! Whether you`re a social butterfly,
+            an event organizer, or someone looking to explore exciting activities, EventSync is your all-in-one solution. Get ready
+            to immerse yourself in a world of endless possibilities, where every event is just a click away.
           </p>
           <ul className="font-poppins font-normal pl-5 text-gray-500 list-disc dark:text--400">
             <li>

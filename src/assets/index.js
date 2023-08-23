@@ -8,6 +8,17 @@ import people03 from "./people03.png";
 import quotes from "./quotes.svg";
 import logoIcon from "./just-logo-icon.png"
 
+import help from './help.png';
+import control from './control.png';
+
+import calendar from './calendar.png';
+import user from './user.png';
+import settings from './setting.png';
+import dashboard from './chart_fill.png';
+import inbox from './chat.png';
+import events from './folder.png';
+import news from './chart.png';
+
 export {
   menu,
   close,
@@ -18,4 +29,14 @@ export {
   people03,
   quotes,
   logoIcon,
+  events,
+  help,
+  
+  control,
+  calendar,
+  user,
+  settings,
+  dashboard,
+  inbox,
+  news,
 };

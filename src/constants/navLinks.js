@@ -1,3 +1,5 @@
+import { news, calendar, events, help, user, dashboard, settings, inbox } from "../assets";
+
 export const navLinksNavbar = [
   {
     id: "",
@@ -23,19 +25,45 @@ export const navLinksNavbar = [
 
 export const navLinksSidebar = [
   {
-    id: "home",
-    title: "Home",
+    id: "dashboard",
+    title: "Dashboard",
+    img: dashboard,
   },
   {
-    id: "faq",
-    title: "FAQ",
+    id: "Inbox",
+    title: "inbox",
+    img: inbox,
+  },
+  {
+    id: "events",
+    title: "Events",
+    img: events,
+    gap: true,
+  },
+  {
+    id: "calendar",
+    title: "Calendar",
+    img: calendar,
   },
   {
     id: "news",
     title: "News",
+    img: news,
   },
   {
-    id: "pricing",
-    title: "Pricing",
+    id: "friends",
+    title: "Friends",
+    img: user,
+  },
+  {
+    id: "support",
+    title: "Support",
+    img: help,
+    gap: true,
+  },
+  {
+    id: "settings",
+    title: "Settings",
+    img: settings,
   },
 ];

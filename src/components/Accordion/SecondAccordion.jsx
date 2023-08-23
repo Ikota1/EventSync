@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import SignUp from "../../views/SignUp/SingUpPartOne";
+import SignUp from "../../views/LandingPageView/SignUp/SignUp";
 import Hero from "../Hero/Hero";
-import News from "../../views/News/News";
-import FAQ from "../../views/FAQ/FAQ";
+import News from "../../views/LandingPageView/News/News";
+import FAQ from "../../views/LandingPageView/FAQ/FAQ";
+
 
 export const SecondAccordion = () => {
   const [isBodyVisible, setIsBodyVisible] = useState(false);
@@ -53,42 +54,34 @@ export const SecondAccordion = () => {
           <p className="font-poppins font-normal mb-2 text-gray-500 dark:text-gray-400">
             The main difference is what rights the user has.
           </p>
-          <p className="font-poppins font-normal mb-2 text-gray-500 dark:text-gray-400">
-            The Public user has a restricted access, and is allow to few
-            features of the sites such as:
+          <p className="font-poppins font-normal mb-2 text-gray-500 dark:text-gray-400" >
+            The Public user has a restricted access, and is allow to few features of the sites
+            such as:
+            <ul>
+              <Link to="/" element={<Hero />}>
+                <li>
+                  <a className="text-blue-600 dark:text-blue-500 hover:underline"> Landing Page</a>
+                </li>
+              </Link>
+              <Link to="/news" element={<News />}>
+                <li>
+                  <a className="text-blue-600 dark:text-blue-500 hover:underline"> News</a>
+                </li>
+              </Link>
+              <Link to="/faq" element={<FAQ />}>
+                <li>
+                  <a className="text-blue-600 dark:text-blue-500 hover:underline"> FAQ</a>
+                </li>
+              </Link>
+            </ul>
           </p>
-          <ul>
-            <li>
-              <span className="text-blue-600 dark:text-blue-500 hover:underline">
-                <Link to="/" element={<Hero />}>
-                  Landing Page
-                </Link>
-              </span>
-            </li>
-            <li>
-              <span className="text-blue-600 dark:text-blue-500 hover:underline">
-                <Link to="/news" element={<News />}>
-                  News
-                </Link>
-              </span>
-            </li>
-            <li>
-              <span className="text-blue-600 dark:text-blue-500 hover:underline">
-                <Link to="/faq" element={<FAQ />}>
-                  FAQ
-                </Link>
-              </span>
-            </li>
-          </ul>
           <p className="font-poppins font-normal mb-2 text-gray-500 dark:text-gray-400">
             After successful
-            <span className="text-blue-600 dark:text-blue-500 hover:underline">
-              <Link to="/signup" element={<SignUp />}>
-                {" "}registration{" "}
-              </Link>
-            </span>
-            the User has access to the main interface, where event can be
-            browsed, searched and bought. Furthermore the User has access to
+            <Link to="/signup" element={<SignUp />}>
+              <a className="text-blue-600 dark:text-blue-500 hover:underline"> registration </a>
+            </Link>
+            the User has access to the main interface, where
+            event can be browsed, searched and bought. Furthermore the User has access to
             schedule calendar where he/she can track events.
           </p>
           <p className="font-poppins font-normal mb-2 text-gray-500 dark:text-gray-400">

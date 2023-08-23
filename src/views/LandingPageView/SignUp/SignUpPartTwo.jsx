@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { logo } from "../../assets";
+import { logo } from "../../../assets";
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
@@ -22,10 +22,10 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
 
     const onSubmit = (data) => {
         if (isValid) {
-            JSON.stringify(data, null, 4)
+            JSON.stringify(data, null, 4);
             console.log('Form data submitted:', data);
-            stageTwoFormData(data.email, data.password)
-            navigate('/')
+            stageTwoFormData(data.email, data.password);
+            navigate('/application');
         }
     }
 
@@ -129,4 +129,4 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     );
 }
 
-export default SignUpPartTwo
+export default SignUpPartTwo;

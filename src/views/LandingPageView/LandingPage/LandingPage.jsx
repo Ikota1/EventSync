@@ -1,9 +1,9 @@
-import styles from '../../style';
-import Hero from '../../components/Hero/Hero';
-import Navbar from '../../components/Navbar/Navbar';
-import Stats from '../../components/Stats/Stats';
-import Testimonials from '../../components/Testimonials/Testimonials';
-import Footer from '../../components/Footer/Footer';
+import styles from '../../../style';
+import Hero from '../../../components/Hero/Hero';
+import Navbar from '../../../components/Navbar/Navbar';
+import Stats from '../../../components/Stats/Stats';
+import Testimonials from '../../../components/Testimonials/Testimonials';
+import Footer from '../../../components/Footer/Footer';
 
 const LandingPage = () => (
   <>

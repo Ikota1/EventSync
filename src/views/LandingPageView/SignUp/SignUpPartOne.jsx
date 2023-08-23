@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import { logo } from '../../assets';
-import { countries } from '../../constants/countries';
+import { logo } from '../../../assets';
+import { countries } from '../../../constants/countries';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -20,13 +20,13 @@ const SignUpPartOne = ({ stageOneFormData }) => {
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { isValid, errors } = formState;
 
-  const  onSubmit = (data) => {
-    if(isValid) {
+  const onSubmit = (data) => {
+    if (isValid) {
       JSON.stringify(data, null, 4)
       console.log('Form data submitted:', data);
       stageOneFormData(data.firstName, data.lastName, data.country)
-     }
-  } 
+    }
+  }
 
 
   return (
@@ -92,15 +92,15 @@ const SignUpPartOne = ({ stageOneFormData }) => {
 
 
                 <NavLink to='/'>
-                <button
-                  type='submit'
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  Back to
-                </button>
-                  
-  
-                  </NavLink>
+                  <button
+                    type='submit'
+                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Back to
+                  </button>
+
+
+                </NavLink>
 
                 <button
                   type='submit'

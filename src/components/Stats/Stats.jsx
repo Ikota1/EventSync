@@ -1,4 +1,4 @@
-import { stats } from '../../constants/statsConstants';
+import { stats } from '../../constants/UIconstants/statsConstants';
 import styles from '../../style';
 
 const Stats = () => (

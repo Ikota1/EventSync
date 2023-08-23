@@ -1,4 +1,4 @@
-import { feedback } from '../../constants/testimonialsConstants';
+import { feedback } from '../../constants/UIconstants/testimonialsConstants';
 import styles from '../../style';
 import FeedBackCard from '../FeedBackCard/FeedBackCard';
 

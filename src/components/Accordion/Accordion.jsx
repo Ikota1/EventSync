@@ -5,11 +5,9 @@ import { FourthAccordion } from "./FourthAccordion";
 import { SecondAccordion } from "./SecondAccordion";
 import { ThirdAccordion } from "./ThirdAccordion";
 
-export const Accordion = () => {
-
-  return (
-    <>
-        <div id="accordion-collapse" data-accordion="collapse">
+export const Accordion = () => (
+  <>
+    <div id="accordion-collapse" data-accordion="collapse">
       <SingleAccordion />
       <SecondAccordion />
       <ThirdAccordion />
@@ -17,8 +15,7 @@ export const Accordion = () => {
       <FifthAccordion />
     </div>
     <div>
-      <Footer/>
+      <Footer />
     </div>
-    </>
-  );
-};
+  </>
+);

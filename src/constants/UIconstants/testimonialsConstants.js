@@ -1,4 +1,4 @@
-import { people01, people02, people03 } from "../assets";
+import { people01, people02, people03 } from "../../assets";
 
 export const feedback = [
   {
