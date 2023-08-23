@@ -28,8 +28,7 @@ export const AuthContextProvider = ({ children }) => {
 
         const userDataKey = Object.keys(snapshot.val())[0];
         console.log(userDataKey)
-        const username = snapshot.val()[userDataKey].username;
-        console.log(username)
+    
 
         setAuthState(() => ({
           user: user
