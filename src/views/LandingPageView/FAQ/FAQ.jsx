@@ -2,7 +2,6 @@ import Navbar from '../../../components/Navbar/Navbar';
 import styles from '../../../style';
 import { Accordion } from '../../../components/Accordion/Accordion';
 import { NavLink } from 'react-router-dom';
-import Button from '../../../components/Button/Button';
 import { logoIcon } from '../../../assets';
 
 
@@ -19,7 +18,7 @@ const FAQ = () => (
       </div>
     </div>
     <div className={`bg-primary ${styles.flexStart}`}>
-      <div className={`${styles.boxWidth} w-5/12`}>
+      <div className={`${styles.boxWidth} w-2/4`}>
         <div className='h-screen'>
           <Accordion />
         </div>
