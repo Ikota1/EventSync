@@ -1,10 +1,28 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { navLinksSidebar } from '../../constants/navLinks';
 import { NavLink } from 'react-router-dom';
 import { logoIcon, control } from '../../assets';
+import { logoutUser } from '../../services/auth.service';
+import { AuthContext } from '../../context/UserContext';
+import { getAuth } from 'firebase/auth';
 
 const Sidebar = () => {
+  const { setAuthState } = useContext(AuthContext)
   const [open, setOpen] = useState(true);
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  console.log(user)
+
+  const onLogout = () => {
+    logoutUser().then(() => {
+      setAuthState({
+        user: null,
+        userData: null,
+      });
+    });
+    
+  };
 
   return (
     <>
@@ -33,6 +51,9 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
+        <NavLink to="/" className='flex w-[20px] h-auto' onClick={onLogout}>
+               Logout
+              </NavLink>
       </div>
     </>
   )
