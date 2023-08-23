@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from "react";
-import { auth } from "../config/firebase-config";
-import { getUserData } from "../services/users.service";
+import { auth } from "../firebase/firebase-config";
+import { getUserData } from "../services/user.services";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 
