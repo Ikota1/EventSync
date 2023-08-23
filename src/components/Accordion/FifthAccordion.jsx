@@ -18,7 +18,7 @@ export const FifthAccordion = () => {
           onClick={toggleAccordion}
           aria-controls="accordion-collapse-body-4"
         >
-          <span>TODO?</span>
+          <span>Why I cannot invite friends to an event?</span>
           <svg
             data-accordion-icon
             className="w-3 h-3 rotate-180 shrink-0"
@@ -44,7 +44,10 @@ export const FifthAccordion = () => {
       >
         <div className="p-5 border border-gray-200 dark:border-gray-700">
           <p className="mb-2 text-gray-500 dark:text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima harum repellendus aliquam ipsum quaerat. Delectus, unde illo! Veniam deserunt ab, molestiae, possimus ut odio iure ad vitae, corporis quisquam iste.
+            To be able to sent invitation to a friend, you either should be the creator / owner
+            of the event, or to be given such right by the event owner. However, if you are
+            User you do not have the rights to create an event. To do so you should upgrade
+            to Premium user.
           </p>
         </div>
       </div>
