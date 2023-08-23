@@ -19,7 +19,7 @@ const FAQ = () => (
       </div>
     </div>
     <div className={`bg-primary ${styles.flexStart}`}>
-      <div className={`${styles.boxWidth} w-6/12`}>
+      <div className={`${styles.boxWidth} w-5/12`}>
         <div className='h-screen'>
           <Accordion/>
         </div>
