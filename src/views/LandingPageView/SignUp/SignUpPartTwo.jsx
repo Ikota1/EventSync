@@ -5,16 +5,25 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
 const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
-    const navigate = useNavigate();
+    const getCharacterValidationError = (str) => {
+        return `Your password must have at least 1 ${str} character.`;
+    };
 
     const formSchema = Yup.object().shape({
+        email: Yup.string()
+            .email('Must be a valid email.')
+            .max(25)
+            .required('Email is required.')
+            .matches(/^(?!.*@[^,]*,)/),
         password: Yup.string()
-            .required('Password is mandatory')
-            .min(8, 'Password must be at 8 char long'),
+            .required('Password is mandatory.')
+            .min(8, 'Password must be at 8 char long.')
+            .matches(/[0-9]/, getCharacterValidationError("digit"))
+            .matches(/[a-z]/, getCharacterValidationError("lowercase"))
+            .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
         confirmPwd: Yup.string()
             .required('Password is mandatory')
-            .oneOf([Yup.ref('password')], 'Passwords does not match'),
-        email: Yup.string().email('Must be a valid email').max(30).required('Email is required')
+            .oneOf([Yup.ref('password')], 'Passwords does not match.'),
     })
     const formOptions = { resolver: yupResolver(formSchema) }
     const { register, handleSubmit, formState } = useForm(formOptions)
@@ -51,6 +60,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                                     {...register('email')}
 
                                 />
+                                <div className="invalid-feedback">{errors.email?.message}</div>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
