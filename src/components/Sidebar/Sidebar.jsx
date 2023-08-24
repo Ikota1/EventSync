@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { navLinksSidebar } from '../../constants/navLinks';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { logoIcon, control } from '../../assets';
 import { logoutUser } from '../../services/auth.service';
 import { AuthContext } from '../../context/UserContext';
@@ -21,7 +21,7 @@ const Sidebar = () => {
         userData: null,
       });
     });
-    
+
   };
 
   return (
@@ -44,16 +44,16 @@ const Sidebar = () => {
               }`}>
               <img src={nav.img} className='w-[20px] h-auto' />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {/* <NavLink to={ }> */}
-                {nav.title}
-                {/* </NavLink> */}
+                <Link to={nav.id}>
+                  {nav.title}
+                </Link>
               </span>
             </li>
           ))}
         </ul>
         <NavLink to="/" className='flex w-[20px] h-auto' onClick={onLogout}>
-               Logout
-              </NavLink>
+          Logout
+        </NavLink>
       </div>
     </>
   )

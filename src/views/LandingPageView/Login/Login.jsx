@@ -26,22 +26,22 @@ const Login = () => {
     });
   };
 
- const onLogin = async (e) =>  {
-  e.preventDefault();
+  const onLogin = async (e) => {
+    e.preventDefault();
 
-  try {
-    
-   const credential = await loginUser(form.email, form.password);
-   setAuthState({
-    user: credential.user,
-  });
-   navigate('/application');
-    
-  } catch (error) {
-    console.error(error)
+    try {
+
+      const credential = await loginUser(form.email, form.password);
+      setAuthState({
+        user: credential.user,
+      });
+      navigate('/dashboard');
+
+    } catch (error) {
+      console.error(error)
+    }
+
   }
-
- }
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -67,7 +67,7 @@ const Login = () => {
                   placeholder="name@company.com"
                   value={form.email}
                   onChange={updateForm('email')}
-                  
+
                 />
               </div>
               <div>
