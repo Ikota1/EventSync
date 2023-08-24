@@ -1,4 +1,6 @@
+import Footer from '../../../components/Footer/Footer';
 import Navbar from '../../../components/Navbar/Navbar';
+import { NewsData } from '../../../components/News/NewsData';
 import styles from '../../../style';
 
 const News = () => (
@@ -9,11 +11,12 @@ const News = () => (
       </div>
     </div>
 
-    <div className={`bg-primary ${styles.flexStart}`}>
-      <div className={`${styles.boxWidth}`}>
-        <h1 className='text-white'>News</h1>
+    <div className={`bg-primary ${styles.flexStart}  h-screen`}>
+      <div className={`${styles.boxWidth} grid gap-6 sm:grid-cols-2 `}>
+        <NewsData/>
       </div>
     </div>
+    <Footer/>
   </>
 )
 
