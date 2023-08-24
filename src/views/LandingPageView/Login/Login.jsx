@@ -35,7 +35,7 @@ const Login = () => {
       setAuthState({
         user: credential.user,
       });
-      navigate('/dashboard');
+      navigate('/application/dashboard');
 
     } catch (error) {
       console.error(error)

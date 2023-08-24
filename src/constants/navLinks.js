@@ -46,11 +46,6 @@ export const navLinksSidebar = [
     img: calendar,
   },
   {
-    id: "news",
-    title: "News",
-    img: news,
-  },
-  {
     id: "friends",
     title: "Friends",
     img: user,

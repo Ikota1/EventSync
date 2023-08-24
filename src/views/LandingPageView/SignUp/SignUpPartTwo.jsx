@@ -25,7 +25,6 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
             JSON.stringify(data, null, 4);
             console.log('Form data submitted:', data);
             stageTwoFormData(data.email, data.password);
-            navigate('/dashboard');
         }
     }
 

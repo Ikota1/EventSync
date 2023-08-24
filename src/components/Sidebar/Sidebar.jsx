@@ -10,9 +10,9 @@ const Sidebar = () => {
   const { setAuthState } = useContext(AuthContext)
   const [open, setOpen] = useState(true);
 
-  const auth = getAuth();
-  const user = auth.currentUser;
-  console.log(user)
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+  // console.log(user)
 
   const onLogout = () => {
     logoutUser().then(() => {
@@ -44,9 +44,9 @@ const Sidebar = () => {
               }`}>
               <img src={nav.img} className='w-[20px] h-auto' />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
-                <Link to={nav.id}>
+                <NavLink to={nav.id}>
                   {nav.title}
-                </Link>
+                </NavLink>
               </span>
             </li>
           ))}

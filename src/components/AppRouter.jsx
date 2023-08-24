@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "../views/LandingPageView/LandingPage/LandingPage";
 import Login from "../views/LandingPageView/Login/Login";
 import SignUpPartTwo from "../views/LandingPageView/SignUp/SignUpPartTwo";
@@ -6,7 +6,20 @@ import SignUp from "../views/LandingPageView/SignUp/SignUp";
 import News from "../views/LandingPageView/News/News";
 import FAQ from "../views/LandingPageView/FAQ/FAQ";
 import ApplicationView from "../views/WebApplicationView/ApplicationView";
-import { AuthenticatedRoute } from "../constants/AuthenticatedRoutes";
+import { auth } from "../firebase/firebase-config";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import Dashboard from "../views/WebApplicationView/Dashboard/Dashboard";
+import Calendar from "../views/WebApplicationView/Calendar.jsx/Calendar";
+import Inbox from "../views/WebApplicationView/Inbox/Inbox";
+import Events from "../views/WebApplicationView/Events.jsx/Events";
+import Friends from "../views/WebApplicationView/Friends/Friends";
+import Support from "../views/WebApplicationView/Suppport/Support";
+import Settings from "../views/WebApplicationView/Settings/Settings";
+
+const AuthenticatedRoute = ({ element }) => {
+  const [user, loading] = useAuthState(auth);
+  return user ? <> {element} </> : !loading && <Navigate to="/login" />
+};
 
 const AppRouter = () => (
   <Routes>
@@ -18,9 +31,18 @@ const AppRouter = () => (
     <Route path="/signup" element={<SignUp />} />
     <Route path="/signupparttwo" element={<SignUpPartTwo />} />
 
-    {/* Application View */}
-    <Route exact path="/*" element={<AuthenticatedRoute element={<ApplicationView />} />} />
+    {/* Application view */}
+    <Route path="/application" element={<AuthenticatedRoute element={<ApplicationView />} />}>
+      <Route path="/application/dashboard" element={<Dashboard />} />
+      <Route path="inbox" element={<Inbox />} />
+      <Route path="events" element={<Events />} />
+      <Route path="calendar" element={<Calendar />} />
+      <Route path="friends" element={<Friends />} />
+      <Route path="support" element={<Support />} />
+      <Route path="settings" element={<Settings />} />
 
+      <Route path="/application" element={<Navigate to="/application/dashboard" />} />
+    </Route>
   </Routes>
 )
 

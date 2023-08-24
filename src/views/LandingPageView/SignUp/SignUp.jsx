@@ -3,8 +3,10 @@ import SignUpPartOne from "./SignUpPartOne";
 import { useState } from "react";
 import { registerUser } from "../../../services/auth.service";
 import { createUserHandle } from "../../../services/user.services";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [stage, setStage] = useState(0)
   const [formData, setFormData] = useState({
     firstName: '',
@@ -35,6 +37,7 @@ const SignUp = () => {
     try {
       const userSetup = await registerUser(email, password)
       await createUserHandle(userSetup.user.uid, email, formData.firstName, formData.lastName, formData.country)
+      navigate('/application/dashboard');
     } catch (error) {
       console.error("Error registering user:", error);
     }
