@@ -4,12 +4,13 @@ import { USER_ROLES } from '../constants/userRoles';
 
 export const getUserByHandle = (username) => {
 
-  return get(ref(db, `users/${username}`));
+return get(ref(db, `users/${username}`));
 };
 
-export const createUserHandle = (uid, email, firstName, lastName, country) => {
+export const createUserHandle = (uid, email, firstName, lastName, userName, country) => {
   const userData = {
     uid,
+    userName,
     email,
     firstName,
     lastName,

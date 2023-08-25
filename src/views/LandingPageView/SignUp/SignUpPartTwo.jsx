@@ -15,6 +15,13 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
             .max(25)
             .required('Email is required.')
             .matches(/^(?!.*@[^,]*,)/),
+            // TODO must also have a function to query the DB to check if username is already used and display the msg to the user
+        username: Yup.string()
+            .required('Username is required')
+            .matches(/^[a-zA-Z0-9]+$/, 'Special characters are not allowed')
+            .matches(/^(?!\s).*$/, 'No spaces allowed')
+            .min(3)
+            .max(16),
         password: Yup.string()
             .required('Password is mandatory.')
             .min(8, 'Password must be at 8 char long.')
@@ -33,7 +40,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
         if (isValid) {
             JSON.stringify(data, null, 4);
             console.log('Form data submitted:', data);
-            stageTwoFormData(data.email, data.password);
+            stageTwoFormData(data.email, data.username, data.password);
         }
     }
 
@@ -49,7 +56,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6" action="#">
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Your email
+                                    Your E-mail
                                 </label>
                                 <input
                                     type="text"
@@ -61,6 +68,21 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
 
                                 />
                                 <div className="invalid-feedback">{errors.email?.message}</div>
+                            </div>
+                            <div>
+                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Your Username
+                                </label>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="huh"
+                                    {...register('username')}
+
+                                />
+                                <div className="invalid-feedback">{errors.username?.message}</div>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
