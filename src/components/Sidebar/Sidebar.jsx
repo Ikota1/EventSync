@@ -1,18 +1,16 @@
 import { useContext, useState } from 'react';
 import { navLinksSidebar } from '../../constants/navLinks';
-import { Link, NavLink } from 'react-router-dom';
-import { logoIcon, control } from '../../assets';
+import {  NavLink } from 'react-router-dom';
+import { logoIcon, control, adminIcon } from '../../assets';
 import { logoutUser } from '../../services/auth.service';
 import { AuthContext } from '../../context/UserContext';
-import { getAuth } from 'firebase/auth';
+import { USER_ROLES } from '../../constants/userRoles';
 
 const Sidebar = () => {
-  const { setAuthState } = useContext(AuthContext)
+  const { userData, setAuthState } = useContext(AuthContext)
   const [open, setOpen] = useState(true);
+  const isAdmin = userData?.userRole === USER_ROLES.Admin;
 
-  // const auth = getAuth();
-  // const user = auth.currentUser;
-  // console.log(user)
 
   const onLogout = () => {
     logoutUser().then(() => {
@@ -50,6 +48,10 @@ const Sidebar = () => {
               </span>
             </li>
           ))}
+
+          {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4 `}>
+          <img src={adminIcon} className='w-[20px] h-auto'/>  Admin
+          </NavLink>)}
         </ul>
         <NavLink to="/" className='flex w-[20px] h-auto' onClick={onLogout}>
           Logout

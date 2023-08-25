@@ -15,6 +15,7 @@ import Events from "../views/WebApplicationView/Events.jsx/Events";
 import Friends from "../views/WebApplicationView/Friends/Friends";
 import Support from "../views/WebApplicationView/Suppport/Support";
 import Settings from "../views/WebApplicationView/Settings/Settings";
+import Admin from "../views/WebApplicationView/Admin/Admin";
 
 const AuthenticatedRoute = ({ element }) => {
   const [user, loading] = useAuthState(auth);
@@ -40,6 +41,7 @@ const AppRouter = () => (
       <Route path="friends" element={<Friends />} />
       <Route path="support" element={<Support />} />
       <Route path="settings" element={<Settings />} />
+      <Route path="admin" element={<Admin />} />
 
       <Route path="/application" element={<Navigate to="/application/dashboard" />} />
     </Route>

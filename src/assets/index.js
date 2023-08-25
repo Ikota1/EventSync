@@ -7,6 +7,7 @@ import people02 from "./people02.png";
 import people03 from "./people03.png";
 import quotes from "./quotes.svg";
 import logoIcon from "./just-logo-icon.png"
+import adminIcon from "./admin.png"
 
 import help from './help.png';
 import control from './control.png';
@@ -31,7 +32,7 @@ export {
   logoIcon,
   events,
   help,
-  
+  adminIcon,
   control,
   calendar,
   user,

@@ -24,7 +24,6 @@ export const NewsData = () => {
     };
     fetchData();
   }, []);
-  console.log(eventsData)
 
   return (
     <>
