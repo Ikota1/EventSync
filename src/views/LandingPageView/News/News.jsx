@@ -13,7 +13,6 @@ const News = () => (
 
     <div className={`bg-primary ${styles.flexStart}  h-screen`}>
       <div className={`${styles.boxWidth} grid gap-6 sm:grid-cols-2 `}>
-        <NewsData/>
       </div>
     </div>
     <Footer/>
