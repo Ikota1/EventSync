@@ -28,11 +28,25 @@ export const getUserData = (uid) => {
 };
 
 
+export const getUserRole = async (uid) => {
+  try {
+  
+    const snapshot = await getUserData(uid);
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
+      const userRole = userData[uid].userRole; 
+      return userRole;
+    }
+    return null; // User not found
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
 export const getAllUsers = async () => {
   try {
     const usersRef = ref(db, 'users');
     const snapshot = await get(usersRef);
-
     const users = [];
 
     if (snapshot.exists()) {

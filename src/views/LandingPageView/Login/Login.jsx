@@ -2,7 +2,9 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../../../context/UserContext';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { loginUser } from '../../../services/auth.service';
+import { getUserRole } from '../../../services/user.services';
 import { logo } from '../../../assets/'
+import { USER_ROLES } from '../../../constants/userRoles';
 import { getAuth } from 'firebase/auth';
 
 const Login = () => {
@@ -11,8 +13,7 @@ const Login = () => {
 
   const auth = getAuth();
   const user = auth.currentUser;
-  console.log(user)
-
+  // console.log(user)
 
   const [form, setForm] = useState({
     email: '',
@@ -32,6 +33,13 @@ const Login = () => {
     try {
 
       const credential = await loginUser(form.email, form.password);
+      const userRole = await getUserRole(credential.user.uid);
+  
+      //TODO need to add better alert message
+      if (userRole === USER_ROLES.Blocked) {
+       alert('Your account is blocked. Contact support for assistance.');
+        return; // Prevent login
+      }
       setAuthState({
         user: credential.user,
       });
