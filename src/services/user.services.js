@@ -68,54 +68,51 @@ export const getAllUsers = async () => {
 };
 
 
-// export const blockUser = async (userName) => {
+export const blockUser = async (uid) => {
 
-//   try {
-//     const updatedUserRole = {}
-//     updatedUserRole[`/users/${userName}/userRole`] = USER_ROLES.Blocked;
-  
-//     await update(ref(db), updatedUserRole);
-    
-//   } catch (error) {
-//     console.error('Error adding thread:', error);
-//     throw error;
-//   }
-
-
-// }
-
-// export const unblockUser = async (userName) => {
-
-//   try {
-//     const updatedUserRole = {}
-//     updatedUserRole[`/users/${userName}/userRole`] = USER_ROLES.RegularUser;
-  
-//     await update(ref(db), updatedUserRole);
-    
-//   } catch (error) {
-//     console.error('Error adding thread:', error);
-//     throw error;
-//   }
-
-
-// }
-
-
-export const deleteUser = async (userName, isEmail) => {
   try {
-    const userRef = isEmail
-      ? ref(db, `users`).orderByChild('email').equalTo(userName)
-      : ref(db, `users/${userName}`);
-
-    const userSnapshot = await get(userRef);
-
-    if (!userSnapshot.exists()) {
-      throw new Error('User not found');
-    }
-
-    await remove(userRef);
+    const updatedUserRole = {}
+    updatedUserRole[`/users/${uid}/userRole`] = USER_ROLES.Blocked;
+  
+    await update(ref(db), updatedUserRole);
+    
   } catch (error) {
-    console.error('Error deleting user:', error);
+    console.error('Error: could not block the user', error);
     throw error;
   }
-};
+
+
+}
+
+export const promoteUserToPremium = async (uid) => {
+
+  try {
+    const updatedUserRole = {}
+    updatedUserRole[`/users/${uid}/userRole`] = USER_ROLES.PremiumUser;
+  
+    await update(ref(db), updatedUserRole);
+    
+  } catch (error) {
+    console.error('Error: could not upgrade to premium', error);ZZZ
+    throw error;
+  }
+
+
+}
+
+export const unblockUser = async (uid) => {
+
+  try {
+    const updatedUserRole = {}
+    updatedUserRole[`/users/${uid}/userRole`] = USER_ROLES.RegularUser;
+  
+    await update(ref(db), updatedUserRole);
+    
+  } catch (error) {
+    console.error('Error: could not unBlock the user', error);
+    throw error;
+  }
+
+
+}
+
