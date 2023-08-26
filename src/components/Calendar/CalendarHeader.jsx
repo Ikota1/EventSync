@@ -15,10 +15,14 @@ const CalendarHeader = () => {
     setMonthIndex(monthIndex + 1);
   }
 
+  const handleReset = () => {
+    setMonthIndex(dayjs().month());
+  }
+
   return (
     <header className='px-4 py-2 flex items-center'>
       <h2 className='pr-5'>Calendar</h2>
-      <button className='border rounded py-2 px-4 mr-5'>Today</button>
+      <button onClick={handleReset} className='border rounded py-2 px-4 mr-5'>Today</button>
       <button onClick={handlePrevMonth}>
         <img src={arrowLeft} alt="" />
       </button>
