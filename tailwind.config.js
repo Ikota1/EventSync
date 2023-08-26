@@ -13,6 +13,9 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
+      gridTemplateColumns: {
+        '1/5': '1fr 5fr'
+      }
     },
     screens: {
       xs: "480px",
@@ -23,5 +26,5 @@ export default {
       xl: "1700px",
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };

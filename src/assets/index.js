@@ -20,6 +20,9 @@ import inbox from './chat.png';
 import events from './folder.png';
 import news from './chart.png';
 
+import arrowLeft from './arrow-left.png';
+import arrowRight from './arrow-right.png';
+
 export {
   menu,
   close,
@@ -40,4 +43,6 @@ export {
   dashboard,
   inbox,
   news,
+  arrowLeft,
+  arrowRight,
 };

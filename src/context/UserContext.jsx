@@ -1,20 +1,24 @@
-import { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { auth } from "../firebase/firebase-config";
 import { getUserData } from "../services/user.services";
 import { useAuthState } from "react-firebase-hooks/auth";
+import dayjs from 'dayjs';
 
+// Define the initial GlobalContext structure
+export const GlobalContext = React.createContext({
+  monthIndex: 0,
+  setMonthIndex: (index) => { },
+});
 
-export const AuthContext = createContext()
-
+export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-
+  const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [user, loading, error] = useAuthState(auth);
   const [authState, setAuthState] = useState({
     user: null,
     userData: null,
   });
-
 
   useEffect(() => {
     if (user === null) {
@@ -27,8 +31,6 @@ export const AuthContextProvider = ({ children }) => {
         }
 
         const userDataKey = Object.keys(snapshot.val())[0];
-        console.log(userDataKey)
-    
 
         setAuthState(() => ({
           user: user
@@ -37,12 +39,12 @@ export const AuthContextProvider = ({ children }) => {
               uid: user.uid,
             }
             : null,
-          userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+          userData: snapshot.val()[userDataKey],
         }));
       })
       .catch((e) => alert(e.message));
 
-  }, [user])
+  }, [user]);
 
   if (loading) {
     // Render loading indicator or screen
@@ -50,12 +52,17 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   return (
-    <>
-      <AuthContext.Provider value={{ user: authState.user, userData: authState.userData, setAuthState }}>
+    <GlobalContext.Provider value={{
+      monthIndex,
+      setMonthIndex,
+    }}>
+      <AuthContext.Provider value={{
+        user: authState.user,
+        userData: authState.userData,
+        setAuthState
+      }}>
         {children}
       </AuthContext.Provider>
-    </>
-
-  )
-}
-
+    </GlobalContext.Provider>
+  );
+};
