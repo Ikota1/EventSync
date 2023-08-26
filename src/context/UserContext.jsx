@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import dayjs from 'dayjs';
 
 // Define the initial GlobalContext structure
-export const GlobalContext = React.createContext({
+export const GlobalContext = createContext({
   monthIndex: 0,
   setMonthIndex: (index) => { },
 });
