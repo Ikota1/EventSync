@@ -1,9 +1,18 @@
-import React from 'react'
+import CreateEventButton from "../../../components/CreateEventButton/CreateEventButton"
 
 const Events = () => {
-  return (
-    <div className='text-white'>Events</div>
-  )
-}
+  const handleEventCreated = () => {
 
-export default Events
+  };
+
+  return (
+    <div>
+      <h1>Events</h1>
+      <CreateEventButton onEventCreated={handleEventCreated} />
+      {/* Render existing events */}
+      {/* ... */}
+    </div>
+  );
+};
+
+export default Events;
