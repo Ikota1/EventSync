@@ -4,19 +4,19 @@ import { AuthContext } from '../../context/UserContext'
 import dayjs from 'dayjs';
 
 
-const EventForm = ({ onEventCreated }) => {
+const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
 
-console.log(userData)
-console.log(userData.uid)
+  console.log(userData)
+  console.log(userData.uid)
 
   const [eventData, setEventData] = useState({
     title: '',
     startDateTime: '',
     endDateTime: '',
-    description: '', 
-    location: '',   
-   
+    description: '',
+    location: '',
+
   });
 
   const handleFormSubmit = async (e) => {
@@ -29,7 +29,7 @@ console.log(userData.uid)
 
 
     if (startDateTime.isAfter(endDateTime)) {
-     alert(`Start Date cannot be after endDate`)
+      alert(`Start Date cannot be after endDate`)
       return;
     }
 
@@ -41,13 +41,13 @@ console.log(userData.uid)
     await createEventHandle(
       eventData.title,
       userData.uid,
-      startDateTime.format('YYYY-MM-DD'), 
-      startDateTime.format('HH:mm'),     
-      endDateTime.format('YYYY-MM-DD'),  
-      endDateTime.format('HH:mm'),        
+      startDateTime.format('YYYY-MM-DD'),
+      startDateTime.format('HH:mm'),
+      endDateTime.format('YYYY-MM-DD'),
+      endDateTime.format('HH:mm'),
       eventData.description,
-      eventData.location,   
-   
+      eventData.location,
+
     );
     // Clear the form data and trigger the event created callback
     setEventData({
@@ -63,9 +63,15 @@ console.log(userData.uid)
     onEventCreated(); // Notify parent component that an event was created
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains('overlay')) {
+      onClose();
+    }
+  }
+
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section>
+      <div onClick={handleOverlayClick} className="overlay w-full bg-primary bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
         {/* Your logo and other header content */}
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -97,15 +103,18 @@ console.log(userData.uid)
                 required
               />
               <input
+                placeholder='Hello'
                 type="datetime-local"
                 value={eventData.startDateTime}
                 onChange={(e) => setEventData({ ...eventData, startDateTime: e.target.value })}
+                className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
               />
               <input
                 type="datetime-local"
                 value={eventData.endDateTime}
                 onChange={(e) => setEventData({ ...eventData, endDateTime: e.target.value })}
+                className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
               />
               {/* TODO - must complete the photo upload functionality to firebase*/}

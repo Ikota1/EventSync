@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext } from "react";
 import { auth } from "../firebase/firebase-config";
 import { getUserData } from "../services/user.services";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -8,12 +8,16 @@ import dayjs from 'dayjs';
 export const GlobalContext = createContext({
   monthIndex: 0,
   setMonthIndex: (index) => { },
+  showEventModal: false,
+  setShowEventModal: () => { },
 });
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
+  const [showEventModal, setShowEventModal] = useState(false);
+
   const [user, loading, error] = useAuthState(auth);
   const [authState, setAuthState] = useState({
     user: null,
@@ -55,6 +59,8 @@ export const AuthContextProvider = ({ children }) => {
     <GlobalContext.Provider value={{
       monthIndex,
       setMonthIndex,
+      showEventModal,
+      setShowEventModal,
     }}>
       <AuthContext.Provider value={{
         user: authState.user,

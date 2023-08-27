@@ -3,10 +3,11 @@ import { getMonth } from '../../../components/Calendar/utils/utils';
 import Month from '../../../components/Calendar/Month';
 import CalendarHeader from '../../../components/Calendar/CalendarHeader';
 import { GlobalContext } from '../../../context/UserContext';
+import CreateEventButton from '../../../components/CreateEventButton/CreateEventButton';
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex } = useContext(GlobalContext);
+  const { monthIndex, showEventModal } = useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
@@ -17,11 +18,11 @@ const Calendar = () => {
       <div className='text-white'>
         <CalendarHeader />
         <div className='h-screen flex'>
-          <div className="flex flex-1 w-[80%]">
+          <div className="flex flex-1 w-[70%]">
             <Month month={currentMonth} />
           </div>
-          <div className="w-[20%]">
-            List Of Events
+          <div className="w-[30%]">
+            <CreateEventButton onEventCreated={() => showEventModal(true)} />
           </div>
         </div>
       </div>
