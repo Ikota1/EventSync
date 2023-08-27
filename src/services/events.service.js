@@ -1,6 +1,9 @@
-import { db } from '../firebase/firebase-config';
+import { db, storage } from '../firebase/firebase-config'
 import { get, set, ref, update, push } from 'firebase/database';
+import { uploadBytesResumable, getDownloadURL, ref as sRef } from 'firebase/storage'
 import dayjs from 'dayjs';
+
+
 
 const currentDateTime = dayjs();
 const currentDateTimeString = currentDateTime.format('YYYY-MM-DD HH:mm:ss');
@@ -10,7 +13,7 @@ export const getEventByHandle = (uid) => {
     return get(ref(db, `events/${uid}`));
     };
 
-    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location) => {
+    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo) => {
       try {
         const eventRef = ref(db, 'events');
         const newEventRef = push(eventRef);
@@ -27,8 +30,8 @@ export const getEventByHandle = (uid) => {
           location: location,
           createdOn: currentDateTimeString,
           participants: [eventOwner],
-          // photo: photo,
-          id: newEventKey // Adding the Event's key as an id property
+          photo: photo,
+          id: newEventKey 
         };
     
         await set(newEventRef, eventData);
@@ -88,6 +91,24 @@ export const getEventByHandle = (uid) => {
         throw error;
       }
     };
+
+
+    export const uploadEventPhoto = async (eventId, photoFile) => {
+      try {
+        const storageRef = sRef(storage, `/events/${eventId}/photo`);
+        const uploadTask = uploadBytesResumable(storageRef, photoFile);
+          
+        await uploadTask;
+    
+        const photoURL = await getDownloadURL(storageRef);
+    
+        return photoURL; 
+      } catch (error) {
+        console.error('Error uploading event photo:', error);
+        throw error;
+      }
+    };
+    
     
 
 
