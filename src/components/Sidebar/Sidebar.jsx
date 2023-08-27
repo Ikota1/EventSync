@@ -41,14 +41,14 @@ const Sidebar = () => {
         </div>
         <ul className="pt-6">
           {navLinksSidebar.map((nav, index) => (
-            <li key={nav.id} className={`rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
-              <NavLink to={nav.id} className='flex items-center gap-x-4'>
+            <NavLink key={nav.id} to={nav.id} className=''>
+              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
                 <img src={nav.img} className='w-[20px] h-auto' />
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
                   {nav.title}
                 </span>
-              </NavLink>
-            </li>
+              </li>
+            </NavLink>
           ))}
           {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4 `}>
             <img src={adminIcon} className='w-[20px] h-auto' />  Admin
