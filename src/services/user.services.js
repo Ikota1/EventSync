@@ -1,10 +1,15 @@
 import { get, set, ref, query, equalTo, update, remove, orderByChild } from 'firebase/database';
 import { db } from '../firebase/firebase-config';
 import { USER_ROLES } from '../constants/userRoles';
+import dayjs from 'dayjs';
 
-export const getUserByHandle = (username) => {
 
-return get(ref(db, `users/${username}`));
+const currentDateTime = dayjs();
+const currentDateTimeString = currentDateTime.format('YYYY-MM-DD HH:mm:ss');
+
+export const getUserByHandle = (uid) => {
+
+return get(ref(db, `users/${uid}`));
 };
 
 export const createUserHandle = (uid, email, firstName, lastName, userName, country) => {
@@ -15,8 +20,15 @@ export const createUserHandle = (uid, email, firstName, lastName, userName, coun
     firstName,
     lastName,
     country,
-    createdOn: Date.now(),
+    createdOn: currentDateTimeString,
     userRole: USER_ROLES.RegularUser,
+    eventStatistics: {
+      eventsCreated: 0,
+      ticketsBought: 0,
+      attendedEventsCount: 0, 
+    },
+
+
   };
 
   return set(ref(db, `users/${uid}`), userData);
