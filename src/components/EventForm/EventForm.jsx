@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { createEventHandle } from '../../services/events.service'
+import { createEventHandle, uploadEventPhoto  } from '../../services/events.service'
 import { AuthContext } from '../../context/UserContext'
 import dayjs from 'dayjs';
 
@@ -14,13 +14,21 @@ const EventForm = ({ onEventCreated, onClose }) => {
     title: '',
     startDateTime: '',
     endDateTime: '',
-    description: '',
-    location: '',
-
+    description: '', 
+    location: '', 
+    photo: '',  
+   
   });
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    let photoURL = '';
+
+    if (eventData.photo) {
+
+    photoURL = await uploadEventPhoto(userData.uid, eventData.photo);
+  }
 
 
     const currentDateTime = dayjs();
@@ -47,7 +55,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
       endDateTime.format('HH:mm'),
       eventData.description,
       eventData.location,
-
+      photoURL 
+   
     );
     // Clear the form data and trigger the event created callback
     setEventData({
@@ -58,6 +67,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
       endHour: '',
       description: '',
       location: '',
+      photo: '',
 
     });
     onEventCreated(); // Notify parent component that an event was created
@@ -117,14 +127,13 @@ const EventForm = ({ onEventCreated, onClose }) => {
                 className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
               />
-              {/* TODO - must complete the photo upload functionality to firebase*/}
-              {/* <input
+              <p>Event photo</p>
+              <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => setFormData({ ...formData, photo: e.target.files[0] })}
+                onChange={(e) => setEventData({ ...eventData, photo: e.target.files[0] })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-       
-              /> */}
+              />
               <button
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
