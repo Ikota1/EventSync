@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { createEventHandle, uploadEventPhoto  } from '../../services/events.service'
+import { createEventHandle, uploadEventPhoto } from '../../services/events.service'
 import { AuthContext } from '../../context/UserContext'
 import dayjs from 'dayjs';
 
@@ -12,10 +12,10 @@ const EventForm = ({ onEventCreated, onClose }) => {
     title: '',
     startDateTime: '',
     endDateTime: '',
-    description: '', 
-    location: '', 
-    photo: '',  
-   
+    description: '',
+    location: '',
+    photo: '',
+
   });
 
   const handleFormSubmit = async (e) => {
@@ -25,8 +25,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
 
     if (eventData.photo) {
 
-    photoURL = await uploadEventPhoto(userData.uid, eventData.photo);
-  }
+      photoURL = await uploadEventPhoto(userData.uid, eventData.photo);
+    }
 
 
     const currentDateTime = dayjs();
@@ -53,8 +53,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
       endDateTime.format('HH:mm'),
       eventData.description,
       eventData.location,
-      photoURL 
-   
+      photoURL
+
     );
     // Clear the form data and trigger the event created callback
     setEventData({
@@ -68,7 +68,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
       photo: '',
 
     });
-    onEventCreated(); // Notify parent component that an event was created
+    // onEventCreated(); // Notify parent component that an event was created
+    onClose();
   };
 
   const handleOverlayClick = (e) => {
