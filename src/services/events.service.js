@@ -69,8 +69,26 @@ export const getEventByHandle = (uid) => {
     
   
 
-
-
+    export const getAllEvents = async () => {
+      try {
+        const eventsRef = ref(db, 'events');
+        const snapshot = await get(eventsRef);
+        const events = [];
+    
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            const eventData = childSnapshot.val(); 
+            events.push(eventData);
+          });
+        }
+    
+        return events;
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        throw error;
+      }
+    };
+    
 
 
        
