@@ -22,14 +22,11 @@ const SignUp = () => {
       firstName: firstName,
       lastName: lastName,
       country: country
-
     }))
-
     setStage(1)
   }
 
   const stageTwoFormData = async (email, username, password) => {
- 
     setFormData((prev) => ({
       ...prev,
       email: email,
@@ -37,8 +34,8 @@ const SignUp = () => {
       password: password,
     }))
     try {
-      const userSetup = await registerUser(email, password)
-      await createUserHandle(userSetup.user.uid, email, formData.firstName, formData.lastName, username, formData.country)
+      const userSetup = await registerUser(email, password);
+      await createUserHandle(userSetup.user.uid, email, formData.firstName, formData.lastName, username, formData.country);
       navigate('/application/dashboard');
     } catch (error) {
       console.error("Error registering user:", error);
@@ -46,7 +43,7 @@ const SignUp = () => {
   }
 
   const handleBackBtnClick = () => {
-    setStage(0)
+    setStage(0);
   }
 
   return (
@@ -54,8 +51,7 @@ const SignUp = () => {
       {stage === 0 && <SignUpPartOne stageOneFormData={stageOneFormData} />}
       {stage === 1 && <SignUpPartTwo stageTwoFormData={stageTwoFormData} handleBackBtnClick={handleBackBtnClick} />}
     </div>
-
-  )
+  );
 }
 
 export default SignUp;
