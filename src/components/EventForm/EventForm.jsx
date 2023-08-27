@@ -7,8 +7,6 @@ import dayjs from 'dayjs';
 const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
 
-  console.log(userData)
-  console.log(userData.uid)
 
   const [eventData, setEventData] = useState({
     title: '',
@@ -92,14 +90,14 @@ const EventForm = ({ onEventCreated, onClose }) => {
               <input
                 type="text"
                 placeholder="Title"
-                value={eventData.title}
+                value={eventData.title || ''}
                 onChange={(e) => setEventData({ ...eventData, title: e.target.value })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
               <textarea
                 placeholder="Description"
-                value={eventData.description}
+                value={eventData.description || ''}
                 onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
@@ -107,7 +105,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
               <input
                 type="text"
                 placeholder="Location"
-                value={eventData.location}
+                value={eventData.location || ''}
                 onChange={(e) => setEventData({ ...eventData, location: e.target.value })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
@@ -115,14 +113,14 @@ const EventForm = ({ onEventCreated, onClose }) => {
               <input
                 placeholder='Hello'
                 type="datetime-local"
-                value={eventData.startDateTime}
+                value={eventData.startDateTime || ''}
                 onChange={(e) => setEventData({ ...eventData, startDateTime: e.target.value })}
                 className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
               />
               <input
                 type="datetime-local"
-                value={eventData.endDateTime}
+                value={eventData.endDateTime || ''}
                 onChange={(e) => setEventData({ ...eventData, endDateTime: e.target.value })}
                 className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
