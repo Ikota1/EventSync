@@ -24,6 +24,7 @@ export const NewsData = () => {
     };
     fetchData();
   }, []);
+  console.log(eventsData)
 
   return (
     <>
@@ -39,7 +40,7 @@ export const NewsData = () => {
         data-te-carousel-indicators
       >
       </div>
-      <div className="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
+      <div className="relative w-full overflow-hidden after:clear-both after:block after:content-[''] hover:border rounded-lg border-cyan-500">
         {/* Event items */}
         {eventsData.map((el, index) => (
           <div
@@ -52,10 +53,10 @@ export const NewsData = () => {
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
           >
-            <div className="flex justify-center items-center xl:max-w-[1280px] w-full h-80 mx-auto brightness-50">
+            <div className="flex justify-center items-center w-5/12 h-auto mx-auto brightness-50">
               <img
                 src={el.performers[0].image}
-                className="block w-screen h-auto object-cover"
+                className="block w-full h-auto object-fit:cover"
                 alt="..."
               />
             </div>
