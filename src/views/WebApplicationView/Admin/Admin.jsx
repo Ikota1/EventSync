@@ -1,6 +1,7 @@
 import styles from "../../../style"
 import { getAllUsers, blockUser, unblockUser, promoteUserToPremium } from '../../../services/user.services'
 import { useEffect, useState } from "react"
+import { getAllEvents } from "../../../services/events.service"
 
 
 export const Admin = () => {
@@ -8,6 +9,7 @@ export const Admin = () => {
     const [selectedSearchType, setSelectedSearchType] = useState('email'); // Default to firstname
     const [filteredUsers, setFilteredUsers] = useState([])
     const [users, setUsers] = useState([])
+    const [events, setEvents] = useState([])
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
 
@@ -32,6 +34,22 @@ export const Admin = () => {
 
         getUsers();
     }, []);
+
+
+    useEffect(() => {
+      const getEvents = async () => {
+
+        try {
+
+            const fetchedEvents = await getAllEvents()
+            setEvents(fetchedEvents)
+        } catch (error) {
+            console.error('Error:', error);
+        }
+      }
+
+      getEvents();
+    }, [])
 
     const handleSearchTypeChange = (e) => {
         setSelectedSearchType(e.target.value);
@@ -102,7 +120,7 @@ export const Admin = () => {
                     </div>
                     <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
                         <div className="border-b border-gray-300 mb-2 pb-2">Total Events created</div>
-                        <div className="text-3xl font-semibold">0</div>
+                        <div className="text-3xl font-semibold">{events.length}</div>
                     </div>
                     <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
                         <div className="border-b border-gray-300 mb-2 pb-2">Tickets sold to date</div>
