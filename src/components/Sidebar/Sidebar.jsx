@@ -41,19 +41,17 @@ const Sidebar = () => {
         </div>
         <ul className="pt-6">
           {navLinksSidebar.map((nav, index) => (
-            <li key={nav.id} className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4 
-            ${nav.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-dimWhite"
-              }`}>
-              <img src={nav.img} className='w-[20px] h-auto' />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                <NavLink to={nav.id}>
+            <li key={nav.id} className={`rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
+              <NavLink to={nav.id} className='flex items-center gap-x-4'>
+                <img src={nav.img} className='w-[20px] h-auto' />
+                <span className={`${!open && "hidden"} origin-left duration-200`}>
                   {nav.title}
-                </NavLink>
-              </span>
+                </span>
+              </NavLink>
             </li>
           ))}
           {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4 `}>
-          <img src={adminIcon} className='w-[20px] h-auto'/>  Admin
+            <img src={adminIcon} className='w-[20px] h-auto' />  Admin
           </NavLink>)}
         </ul>
         <NavLink to="/" className='flex w-[20px] h-auto' onClick={onLogout}>

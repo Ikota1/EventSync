@@ -1,7 +1,7 @@
-import { useContext} from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../../context/UserContext";
 import { Link } from "react-router-dom";
-import UserProfileDetails from "./UserProfileDetails";
+// import UserProfileDetails from "./UserProfileDetails";
 
 export const UserProfile = () => {
   const { userData } = useContext(AuthContext);
@@ -12,9 +12,8 @@ export const UserProfile = () => {
   }
 
   const getInitials = (firstName, lastName) => {
-    return `${firstName.charAt(0) || ""}${
-      lastName.charAt(0) || ""
-    }`.toUpperCase();
+    return `${firstName.charAt(0) || ""}${lastName.charAt(0) || ""
+      }`.toUpperCase();
   };
 
   return (
@@ -67,7 +66,7 @@ export const UserProfile = () => {
                 </button>
               </Link>
             )}
-            <Link to="/edit=profile" element={<UserProfileDetails/>}>
+            <Link to="/edit=profile" /*element={<UserProfileDetails />}*/>
               <button className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                 Edit Profile
               </button>

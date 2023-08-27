@@ -4,8 +4,7 @@ import { UserProfile } from '../UserProfile/UserProfile'
 const Settings = () => {
   return (
     <>
-    <div className='text-white'>Settings</div>
-    <UserProfile />
+      <UserProfile />
     </>
   )
 }
