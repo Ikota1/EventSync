@@ -1,5 +1,6 @@
 import { get, set, ref, query, equalTo, update, remove, orderByChild } from 'firebase/database';
-import { db } from '../firebase/firebase-config';
+import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
+import { db, storage } from '../firebase/firebase-config';
 import { USER_ROLES } from '../constants/userRoles';
 import dayjs from 'dayjs';
 
@@ -126,4 +127,22 @@ export const unblockUser = async (uid) => {
 
 
 }
+
+export const updateUserProfile = (userId, profile) => {
+  const userRef = ref(db, `users/${userId}`);
+  return set(userRef, profile);
+};
+
+export const uploadProfilePhoto = async (userId, file) => {
+  const storageRef = sRef(storage, `profilePhotos/${userId}`);
+  const uploadTask = uploadBytesResumable(storageRef, file);
+  try{
+    await uploadTask;
+
+    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+    return downloadURL
+  } catch (e) {
+    console.error(`Error while uploading: ${e}`)
+  }
+};
 
