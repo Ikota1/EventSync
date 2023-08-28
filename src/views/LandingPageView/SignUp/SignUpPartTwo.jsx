@@ -6,31 +6,38 @@ import * as Yup from 'yup'
 
 const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const getCharacterValidationError = (str) => {
-        return `Your password must have at least 1 ${str} character.`;
+        return `Your password must have at least 1 ${str} character!`;
     };
+
+    var phoneRegEx = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     const formSchema = Yup.object().shape({
         email: Yup.string()
-            .email('Must be a valid email.')
+            .email('Must be a valid email!')
             .max(25)
-            .required('Email is required.')
+            .required('Email is required!')
             .matches(/^(?!.*@[^,]*,)/),
-            // TODO must also have a function to query the DB to check if username is already used and display the msg to the user
+        // TODO must also have a function to query the DB to check if username is already used and display the msg to the user
         username: Yup.string()
-            .required('Username is required')
-            .matches(/^[a-zA-Z0-9]+$/, 'Special characters are not allowed')
-            .matches(/^(?!\s).*$/, 'No spaces allowed')
+            .required('Username is required!')
+            .matches(/^[a-zA-Z0-9]+$/, 'Special characters are not allowed!')
+            .matches(/^(?!\s).*$/, 'No spaces allowed!')
             .min(3)
             .max(16),
+        phone: Yup.string()
+            .required("required")
+            .matches(phoneRegEx, 'Phone number is not valid')
+            .min(10, "Phone number is too short!")
+            .max(10, "Phone number is too long!"),
         password: Yup.string()
-            .required('Password is mandatory.')
-            .min(8, 'Password must be at 8 char long.')
+            .required('Password is mandatory!')
+            .min(8, 'Password must be at 8 char long!')
             .matches(/[0-9]/, getCharacterValidationError("digit"))
             .matches(/[a-z]/, getCharacterValidationError("lowercase"))
             .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
         confirmPwd: Yup.string()
-            .required('Password is mandatory')
-            .oneOf([Yup.ref('password')], 'Passwords does not match.'),
+            .required('Password is mandatory!')
+            .oneOf([Yup.ref('password')], 'Passwords does not match!'),
     })
     const formOptions = { resolver: yupResolver(formSchema) }
     const { register, handleSubmit, formState } = useForm(formOptions)
@@ -40,7 +47,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
         if (isValid) {
             JSON.stringify(data, null, 4);
             console.log('Form data submitted:', data);
-            stageTwoFormData(data.email, data.username, data.password);
+            stageTwoFormData(data.email, data.username, data.password, data.phone);
         }
     }
 
@@ -64,10 +71,8 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                                     id="email"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="name@company.com"
-                                    {...register('email')}
-
-                                />
-                                <div className="invalid-feedback">{errors.email?.message}</div>
+                                    {...register('email')} />
+                                <div className="invalid-feedback text-red-700">{errors.email?.message}</div>
                             </div>
                             <div>
                                 <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -79,10 +84,21 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                                     id="username"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="huh"
-                                    {...register('username')}
-
-                                />
-                                <div className="invalid-feedback">{errors.username?.message}</div>
+                                    {...register('username')} />
+                                <div className="invalid-feedback text-red-700">{errors.username?.message}</div>
+                            </div>
+                            <div>
+                                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Your Phone Number
+                                </label>
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    id="phone"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="number"
+                                    {...register('phone')} />
+                                <div className="invalid-feedback text-red-700">{errors.phone?.message}</div>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -93,10 +109,8 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                                     name="password"
                                     placeholder="••••••••"
                                     className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.password ? 'is-invalid' : ''}`} sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                                    {...register('password')}
-
-                                />
-                                <div className="invalid-feedback">{errors.password?.message}</div>
+                                    {...register('password')} />
+                                <div className="invalid-feedback text-red-700">{errors.password?.message}</div>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -107,30 +121,21 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                                     name="verifypwd"
                                     placeholder="••••••••"
                                     {...register('confirmPwd')}
-                                    className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-
-                                />
-                                <div className="invalid-feedback">{errors.confirmPwd?.message}</div>
+                                    className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`} />
+                                <div className="invalid-feedback text-red-700">{errors.confirmPwd?.message}</div>
                             </div>
                             <div className='flex'>
-
                                 <button onClick={handleBackBtnClick}
                                     type="submit"
-                                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                >
+                                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                     Back
                                 </button>
-
                                 <button
                                     type="submit"
-                                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                >
+                                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                     Create Account
                                 </button>
-
-
                             </div>
-
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Already got account? <NavLink to='/login' className="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</NavLink>
                             </p>

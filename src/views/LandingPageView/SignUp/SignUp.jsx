@@ -13,7 +13,8 @@ const SignUp = () => {
     lastName: '',
     country: '',
     email: '',
-    password: ''
+    password: '',
+    phone: '',
   })
 
   const stageOneFormData = (firstName, lastName, country) => {
@@ -26,16 +27,17 @@ const SignUp = () => {
     setStage(1)
   }
 
-  const stageTwoFormData = async (email, username, password) => {
+  const stageTwoFormData = async (email, username, password, phone) => {
     setFormData((prev) => ({
       ...prev,
       email: email,
       username: username,
       password: password,
+      phone: phone,
     }))
     try {
       const userSetup = await registerUser(email, password);
-      await createUserHandle(userSetup.user.uid, email, formData.firstName, formData.lastName, username, formData.country);
+      await createUserHandle(userSetup.user.uid, email, formData.firstName, formData.lastName, username, formData.country, phone);
       navigate('/application/dashboard');
     } catch (error) {
       console.error("Error registering user:", error);

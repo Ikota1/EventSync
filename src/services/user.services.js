@@ -12,7 +12,7 @@ export const getUserByHandle = (uid) => {
 return get(ref(db, `users/${uid}`));
 };
 
-export const createUserHandle = (uid, email, firstName, lastName, userName, country) => {
+export const createUserHandle = (uid, email, firstName, lastName, userName, country, phone) => {
   const userData = {
     uid,
     userName,
@@ -20,6 +20,7 @@ export const createUserHandle = (uid, email, firstName, lastName, userName, coun
     firstName,
     lastName,
     country,
+    phone,
     createdOn: currentDateTimeString,
     userRole: USER_ROLES.RegularUser,
     eventStatistics: {
@@ -27,8 +28,6 @@ export const createUserHandle = (uid, email, firstName, lastName, userName, coun
       ticketsBought: 0,
       attendedEventsCount: 0, 
     },
-
-
   };
 
   return set(ref(db, `users/${uid}`), userData);
