@@ -76,11 +76,11 @@ export const UserProfile = () => {
             {userData.firstName} {userData.lastName}
           </h1>
           <p className="font-light text-gray-600 mt-3">
-            {`#${userData.userName}`}
+            {`${userData.email}`}
           </p>
-          <p className="font-light text-gray-600 mt-3">{`${userData.email}`}</p>
+          <p className="font-light text-gray-600 mt-3">{`#${userData.userName}`}</p>
         </div>
-
+        
         <div className="font-normal font-poppins mt-12 flex flex-col justify-center">
           {userData && userData.about ? (
             <p className="text-gray-600 text-center font-light lg:px-16">
