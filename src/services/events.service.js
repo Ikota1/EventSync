@@ -13,7 +13,7 @@ export const getEventByHandle = (uid) => {
     return get(ref(db, `events/${uid}`));
     };
 
-    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo) => {
+    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, occurrence) => {
       try {
         const eventRef = ref(db, 'events');
         const newEventRef = push(eventRef);
@@ -31,7 +31,9 @@ export const getEventByHandle = (uid) => {
           createdOn: currentDateTimeString,
           participants: [eventOwner],
           photo: photo,
-          id: newEventKey 
+          id: newEventKey,
+          isPublic: isPublic,
+          occurrence: occurrence
         };
     
         await set(newEventRef, eventData);
