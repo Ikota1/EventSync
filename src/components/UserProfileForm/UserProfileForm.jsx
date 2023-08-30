@@ -16,6 +16,8 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
     const [avatar, setAvatar] = useState(null);
     const [avatarName, setAvatarName] = useState("");
     const [userAbout, setUserAbout] = useState("");
+    const [isActive, setIsActive] = useState(true);
+    const [addressLocation, setAddressLocation] = useState("")
 
     var phoneRegEx = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -45,7 +47,9 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
 
     useEffect(() => {
         setUserProfileData(userData);
-        setUserAbout(userData.about || "")
+        setUserAbout(userData.about || "");
+        setIsActive(userData.isActive)
+        setAddressLocation(userData.address)
     }, [userData]);
 
     console.log(userProfileData);
@@ -68,9 +72,13 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
         }));
     };
 
+    const handleIsActive = () => {
+        setIsActive(!isActive)
+    }
+
     const onSubmit = async () => {
 
-        let updatedProfile = { ...userProfileData, about: userAbout };
+        let updatedProfile = { ...userProfileData, about: userAbout, isActive, address: addressLocation };
 
         if (avatar) {
             const photoURL = await uploadProfilePhoto(userData.username, avatar);
@@ -78,9 +86,10 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
         }
 
         await updateUserProfile(userData.uid, updatedProfile);
-        console.log("Before onUpdate:", userProfileData);
+        setIsActive(true)
+
         onUpdate(userProfileData);
-        console.log("After onUpdate:", userProfileData);
+
         onClose();
 
     };
@@ -115,6 +124,7 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
                                 <input
                                     type="text"
                                     {...register("firstName")}
+                                    value={userProfileData.firstName}
                                     onChange={(e) => { handleInputChange("firstName", e.target.value) }}
                                     placeholder={`${userProfileData?.firstName}`}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -155,6 +165,17 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
                                 <div className="invalid-feedback">{errors.phone?.message}</div>
                             </div>
                             <div>
+                                <input
+                                    type="text"
+                                    value={addressLocation || ""}
+                                    onChange={(e) => setAddressLocation( e.target.value)}
+                                    placeholder={`Street №, City`}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
+                                />
+                                <div className="invalid-feedback">{errors.phone?.message}</div>
+                            </div>
+                            <div>
                                 <textarea
                                     placeholder="Description"
                                     value={userAbout || ""}
@@ -169,12 +190,25 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
                                 onChange={handleAvatarChange}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
+                            <label className="relative inline-flex items-center mr-5 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    value=""
+                                    className="sr-only peer"
+                                    checked={!isActive} // Connect the checkbox state to the isActive state
+                                    onChange={handleIsActive} // Handle the change event to toggle the state
+                                />
+                                <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 ${isActive ? 'peer-checked:bg-red-600' : 'dark:bg-gray-700'} ${isActive ? 'peer-focus:ring-red-300' : 'dark:peer-focus:ring-red-800'} dark:border-gray-600 dark:peer-focus:ring-red-800 dark:peer-checked:after:translate-x-full dark:peer-checked:bg-red-800 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white`}></div>
+                                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Incognito</span>
+                            </label>
+                            <div>
                             <button
                                 type="submit"
                                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
                                 Update
                             </button>
+                            </div>
                         </form>
                     </div>
                 </div>
