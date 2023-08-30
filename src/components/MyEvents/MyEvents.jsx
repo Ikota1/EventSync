@@ -6,32 +6,46 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const MyEvents = () => {
   const [user] = useAuthState(auth);
   const [myEventsData, setMyEventsData] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+ 
+  const eventsPerPage = 6;
   console.log(myEventsData)
 
   useEffect(() => {
+
+
     const getUserEvents = async () => {
+      const startIndex = (currentPage - 1) * eventsPerPage;
+      const endIndex = startIndex + eventsPerPage;
       if (user) {
         const userEventsSnapshot = await getEventsByCurrentUser(user.uid);
         const userEventsArray = userEventsSnapshot.val();
-  
+    
         if (userEventsArray) {
           const eventDataPromises = userEventsArray.map(async (eventID) => {
             const eventSnapshot = await getEventByHandle(eventID);
             return eventSnapshot.exists() ? eventSnapshot.val() : null;
           });
           const eventDataArray = await Promise.all(eventDataPromises);
-          setMyEventsData(eventDataArray.filter(eventData => eventData !== null));
-        } else {
-          setMyEventsData([]);
-        }
+          setMyEventsData(eventDataArray.filter(eventData => eventData !== null).slice(startIndex, endIndex));
+
+        } 
       }
     };
-  
-    getUserEvents();
-  }, []);
-  
+    
 
+    getUserEvents();
+  }, [user, currentPage]);
+  
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   
   return (
     <div>
@@ -46,6 +60,18 @@ const MyEvents = () => {
             <img src={event.photo} alt={event.title} className="w-full h-40 object-cover" />
           </div>
         ))}
+      </div>
+           {/* Pagination controls */}
+      <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
+      <div className="pagination text-blue-500">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Page
+        </button>
+        <span className='mx-3 my-3'>{currentPage}</span>
+        <button onClick={handleNextPage}>
+          Next Page
+        </button>
+      </div>
       </div>
     </div>
   );
