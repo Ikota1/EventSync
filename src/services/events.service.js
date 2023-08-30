@@ -1,6 +1,7 @@
 import { db, storage } from '../firebase/firebase-config'
 import { get, set, ref, update, push } from 'firebase/database';
 import { uploadBytesResumable, getDownloadURL, ref as sRef } from 'firebase/storage'
+import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs';
 
 
@@ -12,6 +13,10 @@ export const getEventByHandle = (uid) => {
 
     return get(ref(db, `events/${uid}`));
     };
+
+    export const getEventsByCurrentUser = (uid) => {
+      return get(ref(db, `users/${uid}/events`))
+    }
 
     export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, occurrence) => {
       try {
@@ -95,26 +100,65 @@ export const getEventByHandle = (uid) => {
     };
 
 
-    export const uploadEventPhoto = async (eventId, photoFile) => {
+    export const getPublicEvents = async () => {
       try {
-        const storageRef = sRef(storage, `/events/${eventId}/photo`);
-        const uploadTask = uploadBytesResumable(storageRef, photoFile);
-          
-        await uploadTask;
+        const eventsRef = ref(db, 'events');
+        const snapshot = await get(eventsRef);
+        const publicEvents = [];
     
-        const photoURL = await getDownloadURL(storageRef);
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            const eventData = childSnapshot.val();
+            if (eventData.isPublic === true) {
+              publicEvents.push(eventData);
+            }
+          });
+        }
     
-        return photoURL; 
+        return publicEvents; 
+    
       } catch (error) {
-        console.error('Error uploading event photo:', error);
+        console.error('Error fetching Public Events:', error);
         throw error;
       }
     };
     
+
+    export const uploadEventPhotoTemporary = async (photoFile) => {
+      try {
+        const tempIdentifier = uuidv4(); // Generate a unique temporary identifier
+        const storageRef = sRef(storage, `/tempEvents/${tempIdentifier}/photo`);
+        const uploadTask = uploadBytesResumable(storageRef, photoFile);
+        
+        await uploadTask;
     
-
-
+        return tempIdentifier;
+      } catch (error) {
+        console.error('Error uploading event photo to temporary storage:', error);
+        throw error;
+      }
+    };
+    
+    export const updatePhotoProperty = async (tempIdentifier, eventId, eventPhoto) => {
+      try {
+        const tempStorageRef = sRef(storage, `/tempEvents/${tempIdentifier}/photo`);
+    
+        const tempPhotoURL = await getDownloadURL(tempStorageRef);
+    
+        const eventRef = ref(db, `events/${eventId}`);
+    
+        if (eventPhoto !== tempPhotoURL) {
        
+          await update(eventRef, { photo: tempPhotoURL });
+    
+          // can implement additional temporary deleting logic from storage
+        }
+      } catch (error) {
+        console.error('Error updating event photo in database', error);
+        throw error;
+      }
+    };
+    
  
 
 
