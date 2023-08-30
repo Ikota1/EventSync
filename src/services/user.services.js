@@ -1,8 +1,9 @@
 import { get, set, ref, query, equalTo, update, remove, orderByChild } from 'firebase/database';
-import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
+import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 import { db, storage } from '../firebase/firebase-config';
 import { USER_ROLES } from '../constants/userRoles';
 import dayjs from 'dayjs';
+import { updateProfile } from 'firebase/auth';
 
 
 const currentDateTime = dayjs();
@@ -13,7 +14,7 @@ export const getUserByHandle = (uid) => {
 return get(ref(db, `users/${uid}`));
 };
 
-export const createUserHandle = (uid, email, firstName, lastName, userName, country, phone) => {
+export const createUserHandle = (uid, email, firstName, lastName, userName, country, phone, isActive) => {
   const userData = {
     uid,
     userName,
@@ -22,6 +23,7 @@ export const createUserHandle = (uid, email, firstName, lastName, userName, coun
     lastName,
     country,
     phone,
+    isActive: true,
     createdOn: currentDateTimeString,
     userRole: USER_ROLES.RegularUser,
     eventStatistics: {
@@ -128,21 +130,23 @@ export const unblockUser = async (uid) => {
 
 }
 
-export const updateUserProfile = (userId, profile) => {
+export const updateUserProfile = async (userId, profile) => {
   const userRef = ref(db, `users/${userId}`);
-  return set(userRef, profile);
+  const result = await set(userRef, profile);
+  
+  return result
 };
 
 export const uploadProfilePhoto = async (userId, file) => {
-  const storageRef = sRef(storage, `profilePhotos/${userId}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
   try{
+    const storageRef = sRef(storage, `/profilePhotos/${userId}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
     await uploadTask;
 
     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+    console.log(`File uploaded.`)
     return downloadURL
   } catch (e) {
     console.error(`Error while uploading: ${e}`)
   }
 };
-
