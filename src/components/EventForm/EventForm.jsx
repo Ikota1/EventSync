@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { createEventHandle, uploadEventPhoto } from '../../services/events.service'
+import { createEventHandle, updatePhotoProperty, uploadEventPhotoTemporary } from '../../services/events.service'
 import { AuthContext } from '../../context/UserContext'
 import dayjs from 'dayjs';
 
@@ -27,13 +27,13 @@ const EventForm = ({ onEventCreated, onClose }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    let photoURL = '';
+    let tempIdentifier = '';
+
 
     if (eventData.photo) {
 
-      photoURL = await uploadEventPhoto(userData.uid, eventData.photo);
+      tempIdentifier  = await uploadEventPhotoTemporary(eventData.photo);
     }
-
 
     const currentDateTime = dayjs();
     const startDateTime = dayjs(eventData.startDateTime);
@@ -50,7 +50,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
       return;
     }
 
-    await createEventHandle(
+    const eventId = await createEventHandle(
       eventData.title,
       userData.uid,
       startDateTime.format('YYYY-MM-DD'),
@@ -59,12 +59,16 @@ const EventForm = ({ onEventCreated, onClose }) => {
       endDateTime.format('HH:mm'),
       eventData.description,
       eventData.location,
-      photoURL,
+      eventData.photo,
       eventData.isPublic,
       eventData.recurrence,
 
     );
 
+    if (tempIdentifier !== '' && eventId) {
+      await updatePhotoProperty(tempIdentifier, eventId, eventData.photo);
+    }
+  
     setEventData({
       title: '',
       startDate: '',
