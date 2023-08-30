@@ -10,11 +10,13 @@ const SignUpPartOne = ({ stageOneFormData }) => {
 
   const userSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is mandatory.')
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!'),
+      .min(3, 'Too Short!')
+      .max(14, 'Too Long!')
+      .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
     lastName: Yup.string().required('Last name is mandatory.')
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!'),
+      .min(3, 'Too Short!')
+      .max(14, 'Too Long!')
+      .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
     country: Yup.string().required('Country is mandatory.').oneOf(countries.map(country => country.code), 'Invalid country selected.'),
   })
 

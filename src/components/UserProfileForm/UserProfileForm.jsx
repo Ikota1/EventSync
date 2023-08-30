@@ -20,11 +20,13 @@ const UserProfileForm = ({ onClose }) => {
 
     const userSchema = Yup.object().shape({
         firstName: Yup.string()
-            .min(2, 'Too Short!')
-            .max(50, 'Too Long!'),
+            .min(3, 'Too Short!')
+            .max(14, 'Too Long!')
+            .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
         lastName: Yup.string()
-            .min(2, 'Too Short!')
-            .max(50, 'Too Long!'),
+            .min(3, 'Too Short!')
+            .max(14, 'Too Long!')
+            .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
         phone: Yup.string()
             .matches(phoneRegEx, 'Phone number is not valid')
             .min(10, "Phone number is too short!")
@@ -108,6 +110,7 @@ const UserProfileForm = ({ onClose }) => {
                                     onChange={(e) => { handleInputChange("firstName", e.target.value) }}
                                     placeholder={`${userProfileData?.firstName}`}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                
                                 />
                                 <div className="invalid-feedback">{errors.firstName?.message}</div>
                             </div>
@@ -118,6 +121,7 @@ const UserProfileForm = ({ onClose }) => {
                                     onChange={(e) => { handleInputChange("lastName", e.target.value) }}
                                     placeholder={`${userProfileData?.lastName}`}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    
                                 />
                                 <div className="invalid-feedback">{errors.lastName?.message}</div>
                             </div>
@@ -138,6 +142,7 @@ const UserProfileForm = ({ onClose }) => {
                                     onChange={(e) => handleInputChange("phone", e.target.value)}
                                     placeholder={`${userProfileData?.phone}`}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
                                 />
                                 <div className="invalid-feedback">{errors.phone?.message}</div>
                             </div>

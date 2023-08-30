@@ -34,7 +34,8 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
             .min(8, 'Password must be at 8 char long!')
             .matches(/[0-9]/, getCharacterValidationError("digit"))
             .matches(/[a-z]/, getCharacterValidationError("lowercase"))
-            .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
+            .matches(/[A-Z]/, getCharacterValidationError("uppercase"))
+            .matches(/[!@#$%^&*()-+]+/, getCharacterValidationError('special character') ), 
         confirmPwd: Yup.string()
             .required('Password is mandatory!')
             .oneOf([Yup.ref('password')], 'Passwords does not match!'),
