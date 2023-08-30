@@ -16,6 +16,8 @@ import Friends from "../views/WebApplicationView/Friends/Friends";
 import Support from "../views/WebApplicationView/Suppport/Support";
 import Settings from "../views/WebApplicationView/Settings/Settings";
 import Admin from "../views/WebApplicationView/Admin/Admin";
+import PublicEvents from "./PublicEvents/PublicEvents";
+import MyEvents from "./MyEvents/MyEvents";
 
 const AuthenticatedRoute = ({ element }) => {
   const [user, loading] = useAuthState(auth);
@@ -36,13 +38,16 @@ const AppRouter = () => (
     <Route path="/application" element={<AuthenticatedRoute element={<ApplicationView />} />}>
       <Route path="/application/dashboard" element={<Dashboard />} />
       <Route path="inbox" element={<Inbox />} />
-      <Route path="events" element={<Events />} />
+      <Route path="events" element={<Events />}>
+      <Route path="public-events" element={<PublicEvents />} />
+      <Route path="my-events" element={<MyEvents />} />
+      </Route>
       <Route path="calendar" element={<Calendar />} />
       <Route path="friends" element={<Friends />} />
       <Route path="support" element={<Support />} />
       <Route path="settings" element={<Settings />} />
       <Route path="admin" element={<Admin />} />
-
+  
       <Route path="/application" element={<Navigate to="/application/dashboard" />} />
     </Route>
   </Routes>
