@@ -45,7 +45,7 @@ const MyEvents = () => {
     <div>
       <div className="grid grid-cols-3 gap-4">
         {paginatedEvents.map(event => (
-          <div key={event.id} className="bg-white rounded-lg shadow p-4">
+          <div key={event.id} className="bg-black text-blue-300 rounded-lg shadow p-4">
             <h3 className="text-lg font-semibold">Event: {event.title}</h3>
             <p>Description: {event.description}</p>
             <p>Date: {event.startDate}  Time: {event.startHour}</p>

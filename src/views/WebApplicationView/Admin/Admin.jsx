@@ -6,7 +6,7 @@ import { getAllEvents } from "../../../services/events.service"
 
 export const Admin = () => {
     const [searchItem, setSearchItem] = useState('')
-    const [selectedSearchType, setSelectedSearchType] = useState('email'); // Default to firstname
+    const [selectedSearchType, setSelectedSearchType] = useState('email'); 
     const [filteredUsers, setFilteredUsers] = useState([])
     const [users, setUsers] = useState([])
     const [events, setEvents] = useState([])
@@ -130,28 +130,23 @@ export const Admin = () => {
             </div>
             <div className="flex justify-center mt-8">
 
-            <input
+                <input
                     type="text"
                     value={searchItem}
                     onChange={handleInputChange}
                     className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
-                    placeholder="Type to search.."
-
-                />
-                    <select
+                    placeholder="Type to search.."/>
+                <select
                     value={selectedSearchType}
                     onChange={handleSearchTypeChange}
-                    className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
-                >
+                    className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
                     <option value="fullname">FirstName & LastName</option>
                     <option value="email">Email</option>
                     <option value="username">Username</option>
-                    {/* <option value="lastname">Lastname</option> */}
                 </select>
-           
-                   {/* if the data is loading, show a proper message */}
-                  {loading && <p>Loading...</p>}
-                  {error && <p>There was an error loading the users</p>}
+
+                   {loading && <p>Loading...</p>}
+                   {error && <p>There was an error loading the users</p>}
 
             </div>
             <div className="flex justify-start">

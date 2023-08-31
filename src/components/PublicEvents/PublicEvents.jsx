@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getPublicEvents } from '../../services/events.service';
+import DropDownFilterBtn from '../DropDownFilterBtn/DropDownFilterBtn';
 
 const PublicEvents = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,10 +45,11 @@ const PublicEvents = () => {
           onChange={(e) => setSearchItem(e.target.value)}
           className="bg-white rounded-l-md p-2 focus:outline-none w-64"
         />
+        <DropDownFilterBtn/>
       </div>
       <div className="grid grid-cols-3 gap-2">
         {filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage).map((event) => (
-          <div key={event.id} className="bg-white rounded-lg shadow p-4">
+          <div key={event.id} className="bg-black text-blue-300 rounded-lg shadow p-4">
             <h3 className="text-lg font-semibold">Event: {event.title}</h3>
             <p>Description: {event.description}</p>
             <p>Date: {event.startDate}  Time: {event.startHour}</p>
