@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
-import styles from "../../style"
+import { useState } from 'react';
 import EventForm from '../EventForm/EventForm';
-import { GlobalContext } from '../../context/UserContext';
 
-export const CreateEventButton = ({ onEventCreated }) => {
+
+export const CreateEventButton = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   const handleCreateButtonClick = () => {
@@ -19,7 +18,7 @@ export const CreateEventButton = ({ onEventCreated }) => {
       <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={handleCreateButtonClick}>Create Event</button>
       {showCreateForm && (
         <div className="overlay">
-          <EventForm onEventCreated={onEventCreated} onClose={handleCloseForm} />
+          <EventForm onClose={handleCloseForm} />
         </div>
       )}
     </div>
