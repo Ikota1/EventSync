@@ -45,20 +45,24 @@ const PublicEvents = () => {
           onChange={(e) => setSearchItem(e.target.value)}
           className="bg-white rounded-l-md p-2 focus:outline-none w-64"
         />
-        <DropDownFilterBtn/>
+        <DropDownFilterBtn />
       </div>
       <div className="grid grid-cols-3 gap-2">
-        {filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage).map((event) => (
-          <div key={event.id} className="bg-black text-blue-300 rounded-lg shadow p-4">
-            <h3 className="text-lg font-semibold">Event: {event.title}</h3>
-            <p>Description: {event.description}</p>
-            <p>Date: {event.startDate}  Time: {event.startHour}</p>
-            <p>Location: {event.location}</p>
-            <img src={event.photo} alt={event.title} className="w-full h-40 object-cover" />
-          </div>
-        ))}
+        {filteredEvents.length === 0 ? (
+          <p className="flex j-center text-blue-300">No Events Found</p>
+        ) : (
+          filteredEvents
+            .slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
+            .map((event) => (
+              <div key={event.id} className="bg-black text-blue-300 rounded-lg shadow p-4">
+                <h3 className="text-lg font-semibold">Event: {event.title}</h3>
+                <p>Description: {event.description}</p>
+                <p>Date: {event.startDate} Time: {event.startHour}</p>
+                <p>Location: {event.location}</p>
+                <img src={event.photo} alt={event.title} className="w-full h-40 object-cover" />
+              </div>
+            )))}
       </div>
-
       {/* Pagination controls */}
       <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
         <div className="pagination text-blue-500">
