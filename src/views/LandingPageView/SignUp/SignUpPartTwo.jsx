@@ -23,7 +23,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
             .matches(/^[a-zA-Z0-9]+$/, 'Special characters are not allowed!')
             .matches(/^(?!\s).*$/, 'No spaces allowed!')
             .min(3)
-            .max(16),
+            .max(30),
         phone: Yup.string()
             .required("required")
             .matches(phoneRegEx, 'Phone number is not valid')
@@ -32,6 +32,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
         password: Yup.string()
             .required('Password is mandatory!')
             .min(8, 'Password must be at 8 char long!')
+            .max(30, 'Password must be maximum 30 char long!')
             .matches(/[0-9]/, getCharacterValidationError("digit"))
             .matches(/[a-z]/, getCharacterValidationError("lowercase"))
             .matches(/[A-Z]/, getCharacterValidationError("uppercase"))

@@ -43,7 +43,6 @@ const MyEvents = () => {
 
   return (
     <div>
-      <h2>My Events</h2>
       <div className="grid grid-cols-3 gap-4">
         {paginatedEvents.map(event => (
           <div key={event.id} className="bg-white rounded-lg shadow p-4">

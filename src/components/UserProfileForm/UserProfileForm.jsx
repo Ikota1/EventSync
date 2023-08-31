@@ -23,12 +23,12 @@ const UserProfileForm = ({ onClose, formData, onUpdate }) => {
 
     const userSchema = Yup.object().shape({
         firstName: Yup.string()
-            .min(3, 'Too Short!')
-            .max(14, 'Too Long!')
+            .min(1, 'Too Short!')
+            .max(30, 'Too Long!')
             .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
         lastName: Yup.string()
-            .min(3, 'Too Short!')
-            .max(14, 'Too Long!')
+            .min(1, 'Too Short!')
+            .max(30, 'Too Long!')
             .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
         phone: Yup.string()
             .matches(phoneRegEx, 'Phone number is not valid')
