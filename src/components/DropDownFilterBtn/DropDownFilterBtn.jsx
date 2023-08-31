@@ -7,6 +7,7 @@ const DropDownFilterBtn = ({onFilterLive , onFilterOnline, onFilterAll}) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+
   return (
     <div className="relative inline-block">
       <button
@@ -22,9 +23,9 @@ const DropDownFilterBtn = ({onFilterLive , onFilterOnline, onFilterAll}) => {
       {isDropdownOpen && (
         <div className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-            <li><a href="#" onClick={onFilterLive} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Live Events</a></li>
-            <li><a href="#" onClick={onFilterOnline} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Online Events</a></li>
-            <li><a href="#" onClick={onFilterAll} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">All Events</a></li>
+            <li onClick={() => setIsDropdownOpen(false)}><a href="#" onClick={onFilterLive} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Live Events</a></li>
+            <li onClick={() => setIsDropdownOpen(false)}><a href="#" onClick={onFilterOnline} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Online Events</a></li>
+            <li onClick={() => setIsDropdownOpen(false)}><a href="#" onClick={onFilterAll} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">All Events</a></li>
           </ul>
         </div>
       )}
