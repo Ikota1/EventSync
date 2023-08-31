@@ -17,8 +17,8 @@ const Events = () => {
             </ul>
           </nav>
         </div>
-        <Outlet />
       </div>
+      <Outlet />
     </div>
   );
 };
