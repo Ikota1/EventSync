@@ -7,12 +7,21 @@ const PublicEvents = () => {
   const [publicEvents, setPublicEvents] = useState([]);
   const [searchItem, setSearchItem] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
+  const [filterByOnline, setFilterByOnline] = useState(false);
+  const [filterByLive, setFilterByLive] = useState(false);
   const eventsPerPage = 6;
 
   useEffect(() => {
     const fetchPublicEvents = async () => {
+      try {
+
       const publicEventsData = await getPublicEvents();
       setPublicEvents(publicEventsData);
+
+      } catch (error) {
+        console.error('Unable to fetch public events', error)
+      }
+
     };
 
     fetchPublicEvents();
@@ -22,8 +31,33 @@ const PublicEvents = () => {
     const filteredItems = publicEvents.filter((event) => event.title.toLowerCase().includes(searchItem.toLowerCase())
     );
 
-    setFilteredEvents(filteredItems);
+    if (filterByOnline) {
+      setFilteredEvents(filteredItems.filter((event) => event.isOnline));
+    } else if (filterByLive) {
+      setFilteredEvents(filteredItems.filter((event) => !event.isOnline));
+    } else {
+      setFilteredEvents(filteredItems);
+    }
+
   }, [searchItem, publicEvents]);
+
+  const handleFilterOnline = (e) => {
+    e.preventDefault()
+    setFilterByOnline(true);
+    setFilterByLive(false);
+  };
+
+  const handleFilterLive = (e) => {
+    e.preventDefault()
+    setFilterByOnline(false);
+    setFilterByLive(true);
+  };
+
+  const handleAllEventsFilter = (e) => {
+    e.preventDefault()
+    setFilterByOnline(false);
+    setFilterByLive(false);
+  };
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -43,9 +77,8 @@ const PublicEvents = () => {
           placeholder="Search events..."
           value={searchItem}
           onChange={(e) => setSearchItem(e.target.value)}
-          className="bg-white rounded-l-md p-2 focus:outline-none w-64"
-        />
-        <DropDownFilterBtn />
+          className="bg-white rounded-l-md p-2 focus:outline-none w-64"/>
+        <DropDownFilterBtn onFilterOnline={handleFilterOnline} onFilterLive={handleFilterLive} onFilterAll={handleAllEventsFilter}/>
       </div>
       <div className="grid grid-cols-3 gap-2">
         {filteredEvents.length === 0 ? (
@@ -59,6 +92,7 @@ const PublicEvents = () => {
                 <p>Description: {event.description}</p>
                 <p>Date: {event.startDate} Time: {event.startHour}</p>
                 <p>Location: {event.location}</p>
+                <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
                 <img src={event.photo} alt={event.title} className="w-full h-40 object-cover" />
               </div>
             )))}
