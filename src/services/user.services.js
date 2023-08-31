@@ -107,7 +107,7 @@ export const promoteUserToPremium = async (uid) => {
     await update(ref(db), updatedUserRole);
     
   } catch (error) {
-    console.error('Error: could not upgrade to premium', error);ZZZ
+    console.error('Error: could not upgrade to premium', error);
     throw error;
   }
 
