@@ -16,6 +16,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
     location: '',
     photo: '',
     isPublic: false,
+    isOnline: false,
     recurrence: {
       repeat: 'none',
       interval: '',
@@ -32,7 +33,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
 
     if (eventData.photo) {
 
-      tempIdentifier  = await uploadEventPhotoTemporary(eventData.photo);
+      tempIdentifier = await uploadEventPhotoTemporary(eventData.photo);
     }
 
     const currentDateTime = dayjs();
@@ -61,6 +62,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
       eventData.location,
       eventData.photo,
       eventData.isPublic,
+      eventData.isOnline,
       eventData.recurrence,
 
     );
@@ -68,7 +70,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
     if (tempIdentifier !== '' && eventId) {
       await updatePhotoProperty(tempIdentifier, eventId, eventData.photo);
     }
-  
+
     setEventData({
       title: '',
       startDate: '',
@@ -79,11 +81,12 @@ const EventForm = ({ onEventCreated, onClose }) => {
       location: '',
       photo: '',
       isPublic: false,
+      isOnline: false,
       recurrence: {
         repeat: 'none',
         interval: '',
       }
-  
+
 
     });
     onClose();
@@ -98,7 +101,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
   // Event interval cannot be negative & repeat more than 100 times atm
   const handleIntervalChange = (e) => {
     const intervalValue = parseInt(e.target.value);
-    if (intervalValue >= 0 && intervalValue < 101) { 
+    if (intervalValue >= 0 && intervalValue < 101) {
       setEventData({
         ...eventData,
         recurrence: {
@@ -112,7 +115,6 @@ const EventForm = ({ onEventCreated, onClose }) => {
   return (
     <section>
       <div onClick={handleOverlayClick} className="overlay w-full bg-primary bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
-        {/* Your logo and other header content */}
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -133,13 +135,17 @@ const EventForm = ({ onEventCreated, onClose }) => {
                   <input
                     type="checkbox"
                     checked={eventData.isPublic || false}
-                    onChange={(e) => setEventData({ ...eventData, isPublic: e.target.checked })}
-                  />
+                    onChange={(e) => setEventData({ ...eventData, isPublic: e.target.checked })} />
                 </label>
-
+                <label>
+                  Online Event:
+                  <input
+                    type="checkbox"
+                    checked={eventData.isOnline || false}
+                    onChange={(e) => setEventData({ ...eventData, isOnline: e.target.checked })} />
+                </label>
               </div>
-
-              <label>
+             <label>
                 Repeat:
                 <select
                   value={eventData.recurrence.repeat}
@@ -148,12 +154,11 @@ const EventForm = ({ onEventCreated, onClose }) => {
                     setEventData({
                       ...eventData,
                       recurrence: {
-                        ...eventData.recurrence,
-                        repeat: e.target.value,
+                      ...eventData.recurrence,
+                      repeat: e.target.value,
                       },
                     })
-                  }
-                >
+                  }>
                   <option value="none">Never</option>
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
@@ -163,13 +168,12 @@ const EventForm = ({ onEventCreated, onClose }) => {
               </label>
               {eventData.recurrence.repeat !== 'none' && (
                 <label>
-               How many times should the event repeat? 
+                  How many times should the event repeat?
                   <input
                     type="number"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={eventData.recurrence.interval}
-                    onChange={handleIntervalChange}
-                  />
+                    onChange={handleIntervalChange}/>
                 </label>
               )}
               <textarea
