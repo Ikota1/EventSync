@@ -14,14 +14,11 @@ const PublicEvents = () => {
   useEffect(() => {
     const fetchPublicEvents = async () => {
       try {
-
-      const publicEventsData = await getPublicEvents();
-      setPublicEvents(publicEventsData);
-
+        const publicEventsData = await getPublicEvents();
+        setPublicEvents(publicEventsData);
       } catch (error) {
         console.error('Unable to fetch public events', error)
       }
-
     };
 
     fetchPublicEvents();
@@ -70,24 +67,24 @@ const PublicEvents = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-center mb-12">
+    <div className='block p-5'>
+      <div className="flex justify-center ">
         <input
           type="text"
           placeholder="Search events..."
           value={searchItem}
           onChange={(e) => setSearchItem(e.target.value)}
-          className="bg-white rounded-l-md p-2 focus:outline-none w-64"/>
-        <DropDownFilterBtn onFilterOnline={handleFilterOnline} onFilterLive={handleFilterLive} onFilterAll={handleAllEventsFilter}/>
+          className="bg-white rounded-l-md p-2 focus:outline-none w-64" />
+        <DropDownFilterBtn onFilterOnline={handleFilterOnline} onFilterLive={handleFilterLive} onFilterAll={handleAllEventsFilter} />
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-2 p-5">
         {filteredEvents.length === 0 ? (
-          <p className="flex j-center text-blue-300">No Events Found</p>
+          <p className="flex justify-center text-blue-300">No Events Found</p>
         ) : (
           filteredEvents
             .slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
             .map((event) => (
-              <div key={event.id} className="bg-black text-blue-300 rounded-lg shadow p-4">
+              <div key={event.id} className="bg-gray-900 text-white rounded-lg shadow p-4">
                 <h3 className="text-lg font-semibold">Event: {event.title}</h3>
                 <p>Description: {event.description}</p>
                 <p>Date: {event.startDate} Time: {event.startHour}</p>
@@ -98,7 +95,7 @@ const PublicEvents = () => {
             )))}
       </div>
       {/* Pagination controls */}
-      <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
+      <div >
         <div className="pagination text-blue-500">
           <button onClick={handlePreviousPage} disabled={currentPage === 1}>
             Page

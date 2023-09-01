@@ -4,11 +4,8 @@ import CreateEventButton from "../../../components/CreateEventButton/CreateEvent
 const Events = () => {
 
   return (
-    <div className="bg-event-gradient min-h-screen">
-      <div className="container mx-auto pt-16 px-6">
-        <div className='flex justify-end'>
-          <CreateEventButton />
-        </div>
+    <div className="h-[100%]">
+      <div>
         <div className='flex justify-center pb-8'>
           <nav className="mt-6">
             <ul className="flex space-x-6">
