@@ -34,7 +34,7 @@ const WeekCalendar = ({ date, setDate, fullWeek }) => {
   };
 
   return (
-    <div className="flex justify-center rounded border">
+    <div className="flex justify-center rounded">
       <div className="w-full">
         <ControlsWeekView
           value={format(date, "MMMM yyyy")}
