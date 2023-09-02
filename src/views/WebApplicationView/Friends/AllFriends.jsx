@@ -4,7 +4,7 @@ const AllFriends = () => {
 
   return (
   
-      <div className="text-white">AllFriends</div>
+      <div className="text-white"></div>
   )
 }
 

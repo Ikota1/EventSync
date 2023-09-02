@@ -2,7 +2,7 @@ const OnlineFriends = () => {
 
     
   return (
-    <div className='text-white'>OnlineFriends</div>
+    <div className='text-white'></div>
   )
 }
 
