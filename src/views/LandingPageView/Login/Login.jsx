@@ -5,15 +5,10 @@ import { loginUser } from '../../../services/auth.service';
 import { getUserRole } from '../../../services/user.services';
 import { logo } from '../../../assets/'
 import { USER_ROLES } from '../../../constants/userRoles';
-import { getAuth } from 'firebase/auth';
 
 const Login = () => {
   const { setAuthState } = useContext(AuthContext)
   const navigate = useNavigate()
-
-  const auth = getAuth();
-  const user = auth.currentUser;
-  // console.log(user)
 
   const [form, setForm] = useState({
     email: '',
@@ -100,9 +95,13 @@ const Login = () => {
                   Login
                 </button>
               </div>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                Don't have account? <NavLink to='/signup' className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</NavLink>
+              </p>
             </form>
           </div>
         </div>
+       
       </div>
     </section>
   )
