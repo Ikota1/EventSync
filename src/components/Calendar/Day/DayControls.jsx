@@ -9,7 +9,7 @@ const DayControls = ({ date, setDate }) => {
   const currentDate = () => setDate(new Date());
 
   return (
-    <div className="flex gap-3 items-center p-2 sticky top-0 z-20">
+    <div className="flex gap-3 items-center p-2 top-0 z-20">
       <button
         className="text-sm md:text-md px-3 py-1 border rounded focus:outline-none"
         onClick={currentDate}>
