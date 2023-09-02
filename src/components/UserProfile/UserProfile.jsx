@@ -5,7 +5,7 @@ import UserEditProfileButton from "../UserEditProfileButton/UserEditProfileButto
 
 export const UserProfile = () => {
   const { userData } = useContext(AuthContext);
-    
+
   if (!userData) {
     return <p>Loading...</p>;
   }
@@ -72,9 +72,9 @@ export const UserProfile = () => {
         </div>
 
         <div className="font-normal font-poppins mt-20 text-center border-b pb-12">
-            <h1 className="text-4xl font-medium text-gray-700">
-              {userData.firstName} {userData.lastName} <span className="font-light text-gray-500">{userData.country}</span>
-            </h1>
+          <h1 className="text-4xl font-medium text-gray-700">
+            {userData.firstName} {userData.lastName} <span className="font-light text-gray-500">{userData.country}</span>
+          </h1>
           <p className="font-light text-gray-600 mt-3">
             {`${userData.address || ""}`}
           </p>
