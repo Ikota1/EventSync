@@ -2,6 +2,7 @@ import { getAllUsers, blockUser, unblockUser, promoteUserToPremium } from '../..
 import { useEffect, useState } from "react"
 import getCountryNameByCode from "../../../constants/countries"
 import getUserRoleByCode from "../../../constants/userRoles"
+import toast from 'react-hot-toast'
 
 export const ControlUsers = () => {
     const [searchItem, setSearchItem] = useState('')
@@ -64,24 +65,30 @@ export const ControlUsers = () => {
     const handleBlockUser = async (uid) => {
         try {
             await blockUser(uid);
+            toast.success('User has been blocked successfully!')
         } catch (error) {
             console.error('Error:', error)
+            toast.error('Failed to block user')
         }
 
     }
     const handleUnblockUser = async (uid) => {
         try {
             await unblockUser(uid);
+            toast.success('User has been unblocked successfully!')
         } catch (error) {
             console.error('Error:', error)
+            toast.success('Failed to unblock user!')
         }
 
     }
     const handlePremiumUser = async (uid) => {
         try {
             await promoteUserToPremium(uid);
+            toast.success('User has been promoted to Premium successfully!')
         } catch (error) {
             console.error('Error:', error)
+            toast.error('Failed to promote user!')
         }
     }
 

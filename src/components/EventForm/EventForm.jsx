@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/UserContext'
 import CustomToggleCheckBox from '../CustomToggleCheckBox/CustomToggleCheckBox';
 import { currentTimeToLocalString } from '../../constants/helpersFns/helpers';
 import dayjs from 'dayjs';
-
+import toast from 'react-hot-toast'
 
 const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
@@ -51,7 +51,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
       return;
     }
 
-    const eventId = await createEventHandle(
+
+    const eventId  = await createEventHandle(
       eventData.title,
       userData.uid,
       startDateTime.format('YYYY-MM-DD'),
@@ -70,6 +71,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
     if (tempIdentifier !== '' && eventId) {
       await updatePhotoProperty(tempIdentifier, eventId, eventData.photo);
     }
+
+    toast.success('Event created successfully!')
 
     setEventData({
       title: '',
