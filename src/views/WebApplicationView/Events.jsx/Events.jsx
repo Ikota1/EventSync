@@ -1,5 +1,4 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import CreateEventButton from "../../../components/CreateEventButton/CreateEventButton"
 
 const Events = () => {
 
