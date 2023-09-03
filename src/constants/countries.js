@@ -253,3 +253,11 @@ export const countries = [
     {name: "Zimbabwe",code: "ZW"}
 ];
 
+    export const getCountryNameByCode = (code) => {
+    const country = countries.find((country) => country.code === code);
+    return country ? country.name : 'Not Found';
+   }
+
+   export default getCountryNameByCode;
+  
+  
