@@ -20,10 +20,15 @@ import PublicEvents from "./PublicEvents/PublicEvents";
 import MyEvents from "./MyEvents/MyEvents";
 import OnlineFriends from "../views/WebApplicationView/Friends/OnlineFriends";
 import AllFriends from "../views/WebApplicationView/Friends/AllFriends";
+import AdminRoute from "../views/WebApplicationView/Admin/AdminRoute";
+import ControlUsers from "../views/WebApplicationView/Admin/ControlUsers";
+import ControlEvents from "../views/WebApplicationView/Admin/ControlEvents";
 
 const AuthenticatedRoute = ({ element }) => {
   const [user, loading] = useAuthState(auth);
+
   return user ? <> {element} </> : !loading && <Navigate to="/login" />
+ 
 };
 
 const AppRouter = () => (
@@ -51,7 +56,13 @@ const AppRouter = () => (
       <Route path="calendar" element={<Calendar />} />
       <Route path="support" element={<Support />} />
       <Route path="settings" element={<Settings />} />
-      <Route path="admin" element={<Admin />} />
+      <Route element={<AdminRoute />}>
+      <Route path="admin" element={<Admin />}>
+      <Route path="controlusers" element={<ControlUsers />} />
+      <Route path="controlevents" element={<ControlEvents />} />
+      </Route>
+      </Route>
+    
   
       <Route path="/application" element={<Navigate to="/application/dashboard" />} />
     </Route>
