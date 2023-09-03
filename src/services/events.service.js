@@ -1,5 +1,5 @@
 import { db, storage } from '../firebase/firebase-config'
-import { get, set, ref, update, push } from 'firebase/database';
+import { get, set, ref, update, push, remove } from 'firebase/database';
 import { uploadBytesResumable, getDownloadURL, ref as sRef } from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs';
@@ -160,6 +160,17 @@ export const getEventByHandle = (uid) => {
       }
     };
     
+
+    export const deleteEvent = async (eventId) => {
+    
+      try {
+        await remove(ref(db, `events/${eventId}`));
+      
+      } catch (error) {
+        console.error('Error deleting thread:', error);
+        throw error;
+      }
+    };
  
 
 
