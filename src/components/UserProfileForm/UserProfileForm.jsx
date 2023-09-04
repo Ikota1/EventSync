@@ -60,7 +60,6 @@ const UserProfileForm = ({ onClose, formData }) => {
         const newAvatar = e.target.files[0];
         setAvatar(newAvatar);
         setAvatarName(newAvatar.name || "default-name");
-        console.log(e.target.files)
     };
 
     const handleInputChange = (field, value) => {
@@ -79,7 +78,7 @@ const UserProfileForm = ({ onClose, formData }) => {
         let updatedProfile = { ...userProfileData, about: userAbout, isActive, address: addressLocation };
 
         if (avatar) {
-            const photoURL = await uploadProfilePhoto(userData.username, avatar);
+            const photoURL = await uploadProfilePhoto(userData.uid, avatar);
             updatedProfile.photo = photoURL;
         }
 
