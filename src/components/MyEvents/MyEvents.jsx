@@ -5,11 +5,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import format from 'date-fns/format';
 import EventDeleteBtn from '../EventDeleteBtn/EventDeleteBtn';
 
-const MyEvents = () => {
+const MyEvents = ({ onBackToPublicClick }) => {
   const [user] = useAuthState(auth);
   const [myEventsData, setMyEventsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 6;
+  const eventsPerPage = 2;
 
   useEffect(() => {
     const fetchUserEvents = async () => {
@@ -32,8 +32,12 @@ const MyEvents = () => {
   }, [user]);
 
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    const totalPages = Math.ceil(myEventsData.length / eventsPerPage);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
   };
+
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
@@ -50,10 +54,11 @@ const MyEvents = () => {
   const paginatedEvents = myEventsData.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
 
   return (
-    <div>
-      <div className="grid grid-cols-3 gap-4">
-        {paginatedEvents.map(event => (
-          <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow p-4">
+    <>
+      <div>
+        <div className="grid grid-cols-3 gap-4">
+          {paginatedEvents.map(event => (
+            <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105">
               <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
               <h2 className="text-lg font-semibold">{event.title}</h2>
               <p className='pt-6 pb-6'>{event.description}</p>
@@ -61,18 +66,21 @@ const MyEvents = () => {
               <p>{format(new Date(event.startDate), "do MMM")} | {event.startHour}h - {event.endHour}h</p>
               <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
               <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
+            </div>
+          ))}
+        </div>
+        {/* Pagination controls */}
+        <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
+          <div className="pagination text-blue-500">
+            <button onClick={handlePreviousPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm text-white transition duration-150 hover:bg-blue-500" disabled={currentPage === 1}>Prev</button>
+            <button onClick={handleNextPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm  text-white transition duration-150 hover:bg-blue-500">Next</button>
           </div>
-        ))}
-      </div>
-      {/* Pagination controls */}
-      <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
-        <div className="pagination text-blue-500">
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}> Page </button>
-          <span className='mx-3 my-3'>{currentPage}</span>
-          <button onClick={handleNextPage}>Next Page</button>
+        </div>
+        <div>
+          <button className="relative  bg-blue-700 text-white px-2 py-1 rounded" onClick={onBackToPublicClick}>Browse Public Events</button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
