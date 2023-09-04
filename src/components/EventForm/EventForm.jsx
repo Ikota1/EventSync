@@ -19,12 +19,10 @@ const EventForm = ({ onEventCreated, onClose }) => {
     photo: '',
     isPublic: false,
     isOnline: false,
-    recurrence: {
+    reoccurrence: {
       repeat: 'none',
-      interval: '',
+      endOfSeries: '',
     }
-
-
   });
 
   const handleFormSubmit = async (e) => {
@@ -52,7 +50,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
     }
 
 
-    const eventId  = await createEventHandle(
+    const eventId = await createEventHandle(
       eventData.title,
       userData.uid,
       startDateTime.format('YYYY-MM-DD'),
@@ -64,7 +62,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
       eventData.photo,
       eventData.isPublic,
       eventData.isOnline,
-      eventData.recurrence,
+      eventData.reoccurrence,
 
     );
 
@@ -85,9 +83,9 @@ const EventForm = ({ onEventCreated, onClose }) => {
       photo: '',
       isPublic: false,
       isOnline: false,
-      recurrence: {
+      reoccurrence: {
         repeat: 'none',
-        interval: '',
+        endOfSeries: '',
       }
 
 
@@ -107,13 +105,14 @@ const EventForm = ({ onEventCreated, onClose }) => {
     if (intervalValue >= 0 && intervalValue < 101) {
       setEventData({
         ...eventData,
-        recurrence: {
-          ...eventData.recurrence,
-          interval: intervalValue,
+        reoccurrence: {
+          ...eventData.reoccurrence,
+          endOfSeries: intervalValue,
         },
       });
     }
   };
+  const formattedEndOfSeries = dayjs(eventData.reoccurrence.endOfSeries).format("YYYY-MM-DDTHH:mm");
 
   return (
     <section>
@@ -129,83 +128,91 @@ const EventForm = ({ onEventCreated, onClose }) => {
                 onChange={(e) => setEventData({ ...eventData, title: e.target.value })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required />
-                <div className='flex justify-between'>
+              <div className='flex justify-between'>
                 <div>
-                <label htmlFor="publicOrPrivate" className='pr-2 pt-2'>Public Event</label>
-                <CustomToggleCheckBox
-                id="publicEventCheckbox"
-                type="checkbox"
-                checked={eventData.isPublic || false}
-                onChange={(e) => setEventData({ ...eventData, isPublic: e.target.checked })} />
+                  <label htmlFor="publicOrPrivate" className='pr-2 pt-2'>Public Event</label>
+                  <CustomToggleCheckBox
+                    id="publicEventCheckbox"
+                    type="checkbox"
+                    checked={eventData.isPublic || false}
+                    onChange={(e) => setEventData({ ...eventData, isPublic: e.target.checked })} />
                 </div>
                 <div>
-                <label htmlFor="onlineOrLive">Online Event</label>
-                <CustomToggleCheckBox
-                id="onlineEventCheckbox"
-                type="checkbox"
-                checked={eventData.isOnline || false}
-                onChange={(e) => setEventData({ ...eventData, isOnline: e.target.checked })} />
+                  <label htmlFor="onlineOrLive">Online Event</label>
+                  <CustomToggleCheckBox
+                    id="onlineEventCheckbox"
+                    type="checkbox"
+                    checked={eventData.isOnline || false}
+                    onChange={(e) => setEventData({ ...eventData, isOnline: e.target.checked })} />
                 </div>
-                </div>
-                <label>Repeat:
+              </div>
+              <label>Repeat:
                 <select
-                value={eventData.recurrence.repeat}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                onChange={(e) =>
-                setEventData({
-                ...eventData,
-                recurrence: {
-                ...eventData.recurrence,
-                repeat: e.target.value,
-                },
-                })}>
-               <option value="none">Never</option>
-               <option value="daily">Daily</option>
-               <option value="weekly">Weekly</option>
-               <option value="monthly">Monthly</option>
-               <option value="yearly">Yearly</option>
-               </select>
-               </label>
-              {eventData.recurrence.repeat !== 'none' && (
-               <label> How many times should the event repeat?
-               <input
-               type="number"
-               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-               value={eventData.recurrence.interval}
-               onChange={handleIntervalChange} />
-               </label> )}
+                  value={eventData.reoccurrence.repeat}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) =>
+                    setEventData({
+                      ...eventData,
+                      reoccurrence: {
+                        ...eventData.reoccurrence,
+                        repeat: e.target.value,
+                      },
+                    })}>
+                  <option value="none">Never</option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </label>
+              {eventData.reoccurrence.repeat !== 'none' && (
+                <label> How many times should the event repeat?
+                  {/* <input
+                    type="date"
+                    className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    value={eventData.reoccurrence.endOfSeries}
+                    onChange={handleIntervalChange}
+                    required /> */}
+                  <input
+                    type="datetime-local"
+                    value={eventData.startDateTime || ''}
+                    onChange={(e) => setEventData({ ...eventData, endDateTime: e.target.value })}
+                    className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    required />
+                </label>
+              )}
               <textarea
-               placeholder="Description"
-               value={eventData.description || ''}
-               onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
-               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-               required />
+                placeholder="Description"
+                value={eventData.description || ''}
+                onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required />
               <input
-               type="text"
-               placeholder="Location"
-               value={eventData.location || ''}
-               onChange={(e) => setEventData({ ...eventData, location: e.target.value })}
-               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-               required />
+                type="text"
+                placeholder="Location"
+                value={eventData.location || ''}
+                onChange={(e) => setEventData({ ...eventData, location: e.target.value })}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required />
               <input
                 type="datetime-local"
                 value={eventData.startDateTime || ''}
                 onChange={(e) => setEventData({ ...eventData, startDateTime: e.target.value })}
                 className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required />
-               <input
+              <input
                 type="datetime-local"
                 value={eventData.endDateTime || ''}
                 onChange={(e) => setEventData({ ...eventData, endDateTime: e.target.value })}
                 className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required />
-               <p>Event photo</p>
-               <input
+              <p>Event photo</p>
+              <input
                 type="file"
                 accept="image/*"
                 onChange={(e) => setEventData({ ...eventData, photo: e.target.files[0] })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-               <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create</button>
+              <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create</button>
             </form>
           </div>
         </div>
