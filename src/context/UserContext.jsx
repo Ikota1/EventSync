@@ -86,11 +86,10 @@ export const AuthContextProvider = ({ children }) => {
 
   }, [user]);
 
-  if (loading) {
+  if (loading || authState.userData === null) {
     // Render loading indicator or screen
     return <div>Loading...</div>;
   }
-
   return (
     <GlobalContext.Provider value={{
       monthIndex,
@@ -101,10 +100,13 @@ export const AuthContextProvider = ({ children }) => {
       <AuthContext.Provider value={{
         user: authState.user,
         userData: authState.userData,
-        setAuthState
+        setAuthState,
+        loading
       }}>
         {children}
       </AuthContext.Provider>
     </GlobalContext.Provider>
   );
 };
+
+
