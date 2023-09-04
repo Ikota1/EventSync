@@ -1,7 +1,7 @@
 import { getAllUsers, blockUser, unblockUser, promoteUserToPremium } from '../../../services/user.services'
 import { useEffect, useState } from "react"
 import getCountryNameByCode from "../../../constants/countries"
-import getUserRoleByCode from "../../../constants/userRoles"
+import getUserRoleByCode, { USER_ROLES } from "../../../constants/userRoles"
 import toast from 'react-hot-toast'
 
 export const ControlUsers = () => {
@@ -12,7 +12,8 @@ export const ControlUsers = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
-    const usersPerPage = 5;
+    const usersPerPage = 7;
+    const [rerender, setRerender] = useState(false);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -32,12 +33,13 @@ export const ControlUsers = () => {
         };
 
         getUsers();
-    }, []);
+    }, [rerender]);
 
 
     const handleSearchTypeChange = (e) => {
         setSelectedSearchType(e.target.value);
     };
+
 
     const handleInputChange = (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -60,32 +62,58 @@ export const ControlUsers = () => {
         }
 
         setFilteredUsers(filteredItems);
+        setCurrentPage(1);
     };
 
     const handleBlockUser = async (uid) => {
         try {
+            const updatedUsers = users.map((user) => {
+                if (user.uid === uid) {
+                    return { ...user, userRole: USER_ROLES.Blocked };
+                }
+                return user;
+            });
+    
+            setUsers(updatedUsers);
+            setRerender((prev) => !prev); 
             await blockUser(uid);
             toast.success('User has been blocked successfully!')
         } catch (error) {
             console.error('Error:', error)
             toast.error('Failed to block user')
         }
-
     }
+    
     const handleUnblockUser = async (uid) => {
         try {
+            const updatedUsers = users.map((user) => {
+                if (user.uid === uid) {
+                    return { ...user, userRole: USER_ROLES.RegularUser };
+                }
+                return user;
+            });
+    
+            setUsers(updatedUsers);
+            setRerender((prev) => !prev); 
             await unblockUser(uid);
             toast.success('User has been unblocked successfully!')
         } catch (error) {
             console.error('Error:', error)
             toast.success('Failed to unblock user!')
         }
-
     }
     const handlePremiumUser = async (uid) => {
-        try {
-            await promoteUserToPremium(uid);
+        try {     
+            const updatedUsers = users.map((user) => {
+                if (user.uid === uid) {
+                    return { ...user, userRole: USER_ROLES.PremiumUser };
+                }
+                return user;
+            });
             toast.success('User has been promoted to Premium successfully!')
+            setUsers(updatedUsers)
+            setRerender((prev) => !prev)
+            await promoteUserToPremium(uid);
         } catch (error) {
             console.error('Error:', error)
             toast.error('Failed to promote user!')
@@ -125,7 +153,7 @@ export const ControlUsers = () => {
             {loading && <p>Loading...</p>}
             {error && <p>There was an error loading the users</p>}
 
-            <div className="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
+            <div className="mx-auto px-4 py-8 sm:px-8">
                 <div className="overflow-y-hidden rounded-lg border">
                     <div className="overflow-x-auto">
                         <table className="w-full">
@@ -183,17 +211,15 @@ export const ControlUsers = () => {
                                                 </td>
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
                                                     <button onClick={() => handleBlockUser(user.uid)} className="bg-blue-500 text-white px-2 py-1 rounded"> Block </button>
-                                                    <button onClick={() => handleUnblockUser(user.uid)} className="bg-blue-500 text-white px-2 py-1 rounded px-2"> Unblock </button>
+                                                    <button onClick={() => handleUnblockUser(user.uid)} className="bg-blue-500 text-white py-1 rounded px-2"> Unblock </button>
                                                     <button onClick={() => handlePremiumUser(user.uid)} className="bg-purple-700 text-white px-2 py-1 rounded "> Premium </button>
                                                 </td>
                                             </tr>
                                         ))
-
                                 )}
                             </tbody>
                         </table>
                     </div>
-
                 </div>
                 <div className="flex justify-end pt-6">
                     {filteredUsers.length > 0 && (
@@ -204,8 +230,6 @@ export const ControlUsers = () => {
                     )}
                 </div>
             </div>
-
-
         </>
     )
 }
