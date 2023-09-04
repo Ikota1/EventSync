@@ -14,7 +14,7 @@ export const getUserByHandle = (uid) => {
 return get(ref(db, `users/${uid}`));
 };
 
-export const createUserHandle = (uid, email, firstName, lastName, userName, country, phone, isActive) => {
+export const createUserHandle = (uid, email, firstName, lastName, userName, country, phone, isActive, isAvailable) => {
   const userData = {
     uid,
     userName,
@@ -24,6 +24,7 @@ export const createUserHandle = (uid, email, firstName, lastName, userName, coun
     country,
     phone,
     isActive: true,
+    isAvailable: true,
     createdOn: currentDateTimeString,
     userRole: USER_ROLES.RegularUser,
     eventStatistics: {
@@ -137,13 +138,20 @@ export const updateUserProfile = async (userId, profile) => {
   return result
 };
 
+export const updateUserData = (userName, data, value) => {
+  return update(ref(db), {
+    [`users/${userName}/${data}`]: value,
+  });
+}
+
 export const uploadProfilePhoto = async (userId, file) => {
+  const storageRef = sRef(storage, `profilePhotos/${userId}`);
   try{
-    const storageRef = sRef(storage, `/profilePhotos/${userId}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     await uploadTask;
 
     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+    console.log(downloadURL)
     console.log(`File uploaded.`)
     return downloadURL
   } catch (e) {
