@@ -8,6 +8,7 @@ export const daysBetween = (firstDate, secondDate) => {
   return Math.round(diffTime / (1000 * 3600 * 24))
 }
 export const isIntermediateDate = (date, event) => {
+  console.log(event)
   const eventStartDate = new Date(event.startDate)
   const eventEndDate = new Date(event.endDate)
   const currentDate = date
@@ -53,8 +54,12 @@ export const isIntermediateDate = (date, event) => {
   }
   return false
 }
+
 export const getEventsForDate = (events, date) =>
   events.filter((event) => {
+    if (!event.startDate || !event.endDate) {
+      return false;
+    }
     const eventStartDate = new Date(event.startDate)
     const eventEndDate = new Date(event.endDate)
     const currentDate = date

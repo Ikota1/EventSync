@@ -1,9 +1,9 @@
 import { db, storage } from '../firebase/firebase-config'
-import { get, set, ref, update, push, remove } from 'firebase/database';
+import { get, set, ref, update, push, remove, orderByKey, equalTo, query } from 'firebase/database';
 import { uploadBytesResumable, getDownloadURL, ref as sRef } from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs';
-
+import { differenceInMinutes } from "date-fns"
 
 
 const currentDateTime = dayjs();
@@ -18,7 +18,7 @@ export const getEventByHandle = (uid) => {
       return get(ref(db, `users/${uid}/events`))
     }
 
-    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, isOnline, occurrence) => {
+    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, isOnline, reoccurrence, endOfSeries) => {
       try {
         const eventRef = ref(db, 'events');
         const newEventRef = push(eventRef);
@@ -39,7 +39,7 @@ export const getEventByHandle = (uid) => {
           id: newEventKey,
           isPublic: isPublic,
           isOnline: isOnline,
-          occurrence: occurrence
+          reoccurrence: reoccurrence,
         };
     
         await set(newEventRef, eventData);
@@ -159,7 +159,36 @@ export const getEventByHandle = (uid) => {
         throw error;
       }
     };
+
+    const calculateEventTimeProps = (event) => {
+      console.log(event)
+      const startDate = new Date(event.startDate)
+      const endDate = new Date(event.endDate)
+      const duration = Math.ceil(differenceInMinutes(endDate, startDate) / 60)
+      const startHour = startDate.getHours()
+      const startAtHalf = startDate.getMinutes() === 30
+      const endHour = endDate.getHours()
     
+      return { duration, startHour, endHour, startAtHalf }
+    }
+
+  export const getEventsById = async (id) => {
+    console.log(id)
+  const snapshot = await get(query(ref(db, "/events"), orderByKey(id), equalTo(id)))
+
+  const value = snapshot.val()
+  return snapshot.val()
+    ? {
+        ...Object.values(value)[0],
+        id: Object.keys(value)[0],
+        participants: Object.keys(Object.values(value)[0].participants),
+        startDate: new Date(Object.values(value)[0].startDate),
+        endDate: new Date(Object.values(value)[0].endDate),
+        endOfSeries: Object.values(value)[0].endOfSeries !== undefined && new Date(Object.values(value)[0].endOfSeries),
+        ...calculateEventTimeProps(Object.values(value)[0]),
+      }
+    : {}
+}
 
     export const deleteEvent = async (eventId) => {
     
