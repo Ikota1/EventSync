@@ -4,8 +4,7 @@ import MonthControl from "./MonthControl";
 import Days from "./Days";
 import Week from "./Week";
 import { AuthContext } from "../../../context/UserContext";
-import { getEventsById } from "../../../services/events.service";
-import { user } from "../../../assets";
+import { getSpecificEventPropsByID } from "../../../services/events.service";
 
 const MonthCalendar = ({ date, setDate }) => {
   const { userData } = useContext(AuthContext);
@@ -13,7 +12,7 @@ const MonthCalendar = ({ date, setDate }) => {
 
   useEffect(() => {
     if (userData?.userName) {
-      Promise.all(userData.events.map(getEventsById))
+      Promise.all(userData.events.map(getSpecificEventPropsByID))
         .then((eventData) => {
           setEvents(eventData);
         })
