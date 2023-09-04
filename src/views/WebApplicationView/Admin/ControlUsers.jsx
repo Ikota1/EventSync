@@ -73,9 +73,9 @@ export const ControlUsers = () => {
                 }
                 return user;
             });
-    
+
             setUsers(updatedUsers);
-            setRerender((prev) => !prev); 
+            setRerender((prev) => !prev);
             await blockUser(uid);
             toast.success('User has been blocked successfully!')
         } catch (error) {
@@ -83,7 +83,7 @@ export const ControlUsers = () => {
             toast.error('Failed to block user')
         }
     }
-    
+
     const handleUnblockUser = async (uid) => {
         try {
             const updatedUsers = users.map((user) => {
@@ -92,9 +92,9 @@ export const ControlUsers = () => {
                 }
                 return user;
             });
-    
+
             setUsers(updatedUsers);
-            setRerender((prev) => !prev); 
+            setRerender((prev) => !prev);
             await unblockUser(uid);
             toast.success('User has been unblocked successfully!')
         } catch (error) {
@@ -103,7 +103,7 @@ export const ControlUsers = () => {
         }
     }
     const handlePremiumUser = async (uid) => {
-        try {     
+        try {
             const updatedUsers = users.map((user) => {
                 if (user.uid === uid) {
                     return { ...user, userRole: USER_ROLES.PremiumUser };
@@ -160,7 +160,7 @@ export const ControlUsers = () => {
                             <thead>
                                 <tr className="bg-gray-800 text-left text-xs font-semibold uppercase tracking-widest text-white">
                                     <th className="px-6 py-4">Country</th>
-                                    <th className="px-6 py-4">Username</th> 
+                                    <th className="px-6 py-4">Username</th>
                                     <th className="px-6 py-4">@email</th>
                                     <th className="px-6 py-4">FullName</th>
                                     <th className="px-6 py-4">User Role</th>
@@ -172,9 +172,9 @@ export const ControlUsers = () => {
                             <tbody className="text-gray-500">
 
                                 {!loading && !error && filteredUsers.length === 0 ? (
-                                
+
                                     <span className="text-purple-500">No users found</span>
-                               
+
                                 ) : (
                                     filteredUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
                                         .map((user) => (
@@ -205,9 +205,16 @@ export const ControlUsers = () => {
                                                     <span className="whitespace-no-wrap">{user.createdOn}</span>
                                                 </td>
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
-                                                    <span className="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">
-                                                        Active
-                                                    </span>
+                                                    {users && user.isActive ? (
+                                                        <span className="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">
+                                                            Active
+                                                        </span>
+                                                    ) : (
+                                                        <span className="rounded-full bg-red-200 px-3 py-1 text-xs font-semibold text-green-900">
+                                                            Offline
+                                                        </span>
+                                                    )}
+
                                                 </td>
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
                                                     <button onClick={() => handleBlockUser(user.uid)} className="bg-blue-500 text-white px-2 py-1 rounded"> Block </button>
