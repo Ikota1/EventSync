@@ -4,18 +4,23 @@ import { USER_ROLES } from '../../../constants/userRoles';
 import { useNavigate, Outlet } from 'react-router-dom';
 
 function AdminRoute() {
-    const { userData } = useContext(AuthContext)
-    const navigate = useNavigate();
-    const isAdmin = userData?.userRole === USER_ROLES.Admin;
-   
-    useEffect(() => {
-      if (!userData || !isAdmin) {
-        navigate("/");
+  const { userData, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const isAdmin = userData?.userRole === USER_ROLES.Admin;
+
+  useEffect(() => {
+ 
+      if (loading) {
+        
+          return;
       }
-  
-    }, [isAdmin, navigate, userData]);
-  
-    return <Outlet />;
-  }
+
+      if (!isAdmin) {
+          navigate("/");
+      }
+  }, [isAdmin, navigate, userData, loading]);
+
+  return <Outlet />;
+}
   
   export default AdminRoute;
