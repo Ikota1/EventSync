@@ -1,26 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { differenceInDays, endOfMonth, startOfMonth } from "date-fns/esm";
 import MonthControl from "./MonthControl";
 import Days from "./Days";
 import Week from "./Week";
+import { AuthContext } from "../../../context/UserContext";
+import { getEventsById } from "../../../services/events.service";
+import { user } from "../../../assets";
 
 const MonthCalendar = ({ date, setDate }) => {
-  const [events, setEvents] = useState([])
-  // TODO events
+  const { userData } = useContext(AuthContext);
+  const [events, setEvents] = useState([]);
 
-  // const { addToast } = useAppContext();
-  // const { userData } = useAuthContext();
-  // const [events, setEvents] = useState([]);
-
-  // useEffect(() => {
-  //   if (userData?.username) {
-  //     Promise.all(userData.events.map(getEventsById))
-  //       .then(setEvents)
-  //       .catch(() =>
-  //         addToast(toastTypes.error, toastMessages.SOMETHING_WENT_WRONG)
-  //       );
-  //   }
-  // }, [userData?.events]);
+  useEffect(() => {
+    if (userData?.userName) {
+      Promise.all(userData.events.map(getEventsById))
+        .then((eventData) => {
+          setEvents(eventData);
+        })
+        .catch((er) => {
+          console.error("Error fetching events:", er);
+        });
+    }
+  }, [userData?.events]);
 
   const onChange = (date) => {
     setDate(date);
@@ -48,6 +49,6 @@ const MonthCalendar = ({ date, setDate }) => {
         events={events} />
     </div>
   );
-}
+};
 
 export default MonthCalendar;

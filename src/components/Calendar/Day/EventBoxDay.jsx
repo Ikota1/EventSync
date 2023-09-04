@@ -4,17 +4,21 @@ import { useNavigate } from "react-router-dom";
 const EventBoxDay = ({ title, id, duration, isAllDay, isUsedInWeek }) => {
   const navigate = useNavigate();
 
+  console.log(title)
+  console.log(id)
+  console.log(duration)
+  console.log(isAllDay)
+  console.log(isUsedInWeek)
+
   return (
     <div
-      className={`h-full border-b-2 ${isUsedInWeek ? "w-96" : "w-98"
-        } p-1 bg-rgba-140-163-215-30 flex flex-col`}
+      className={`h-full border-b-2  p-1 bg-pink-200 flex flex-col`}
       style={{
-        borderBottomColor: "light.bg.primary", // Replace with your color value
+        borderBottomColor: "bg-pink-200",
         borderLeftWidth: isUsedInWeek ? "2px" : "4px",
-        borderLeftColor: "accent.primary", // Replace with your color value
+        borderLeftColor: "bg-pink-200",
       }}
-      onClick={() => navigate(`/events/${id}`)}
-    >
+      onClick={() => navigate(`/events/${id}`)}>
       <h2 className={`truncate text-${isUsedInWeek ? "sm" : "md"} mb-1`}>
         {title}
       </h2>
@@ -23,8 +27,7 @@ const EventBoxDay = ({ title, id, duration, isAllDay, isUsedInWeek }) => {
           {isAllDay
             ? "All day"
             : formatDuration(
-              duration < 24 ? { hours: duration } : { days: Math.floor(duration / 24), hours: duration % 24 }
-            )}
+              duration < 24 ? { hours: duration } : { days: Math.floor(duration / 24), hours: duration % 24 })}
         </p>
       )}
     </div>

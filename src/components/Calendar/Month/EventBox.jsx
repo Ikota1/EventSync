@@ -6,7 +6,7 @@ const EventBox = ({ startDate, title, id }) => {
 
   return (
     <div
-      className="flex h-22 pl-2 gap-2 bg-rgba-140-163-215-20 items-center border-l-2 border-accent-primary z-50 hover:bg-rgba-140-163-215-40 cursor-pointer"
+      className="flex h-22 pl-2 gap-2 bg-rgba-140-163-215-20 items-center border-l-2 border-pink-600 z-50 hover:bg-pink-600 cursor-pointer"
       onClick={() => navigate(`/events/${id}`)}>
       <p className="whitespace-nowrap overflow-hidden overflow-ellipsis text-xs lg:text-sm">
         {format(startDate, "p")} {title}

@@ -1,7 +1,6 @@
 import EventBox from "./EventBox";
 
 const Day = ({ day, date, onChange, active, events }) => {
-  console.log(active)
   const boxStyles = active
     ? "min-w-[50px] h-[140px] p-2 bg-gray-700 border-t-5 border-white cursor-pointer"
     : "min-w-[50px] h-[140px] p-2 border-t-1 border-gray-300 cursor-pointer";

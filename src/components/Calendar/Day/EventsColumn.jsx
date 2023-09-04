@@ -1,8 +1,6 @@
 import { differenceInMinutes } from "date-fns";
 import { useContext, useEffect, useState } from "react";
-import { messageTypes } from "../../../constants/UIconstants/messageTypes";
 import { getEventsForDate, isIntermediateDate } from "../../../constants/UIconstants/dateContstants";
-import { useAppContext } from "../../../context/AppContext";
 import { AuthContext } from "../../../context/UserContext";
 import { getEventByHandle } from "../../../services/events.service";
 import { areDatesTheSame } from "../../../constants/UIconstants/calendarHelpers";
@@ -10,19 +8,18 @@ import EventBoxDay from "./EventBoxDay";
 
 const EventsColumn = ({ date, isUsedInWeek = false }) => {
   const { userData } = useContext(AuthContext);
-  const { addToast } = useAppContext();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     if (userData?.events !== undefined) {
       Promise.all(userData.events.map(getEventByHandle))
         .then((allEvents) => setEvents(getEventsForDate(allEvents, date)))
-        .catch((e) => addToast(messageTypes.error, e.message));
+        .catch((e) => console.error(e));
     }
   }, [date, userData?.events]);
 
-  const borderColor = "#ffff"; // Replace with your color values
-  const bgColor = 'transparent'; // Replace with your color values
+  const borderColor = "#ffff";
+  const bgColor = 'transparent';
 
   return (
     <div className="grid" style={{
