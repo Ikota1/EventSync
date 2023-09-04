@@ -2,13 +2,30 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 import UserEditProfileButton from "../UserEditProfileButton/UserEditProfileButton";
+import { updateUserProfile } from "../../services/user.services";
 
 export const UserProfile = () => {
   const { userData } = useContext(AuthContext);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  useEffect(() => {
+    setIsAvailable(userData?.isAvailable)
+  }, [userData]);
+
+  const handleDoNotDisturb = async () => {
+    let updatedProfile = { ...userData, isAvailable };
+
+    await updateUserProfile(userData.uid, updatedProfile);
+    // setIsAvailable(false)
+    setIsAvailable(!isAvailable)
+  }
+
   if (!userData) {
     return <p>Loading...</p>;
   }
+  console.log(userData)
 
   const getInitials = (firstName, lastName) => {
     return `${firstName.charAt(0) || ""}${lastName.charAt(0) || ""}`.toUpperCase();
@@ -16,7 +33,7 @@ export const UserProfile = () => {
 
   return (
     <div className="p-16">
-      <div className="p-8 bg-white shadow mt-24">
+      <div className="p-8 bg-white shadow mt-24 rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
             <div>
@@ -67,7 +84,7 @@ export const UserProfile = () => {
                 </button>
               </Link>
             )}
-            <UserEditProfileButton formData={userData} />
+            <UserEditProfileButton formData={userData} isModalOpen={setIsModalOpen} />
           </div>
         </div>
 
@@ -83,8 +100,9 @@ export const UserProfile = () => {
           </p>
           <p className="font-light text-gray-600 mt-3">{`#${userData.userName}`}</p>
         </div>
-        <div className="font-normal font-poppins mt-12 flex flex-col justify-center">
-          {userData ? (
+        <div className="font-normal font-poppins mt-12 flex flex-col justify-center border-b pb-12">
+          <h3 className="text-center underline">About</h3>
+          {userData && userData.about.length !== 0 ? (
             <p className="text-gray-600 text-center font-light lg:px-16 text-left">
               {userData?.about}
             </p>
@@ -94,6 +112,22 @@ export const UserProfile = () => {
             </p>
           )}
         </div>
+        {userData && isModalOpen === false ? (
+          <label className="relative inline-flex items-center mr-5 cursor-pointer mt-6">
+            <input
+              type="checkbox"
+              value=""
+              className="sr-only peer"
+              checked={isAvailable || ''}
+              onChange={handleDoNotDisturb}
+            />
+            <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 ${isAvailable ? 'peer-checked:bg-purple-500' : 'dark:bg-gray-700'} ${isAvailable ? 'peer-focus:bg-purple-500' : 'dark:peer-focus:ring-red-800'} dark:border-gray-600 dark:peer-focus:bg-purple-500 dark:peer-checked:after:translate-x-full dark:peer-checked:bg-purple-500 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white`}></div>
+            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Do NOT disturb</span>
+          </label>
+        ) : (
+          <div>{null}</div>
+
+        )}
       </div>
     </div>
   );
