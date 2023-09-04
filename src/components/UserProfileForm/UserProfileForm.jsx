@@ -48,11 +48,9 @@ const UserProfileForm = ({ onClose, formData }) => {
     useEffect(() => {
         setUserProfileData(userData);
         setUserAbout(userData.about || "");
-        setIsActive(userData.isActive )
+        setIsActive(userData.isActive)
         setAddressLocation(userData.address || "")
     }, [userData]);
-
-    console.log(userProfileData);
 
     if (!userData) {
         return <div>Loading...</div>;
@@ -123,7 +121,7 @@ const UserProfileForm = ({ onClose, formData }) => {
                                     {...register("firstName")}
                                     value={userProfileData.firstName || ''}
                                     onChange={(e) => { handleInputChange("firstName", e.target.value) }}
-                               
+
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 <div className="invalid-feedback">{errors.firstName?.message}</div>
                             </div>
@@ -133,8 +131,8 @@ const UserProfileForm = ({ onClose, formData }) => {
                                     {...register("lastName")}
                                     onChange={(e) => { handleInputChange("lastName", e.target.value) }}
                                     value={userProfileData.lastName || ''}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-                               <div className="invalid-feedback">{errors.lastName?.message}</div>
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <div className="invalid-feedback">{errors.lastName?.message}</div>
                             </div>
                             <div>
                                 <input
@@ -143,7 +141,7 @@ const UserProfileForm = ({ onClose, formData }) => {
                                     onChange={(e) => { handleInputChange("email", e.target.value) }}
                                     value={userProfileData.email || ''}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                               <div className="invalid-feedback">{errors.email?.message}</div>
+                                <div className="invalid-feedback">{errors.email?.message}</div>
                             </div>
                             <div>
                                 <input
@@ -152,16 +150,16 @@ const UserProfileForm = ({ onClose, formData }) => {
                                     onChange={(e) => handleInputChange("phone", e.target.value)}
                                     value={userProfileData.phone || ''}
                                     placeholder={`${userProfileData?.phone}`}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 <div className="invalid-feedback">{errors.phone?.message}</div>
                             </div>
                             <div>
                                 <input
                                     type="text"
                                     value={addressLocation || ""}
-                                    onChange={(e) => setAddressLocation( e.target.value)}
+                                    onChange={(e) => setAddressLocation(e.target.value)}
                                     placeholder={`Street №, City`}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 <div className="invalid-feedback">{errors.addressLocation?.message}</div>
                             </div>
                             <div>
@@ -170,13 +168,13 @@ const UserProfileForm = ({ onClose, formData }) => {
                                     value={userAbout || ""}
                                     onChange={(e) => setUserAbout(e.target.value)}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required/>
+                                />
                             </div>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={handleAvatarChange}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             <label className="relative inline-flex items-center mr-5 cursor-pointer">
                                 <input
                                     type="checkbox"
@@ -187,8 +185,19 @@ const UserProfileForm = ({ onClose, formData }) => {
                                 <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 ${isActive ? 'peer-checked:bg-red-600' : 'dark:bg-gray-700'} ${isActive ? 'peer-focus:ring-red-300' : 'dark:peer-focus:ring-red-800'} dark:border-gray-600 dark:peer-focus:ring-red-800 dark:peer-checked:after:translate-x-full dark:peer-checked:bg-red-800 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white`}></div>
                                 <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Incognito</span>
                             </label>
-                            <div>
-                            <button type="submit"  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
+                            <div className="flex items-center justify-between">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        onClose()
+                                    }}
+                                    className="w-1/2 full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                >
+                                    Close
+                                </button>
+                                <button type="submit" className="w-1/2 full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    Update
+                                </button>
                             </div>
                         </form>
                     </div>
