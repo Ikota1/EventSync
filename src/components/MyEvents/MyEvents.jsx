@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { getEventsByCurrentUser, getEventByHandle } from '../../services/events.service';
 import { auth } from '../../firebase/firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import format from 'date-fns/format';
+import EventDeleteBtn from '../EventDeleteBtn/EventDeleteBtn';
 
 const MyEvents = () => {
   const [user] = useAuthState(auth);
@@ -39,18 +41,26 @@ const MyEvents = () => {
     }
   };
 
+  const handleEventDelete = (eventId) => {
+    const updatedEvents = myEventsData.filter((event) => event.id !== eventId);
+    setMyEventsData(updatedEvents);
+
+  }
+
   const paginatedEvents = myEventsData.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
 
   return (
     <div>
       <div className="grid grid-cols-3 gap-4">
         {paginatedEvents.map(event => (
-          <div key={event.id} className="bg-black text-blue-300 rounded-lg shadow p-4">
-            <h3 className="text-lg font-semibold">Event: {event.title}</h3>
-            <p>Description: {event.description}</p>
-            <p>Date: {event.startDate}  Time: {event.startHour}</p>
-            <p>Location: {event.location}</p>
-            <img src={event.photo} alt={event.title} className="w-full h-40 object-cover" />
+          <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow p-4">
+              <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
+              <h2 className="text-lg font-semibold">{event.title}</h2>
+              <p className='pt-6 pb-6'>{event.description}</p>
+              <p className='pb-4'>Location: {event.location}</p>
+              <p>{format(new Date(event.startDate), "do MMM")} | {event.startHour}h - {event.endHour}h</p>
+              <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
+              <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
           </div>
         ))}
       </div>
