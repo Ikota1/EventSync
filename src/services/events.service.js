@@ -9,16 +9,18 @@ import { differenceInMinutes } from "date-fns"
 const currentDateTime = dayjs();
 const currentDateTimeString = currentDateTime.format('YYYY-MM-DD HH:mm:ss');
 
+
 export const getEventByHandle = (uid) => {
 
     return get(ref(db, `events/${uid}`));
     };
 
+
     export const getEventsByCurrentUser = (uid) => {
       return get(ref(db, `users/${uid}/events`))
     }
 
-    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, isOnline, reoccurrence, endOfSeries) => {
+    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, isOnline, reoccurrence) => {
       try {
         const eventRef = ref(db, 'events');
         const newEventRef = push(eventRef);
@@ -140,6 +142,23 @@ export const getEventByHandle = (uid) => {
       }
     };
     
+
+    export const getDefaultImgURL = async() => {
+      try {
+        const defaultStorageRef = sRef(storage, `/default/photo.jpg`);
+
+        let tempPhotoURL = await getDownloadURL(defaultStorageRef)
+  
+        return tempPhotoURL
+
+      } catch (error) {
+        console.error('Could get default download URL', error)
+        
+      }
+    }
+
+
+
     export const updatePhotoProperty = async (tempIdentifier, eventId, eventPhoto) => {
       try {
         const tempStorageRef = sRef(storage, `/tempEvents/${tempIdentifier}/photo`);
@@ -172,7 +191,7 @@ export const getEventByHandle = (uid) => {
       return { duration, startHour, endHour, startAtHalf }
     }
 
-  export const getEventsById = async (id) => {
+  export const getSpecificEventPropsByID = async (id) => {
     console.log(id)
   const snapshot = await get(query(ref(db, "/events"), orderByKey(id), equalTo(id)))
 

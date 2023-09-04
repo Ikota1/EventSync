@@ -1,15 +1,15 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { createEventHandle, updatePhotoProperty, uploadEventPhotoTemporary } from '../../services/events.service'
 import { AuthContext } from '../../context/UserContext'
 import CustomToggleCheckBox from '../CustomToggleCheckBox/CustomToggleCheckBox';
 import { currentTimeToLocalString } from '../../constants/helpersFns/helpers';
+import { getDefaultImgURL } from '../../services/events.service';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast'
 
 const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
-
-
+  const [defaultPhotoURL, setDefaultPhotoURL] = useState('');
   const [eventData, setEventData] = useState({
     title: '',
     startDateTime: currentTimeToLocalString(),
@@ -25,8 +25,26 @@ const EventForm = ({ onEventCreated, onClose }) => {
     }
   });
 
+  useEffect(() => {
+
+    const fetchDefaultImgURL = async () => {
+      try {
+        const defaultImgUrl = await getDefaultImgURL();
+        setDefaultPhotoURL(defaultImgUrl);
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchDefaultImgURL();
+
+  }, [])
+
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
 
     let tempIdentifier = '';
 
@@ -49,6 +67,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
       return;
     }
 
+    const photoToUse = eventData.photo || defaultPhotoURL;
 
     const eventId = await createEventHandle(
       eventData.title,
@@ -59,7 +78,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
       endDateTime.format('HH:mm'),
       eventData.description,
       eventData.location,
-      eventData.photo,
+      photoToUse,
       eventData.isPublic,
       eventData.isOnline,
       eventData.reoccurrence,
@@ -99,20 +118,6 @@ const EventForm = ({ onEventCreated, onClose }) => {
       onClose();
     }
   }
-  // Event interval cannot be negative & repeat more than 100 times atm
-  const handleIntervalChange = (e) => {
-    const intervalValue = parseInt(e.target.value);
-    if (intervalValue >= 0 && intervalValue < 101) {
-      setEventData({
-        ...eventData,
-        reoccurrence: {
-          ...eventData.reoccurrence,
-          endOfSeries: intervalValue,
-        },
-      });
-    }
-  };
-  const formattedEndOfSeries = dayjs(eventData.reoccurrence.endOfSeries).format("YYYY-MM-DDTHH:mm");
 
   return (
     <section>
@@ -222,5 +227,4 @@ const EventForm = ({ onEventCreated, onClose }) => {
 };
 
 export default EventForm;
-
 
