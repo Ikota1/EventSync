@@ -133,6 +133,9 @@ export const ControlUsers = () => {
         }
     };
 
+    const getInitials = (firstName, lastName) => {
+        return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
+    };
 
     return (
         <>
@@ -184,9 +187,18 @@ export const ControlUsers = () => {
                                                 </td>
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
                                                     <div className="flex items-center">
-                                                        <div className="h-10 w-10 flex-shrink-0">
-                                                            <img className="h-full w-full rounded-full" src={user.photo} alt="Avatar" />
-                                                        </div>
+                                                        {users && user.photo ? (
+                                                            <div className="h-10 w-10 flex-shrink-0">
+                                                                <img className="h-full w-full rounded-full" src={user.photo} alt="Avatar" />
+                                                            </div>
+                                                        ) : (
+                                                            <div className="h-10 w-10 flex-shrink-0">
+                                                                <span className="font-normal font-poppins text-3xl text-white dark:text-slate-500">
+                                                                    {getInitials(user.firstName, user.lastName)}
+                                                                </span>
+                                                            </div>
+                                                        )}
+
                                                         <div className="ml-3">
                                                             <p className="text-blue-no-wrap">{user.userName}</p>
                                                         </div>
