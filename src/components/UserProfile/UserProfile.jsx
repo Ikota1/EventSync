@@ -31,24 +31,24 @@ export const UserProfile = () => {
   console.log(userData)
   return (
     <div className="p-16">
-      <div className="p-8 bg-white shadow mt-24 rounded-lg">
+      <div className="p-8 dark:bg-gray-800 shadow mt-24 rounded-lg border-2 border-purple-500/50">
         <div className="grid grid-cols-1 md:grid-cols-3">
-          <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
+          <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0 ">
             <div>
-              <p className="font-bold font-poppins text-gray-700 text-xl">TBU</p>
-              <p className="text-gray-400 font-poppins">Friends</p>
+              <p className="font-bold font-poppins text-gray-700 text-xl dark:text-white">TBU</p>
+              <p className="text-gray-400 font-poppins dark:text-white">Friends</p>
             </div>
             <div>
-              <p className="font-bold font-poppins text-gray-700 text-xl">
+              <p className="font-bold font-poppins text-gray-700 text-xl dark:text-white">
                 {userData.eventStatistics.eventsCreated}
               </p>
-              <p className="text-gray-400 font-poppins">Events created</p>
+              <p className="text-gray-400 font-poppins dark:text-white">Events created</p>
             </div>
             <div>
-              <p className="font-bold font-poppins text-gray-700 text-xl">
+              <p className="font-bold font-poppins text-gray-700 text-xl dark:text-white">
                 {userData.eventStatistics.ticketsBought}
               </p>
-              <p className="text-gray-400 font-poppins">Tickets bought</p>
+              <p className="text-gray-400 font-poppins dark:text-white">Tickets bought</p>
             </div>
           </div>
           <div className="relative">
@@ -86,29 +86,23 @@ export const UserProfile = () => {
           </div>
         </div>
 
-        <div className="font-normal font-poppins mt-20 text-center border-b pb-12">
-          <h1 className="text-4xl font-medium text-gray-700">
-            {userData.firstName} {userData.lastName} <span className="font-light text-gray-500">{userData.country}</span>
+        <div className="font-normal font-poppins mt-20 text-center border-b  border-purple-500 pb-12">
+          <h1 className="text-4xl font-medium dark:text-white">
+            {userData.firstName} {userData.lastName}<span className="font-light dark:text-white">, {userData.country}</span>
           </h1>
-          <p className="font-light text-gray-600 mt-3">
+          <p className="font-light text-gray-600 mt-3 dark:text-white">
             {`${userData.address || ""}`}
           </p>
-          <p className="font-light text-gray-600 mt-3">
+          <p className="font-light text-gray-600 mt-3 dark:text-white">
             {`${userData.email}`}
           </p>
-          <p className="font-light text-gray-600 mt-3">{`#${userData.userName}`}</p>
+          <p className="font-light dark:text-white mt-3">{`#${userData.userName}`}</p>
         </div>
-        <div className="font-normal font-poppins mt-12 flex flex-col justify-center border-b pb-12">
-          <h3 className="text-center underline">About</h3>
-          {userData && userData.about ? (
-            <p className="text-gray-600 text-center font-light lg:px-16 text-left">
-              {userData?.about}
+        <div className="font-normal font-poppins mt-12 flex flex-col justify-center text-justify pb-12">
+          <h3 className="text-center underline dark:text-white">About</h3>
+            <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
+              {`${userData?.about}` || `Edit your profile and tell us more about yourself!`}
             </p>
-          ) : (
-            <p className="text-gray-600 text-center font-light lg:px-16">
-              Edit your profile and tell us more about yourself!
-            </p>
-          )}
         </div>
         {userData && isModalOpen === false ? (
           <label className="relative inline-flex items-center mr-5 cursor-pointer mt-6">
