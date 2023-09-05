@@ -23,8 +23,8 @@ const LandingPage = () => (
     <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
       <div className={`${styles.boxWidth}`}>
         <Stats />
-        <Testimonials />
         <NewsData />
+        <Testimonials />
         <Footer />
       </div>
     </div>
