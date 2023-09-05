@@ -11,7 +11,7 @@ const MonthCalendar = ({ date, setDate }) => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    if (userData?.userName) {
+    if (userData?.userName && userData.events) {
       Promise.all(userData.events.map(getSpecificEventPropsByID))
         .then((eventData) => {
           setEvents(eventData);
@@ -21,6 +21,7 @@ const MonthCalendar = ({ date, setDate }) => {
         });
     }
   }, [userData?.events]);
+
 
   const onChange = (date) => {
     setDate(date);

@@ -25,7 +25,7 @@ function Calendar() {
         <div className="flex justify-between items-center max-h-[800px]">
           <ViewControl view={view} setView={setView} />
         </div>
-        <div className="max-h-[850px] overflow-y-scroll bg-gray-900 rounded border-2 text-white">
+        <div className="max-h-[750px] overflow-y-scroll bg-gray-900 rounded border-2 text-white">
           {view === calendarViews.MONTH && <MonthCalendar date={date} setDate={setDate} />}
           {view === calendarViews.DAY && <DayCalendar date={date} setDate={setDate} />}
           {view === calendarViews.WEEK && <WeekCalendar date={date} setDate={setDate} fullWeek={true} />}
