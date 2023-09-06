@@ -17,7 +17,7 @@ const NotificationCenter = ({ onClick }) => {
     };
 
     const handleNotificationBtnClick = () => {
-        nav('/application/friends/pending-friends');
+        nav('/application/pending-friends');
         setExpanded(!expanded);
     };
 
