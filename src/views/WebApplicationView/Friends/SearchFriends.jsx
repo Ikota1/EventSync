@@ -3,6 +3,7 @@ import { getAllUsers } from "../../../services/user.services"
 import { sendFriendRequest } from '../../../services/social.service'
 import { AuthContext } from "../../../context/UserContext"
 import toast from "react-hot-toast"
+import FriendsLinks from "./FriendsLinks"
 
 const SearchFriends = () => {
   const { userData } = useContext(AuthContext);
@@ -28,7 +29,7 @@ const SearchFriends = () => {
   }, []);
 
   const handleFindThemClick = () => {
-    const searchResult = users.filter((user) => user.userName.includes(usernameInput) && usernameInput !== user.userName && user.userName !== userData.userName);
+    const searchResult = users.filter((user) => user.userName.includes(usernameInput) && usernameInput !== userData?.userName);
     setFilteredUser(searchResult);
     setFriendRequestSent(false);
   }
@@ -49,8 +50,8 @@ const SearchFriends = () => {
 
   return (
     <div>
-
-      <div className="flex justify-center mt-20">
+      <FriendsLinks />
+      <div className="flex justify-center py-8">
         <input
           type="text"
           onChange={handleUsernameInput}
