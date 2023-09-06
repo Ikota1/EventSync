@@ -94,3 +94,47 @@ export const rejectFriendRequest = async (recipientID, senderID) => {
         console.error('Error in rejectFriendRequest:', error);
     }
 };
+
+
+export const deleteFriend = async (currentUserID, friendToDelete) => {
+    console.log('IDS', currentUserID, friendToDelete)
+    try {
+        const currentUserRef = ref(db, `users/${currentUserID}`);
+        const userToDeleteRef = ref(db, `users/${friendToDelete}`);
+
+        const currentUserSnapshot = await get(currentUserRef);
+        const userToDeleteSnapshot = await get(userToDeleteRef);
+
+        const currentUserData = currentUserSnapshot.val();
+        const userToDeleteData = userToDeleteSnapshot.val();
+
+        console.log('datas', currentUserData, userToDeleteData)
+      
+
+        if (currentUserSnapshot.exists() && userToDeleteSnapshot.exists()) {
+
+            if (
+                currentUserData.friends &&
+                userToDeleteData.friends &&
+                currentUserData.friends[friendToDelete] &&
+                userToDeleteData.friends[currentUserID]
+              ) {
+              
+                delete currentUserData.friends[friendToDelete];
+                delete userToDeleteData.friends[currentUserID];
+        
+                await set(currentUserRef, currentUserData);
+                await set(userToDeleteRef, userToDeleteData);
+                
+                console.log(`Successfully removed ${friendToDelete} from your friends list.`);
+              } else {
+                console.log('Both users are not friends.');
+              }
+            } else {
+              console.log('One or both users do not exist.');
+            }
+
+    } catch (error) {
+        console.error('Error in deleteFriend:', error);
+    }
+}
