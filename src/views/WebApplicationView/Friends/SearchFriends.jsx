@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { getAllUsers } from "../../../services/user.services"
 import { sendFriendRequest } from '../../../services/social.service'
 import { AuthContext } from "../../../context/UserContext"
+import toast from "react-hot-toast"
 
 const SearchFriends = () => {
   const { userData } = useContext(AuthContext);
@@ -38,9 +39,11 @@ const SearchFriends = () => {
         console.log('Sent');
         await sendFriendRequest(userData.uid, filteredUser[0].uid);
         setFriendRequestSent(true);
+        toast.success('Friend request has been sent!')
       }
     } catch (error) {
       console.error('Error: unable to send friend request', error);
+      toast.error('Unable to send friend request')
     }
   }
 

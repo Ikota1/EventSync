@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/UserContext";
 import { getUserByHandle } from "../../../services/user.services";
 import { acceptFriendRequest, rejectFriendRequest } from "../../../services/social.service";
+import toast from "react-hot-toast";
 
 const PendingFriends = () => {
     const [pendingFriends, setPendingFriends] = useState([]);
@@ -30,11 +31,25 @@ const PendingFriends = () => {
     }, [])
 
     const handleAcceptFriendFunction = async (senderUserID) => {
-        await acceptFriendRequest(senderUserID, userData.uid);
+        try {
+            await acceptFriendRequest(senderUserID, userData.uid);
+            toast.success('You have one new friend now!')
+        } catch (error) {
+            console.error('Cannot accept friend request', error)
+            toast.error('Couldn\'t accept friend request')
+        }
+       
+
     }
 
     const handleRejectFriendFunction = async (senderUserID) => {
-        await rejectFriendRequest(userData.uid, senderUserID)
+        try {
+            await rejectFriendRequest(userData.uid, senderUserID)
+        } catch (error) {
+            console.error('Cannot reject friend request', error)
+            toast.error('Couldn\'t reject friend request')
+        }
+       
     }
 
     return (
