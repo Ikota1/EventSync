@@ -28,7 +28,7 @@ const SearchFriends = () => {
   }, []);
 
   const handleFindThemClick = () => {
-    const searchResult = users.filter((user) => user.userName.includes(usernameInput));
+    const searchResult = users.filter((user) => user.userName.includes(usernameInput) && usernameInput !== user.userName && user.userName !== userData.userName);
     setFilteredUser(searchResult);
     setFriendRequestSent(false);
   }
