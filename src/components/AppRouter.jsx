@@ -17,11 +17,11 @@ import Support from "../views/WebApplicationView/Suppport/Support";
 import Settings from "../views/WebApplicationView/Settings/Settings";
 import Admin from "../views/WebApplicationView/Admin/Admin";
 import MyEvents from "./MyEvents/MyEvents";
-import OnlineFriends from "../views/WebApplicationView/Friends/OnlineFriends";
-import AllFriends from "../views/WebApplicationView/Friends/AllFriends";
 import AdminRoute from "../views/WebApplicationView/Admin/AdminRoute";
 import ControlUsers from "../views/WebApplicationView/Admin/ControlUsers";
 import ControlEvents from "../views/WebApplicationView/Admin/ControlEvents";
+import PendingFriends from "../views/WebApplicationView/Friends/PendingFriends";
+import SearchFriends from "../views/WebApplicationView/Friends/SearchFriends";
 
 const AuthenticatedRoute = ({ element }) => {
   const [user, loading] = useAuthState(auth);
@@ -47,14 +47,12 @@ const AppRouter = () => (
       <Route path="events" element={<Events />}> 
       <Route path="my-events" element={<MyEvents />} />
       </Route>
-      <Route path="friends" element={<Friends />}> 
-      <Route path="online-friends" element={<OnlineFriends />} />
-      <Route path="all-friends" element={<AllFriends />} />
-       </Route>
+      <Route path="friends" element={<Friends />} />
+      <Route path="pending-friends" element={<PendingFriends />} />
+      <Route path="search-friends" element={<SearchFriends />} />
       <Route path="calendar" element={<Calendar />} />
       <Route path="support" element={<Support />} />
       <Route path="settings" element={<Settings />} />
-
       <Route element={<AdminRoute  />}>
           <Route path="admin" element={<Admin />}>
           <Route path="controlusers" element={<ControlUsers />} />
