@@ -1,98 +1,69 @@
-import { useEffect, useState } from "react"
 import { NavLink, Outlet } from "react-router-dom"
-import { getAllUsers } from "../../../services/user.services"
+import { AuthContext } from "../../../context/UserContext"
+import { useContext, useEffect, useState } from "react"
+import { getUserByHandle } from "../../../services/user.services";
 
 
 const Friends = () => {
-  const [usernameInput, setUsernameInput] = useState('');
-  const [users, setUsers] = useState(null);
-  const [filteredUser, setFilteredUser] = useState(null);
-
-  const handleUsernameInput = (e) => {
-    setUsernameInput(e.target.value)
-  }
+  const { userData } = useContext(AuthContext);
+  const [userFriends, setUserFriends] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const fetchedUsers = await getAllUsers();
-        setUsers(fetchedUsers)
+    const fetchData = async () => {
+      if (userData && userData.friends) {
+        const friendIDs = userData.friends;
 
-      } catch (error) {
-        console.error('Error fetching users from db', error)
+        try {
+          const friendsDataPromises = Object.keys(friendIDs).map(async (friendID) => {
+            const userSnapshot = await getUserByHandle(friendID);
+            return userSnapshot.val();
+          });
+
+          const friendsData = await Promise.all(friendsDataPromises);
+
+          setUserFriends(friendsData);
+        } catch (error) {
+          console.error(error);
+        }
       }
+    };
 
-    }
-    fetchUsers();
-  }, [])
-
-  const handleFindThemClick = () => {
-
-    const searchResult = users.filter((user) => user.userName.includes(usernameInput));
-    setFilteredUser(searchResult)
-
-  }
+    fetchData();
+  }, [userData]);
 
   return (
-    <div>
+    <>
       <h1 className="text-blue-500">Friends</h1>
       <div className='flex justify-center pb-8'>
         <nav className="mt-6">
           <ul className="flex space-x-6">
-            <li><NavLink to="online-friends" className={({ isActive }) => (isActive ? 'text-orange-500' : "text-blue-500 hover:text-blue-300")}> Online </NavLink></li>
-            <li><NavLink to="all-friends" className={({ isActive }) => (isActive ? 'text-orange-500' : "text-blue-500 hover:text-blue-300")}> All </NavLink></li>
+            <li><NavLink to="../search-friends" className={({ isActive }) => (isActive ? 'text-orange-500' : "text-blue-500 hover:text-blue-300")}> Search Friends </NavLink></li>
+            <li><NavLink to="../pending-friends" className={({ isActive }) => (isActive ? 'text-orange-500' : "text-blue-500 hover:text-blue-300")}> Pending requests </NavLink></li>
           </ul>
         </nav>
       </div>
-      <div className="flex justify-center pb-14">
-        <input
-          type="text"
-          onChange={handleUsernameInput}
-          value={usernameInput}
-          placeholder="Search friends by username..."
-          className="bg-white rounded-l-md p-2 focus:outline-none w-64" />
-        <button onClick={handleFindThemClick} className="bg-blue-500 text-white px-2 py-1 rounded">Find them!</button>
-      </div>
-      <Outlet />
-      {filteredUser && (
-        <div className="text-blue-300 mt-8">
-          {filteredUser[0]?.userName ? (
-            <>
-              <div className="w-full max-w-sm mx-auto my-auto pt-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <div className="flex justify-end px-4 pt-4">
-                  <button id="dropdownButton" data-dropdown-toggle="dropdown" className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                    <span className="sr-only">Open dropdown</span>
-                  </button>
-                  <div id="dropdown" className="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul className="py-2" aria-labelledby="dropdownButton">
-                      <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-                      </li>
-                      <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
-                      </li>
-                      <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="flex flex-col items-center pb-10">
-                  <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={filteredUser[0].photo} alt="Bonnie image" />
-                  <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{filteredUser[0].firstName} {filteredUser[0].lastName}</h5>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">{filteredUser[0].userName}</span>
-                  <div className="flex mt-4 space-x-3 md:mt-6">
-                    <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add friend</a>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <p>User Not Found</p>
-          )}
-        </div>
-      )}
+      {userFriends.map((user) => (
+  <div key={user.uid} className="w-full max-w-sm  pt-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="flex justify-end px-4 pt-4">
+      <button className="bg-blue-500 text-white px-2 py-1 rounded mb-4">Gift Ticket</button>
     </div>
+    <div className="flex flex-col items-center pb-10">
+      <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={user.photo} alt={`${user.firstName}'s profile`} />
+      <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{user.firstName} {user.lastName}</h5>
+      <span className="text-sm text-gray-500 dark:text-gray-400">{user.userName}</span>
+      <p className="text-sm text-gray-500 dark:text-gray-400">{user.country}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400">{user.phone}</p>
+      <div className="flex mt-4 space-x-3 md:mt-6">
+      </div>
+    </div>
+  </div>
+))}
+
+
+
+      <Outlet />
+    </>
   )
 }
 
