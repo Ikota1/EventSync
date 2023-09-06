@@ -1,10 +1,11 @@
-import { differenceInMinutes } from "date-fns";
+import { differenceInMinutes, differenceInHours } from "date-fns";
 import { useContext, useEffect, useState } from "react";
 import { getEventsForDate, isIntermediateDate } from "../../../constants/UIconstants/dateContstants";
 import { AuthContext } from "../../../context/UserContext";
-import { getEventByHandle } from "../../../services/events.service";
+import { getSpecificEventPropsByID } from "../../../services/events.service";
 import { areDatesTheSame } from "../../../constants/UIconstants/calendarHelpers";
 import EventBoxDay from "./EventBoxDay";
+
 
 const EventsColumn = ({ date, isUsedInWeek = false }) => {
   const { userData } = useContext(AuthContext);
@@ -12,7 +13,7 @@ const EventsColumn = ({ date, isUsedInWeek = false }) => {
 
   useEffect(() => {
     if (userData?.events !== undefined) {
-      Promise.all(userData.events.map(getEventByHandle))
+      Promise.all(userData.events.map(getSpecificEventPropsByID))
         .then((allEvents) => setEvents(getEventsForDate(allEvents, date)))
         .catch((e) => console.error(e));
     }
@@ -30,27 +31,25 @@ const EventsColumn = ({ date, isUsedInWeek = false }) => {
     }}>
       {Object.values(events).map((e, i) => (
         <div
+          className={`col-span-1 bg-pink-600 border-[0.5px] p-1`}
           style={{
-            gridRowStart: e.isAllDay
-              ? 0
-              : areDatesTheSame(date, e.endDate) && !areDatesTheSame(e.startDate, e.endDate)
+            gridRowStart:
+              areDatesTheSame(date, e.endDate) && !areDatesTheSame(e.startDate, e.endDate)
                 ? 0
-                : !areDatesTheSame(e.startDate, date) && (e.isAllDay || isIntermediateDate(date, e))
+                : !areDatesTheSame(e.startDate, date) && isIntermediateDate(date, e)
                   ? 0
                   : e.startHour * 2 + (e.startAtHalf ? 2 : 1),
-            gridRowSpan: e.isAllDay
-              ? 48
-              : areDatesTheSame(date, e.endDate) && !areDatesTheSame(e.startDate, e.endDate)
-                ? (differenceInMinutes(e.endDate, new Date(e.endDate).setHours(0, 0, 0, 0)) / 60) * 2
-                : !areDatesTheSame(e.startDate, date) && (e.isAllDay || isIntermediateDate(date, e))
+            gridRowSpan:
+              areDatesTheSame(date, e.endDate) && !areDatesTheSame(e.startDate, e.endDate)
+                ? 48
+                : !areDatesTheSame(e.startDate, date) && isIntermediateDate(date, e)
                   ? 48
-                  : e.duration * 2,
-          }}
-          key={i}>
-          <EventBoxDay isAllDay={e.isAllDay || isIntermediateDate(date, e)} {...e} isUsedInWeek={isUsedInWeek} />
+                  : differenceInHours(e.endDate, e.startDate) * 2,
+          }} key={i}>
+          <EventBoxDay isIntermediate={isIntermediateDate(date, e)} isUsedInWeek={isUsedInWeek} {...e} />
         </div>
       ))}
-    </div>
+    </div >
   );
 }
 

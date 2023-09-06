@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, useCallback } from "react";
-import { auth, app,  db } from "../firebase/firebase-config";
+import { auth, app, db } from "../firebase/firebase-config";
 import { getUserData } from "../services/user.services";
 import { useAuthState } from "react-firebase-hooks/auth";
 import dayjs from 'dayjs';
@@ -15,7 +15,6 @@ export const GlobalContext = createContext({
   setShowEventModal: () => { },
 });
 
-
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -29,33 +28,33 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if(user?.uid){
+    if (user?.uid) {
       // Reference to the user object in the Realtime Database
       // Replace 'user_id_here' with the actual path
-      const userRef = ref(database, `users/${user?.uid}`); 
+      const userRef = ref(database, `users/${user?.uid}`);
 
-    // Subscribe to changes in the user object
-    const onDataChange = (snapshot) => {
-      if (snapshot.exists()) {
-          setAuthState((previousValue)=>{
-                    // User data exists, update the user state with the data
-              return {
-                ...previousValue,
-                userData:snapshot.val()
-              }
+      // Subscribe to changes in the user object
+      const onDataChange = (snapshot) => {
+        if (snapshot.exists()) {
+          setAuthState((previousValue) => {
+            // User data exists, update the user state with the data
+            return {
+              ...previousValue,
+              userData: snapshot.val()
+            }
           })
-      } else {
-        // User data doesn't exist, handle this case if needed
+        } else {
+          // User data doesn't exist, handle this case if needed
 
-      }
-    };
-    // Set up the listener using onValue
-    onValue(userRef, onDataChange);
-    // Clean up the listener when the component unmounts
-    return () => {
-      // Unsubscribe from the listener
+        }
+      };
+      // Set up the listener using onValue
       onValue(userRef, onDataChange);
-    };
+      // Clean up the listener when the component unmounts
+      return () => {
+        // Unsubscribe from the listener
+        onValue(userRef, onDataChange);
+      };
     }
   }, [user?.uid]);
 

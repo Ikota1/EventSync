@@ -6,10 +6,12 @@ import { currentTimeToLocalString } from '../../constants/helpersFns/helpers';
 import { getDefaultImgURL } from '../../services/events.service';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast'
+import { eventReoccurrence } from '../../constants/helpersFns/events.enum';
 
 const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
   const [defaultPhotoURL, setDefaultPhotoURL] = useState('');
+
   const [eventData, setEventData] = useState({
     title: '',
     startDateTime: currentTimeToLocalString(),
@@ -26,30 +28,23 @@ const EventForm = ({ onEventCreated, onClose }) => {
   });
 
   useEffect(() => {
-
     const fetchDefaultImgURL = async () => {
       try {
         const defaultImgUrl = await getDefaultImgURL();
         setDefaultPhotoURL(defaultImgUrl);
-
       } catch (error) {
         console.error(error)
       }
     }
-
     fetchDefaultImgURL();
-
   }, [])
 
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
-
     let tempIdentifier = '';
 
     if (eventData.photo) {
-
       tempIdentifier = await uploadEventPhotoTemporary(eventData.photo);
     }
 
@@ -82,7 +77,6 @@ const EventForm = ({ onEventCreated, onClose }) => {
       eventData.isPublic,
       eventData.isOnline,
       eventData.reoccurrence,
-
     );
 
     if (tempIdentifier !== '' && eventId) {
@@ -106,17 +100,24 @@ const EventForm = ({ onEventCreated, onClose }) => {
         repeat: 'none',
         endOfSeries: '',
       }
-
-
     });
     onClose();
   };
-
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('overlay')) {
       onClose();
     }
+  }
+
+  const handleIntervalChange = (e) => {
+    setEventData({
+      ...eventData,
+      reoccurrence: {
+        ...eventData.reoccurrence,
+        endOfSeries: e.target.value,
+      }
+    })
   }
 
   return (
@@ -151,6 +152,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
                     onChange={(e) => setEventData({ ...eventData, isOnline: e.target.checked })} />
                 </div>
               </div>
+
               <label>Repeat:
                 <select
                   value={eventData.reoccurrence.repeat}
@@ -163,25 +165,17 @@ const EventForm = ({ onEventCreated, onClose }) => {
                         repeat: e.target.value,
                       },
                     })}>
-                  <option value="none">Never</option>
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                  <option value="yearly">Yearly</option>
+                  {Object.values(eventReoccurrence).map((reoc) => (
+                    <option key={reoc}>{reoc}</option>
+                  ))}
                 </select>
               </label>
               {eventData.reoccurrence.repeat !== 'none' && (
                 <label> How many times should the event repeat?
-                  {/* <input
-                    type="date"
-                    className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                    value={eventData.reoccurrence.endOfSeries}
-                    onChange={handleIntervalChange}
-                    required /> */}
                   <input
                     type="datetime-local"
-                    value={eventData.startDateTime || ''}
-                    onChange={(e) => setEventData({ ...eventData, endDateTime: e.target.value })}
+                    value={eventData.reoccurrence.endOfSeries || ''}
+                    onChange={handleIntervalChange}
                     className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                     required />
                 </label>
