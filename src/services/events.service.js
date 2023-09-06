@@ -4,6 +4,7 @@ import { uploadBytesResumable, getDownloadURL, ref as sRef } from 'firebase/stor
 import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs';
 import { differenceInMinutes } from "date-fns"
+import { eventReoccurrence } from '../constants/UIconstants/count.days';
 
 
 const currentDateTime = dayjs();
@@ -41,7 +42,7 @@ export const getEventByHandle = (uid) => {
           id: newEventKey,
           isPublic: isPublic,
           isOnline: isOnline,
-          reoccurrence: reoccurrence,
+          reoccurrence: reoccurrence === eventReoccurrence.never ? null : reoccurrence,
         };
     
         await set(newEventRef, eventData);
