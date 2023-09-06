@@ -5,16 +5,14 @@ import { logoIcon, control, adminIcon } from '../../assets';
 import { logoutUser } from '../../services/auth.service';
 import { AuthContext } from '../../context/UserContext';
 import { USER_ROLES } from '../../constants/userRoles';
-// import { getAuth } from 'firebase/auth';
 
 const Sidebar = () => {
   const { userData, setAuthState } = useContext(AuthContext)
   const [open, setOpen] = useState(true);
+
+
   const isAdmin = userData?.userRole === USER_ROLES.Admin;
 
-  // const test = getAuth();
-
-  // console.log(test.currentUser)
 
   const onLogout = () => {
     logoutUser().then(() => {
@@ -31,8 +29,7 @@ const Sidebar = () => {
       <div className={` ${open ? "w-72" : "w-20 "} h-screen p-5  pt-8 relative duration-300 bg-gray-800`}>
         <img src={control}
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
-          onClick={() => setOpen(!open)}
-        />
+          onClick={() => setOpen(!open)} />
         <div className="flex gap-x-4 items-center">
           <img src={logoIcon} className={`cursor-pointer duration-500 w-[32px] h-auto `} />
           <h1 className={`text-white origin-left font-medium text-xl duration-200 ${!open && "scale-0"}`}>
@@ -58,6 +55,7 @@ const Sidebar = () => {
           Logout
         </NavLink>
       </div>
+
     </>
   )
 }

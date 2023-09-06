@@ -13,7 +13,8 @@ const Events = () => {
   const [filterByOnline, setFilterByOnline] = useState(false);
   const [filterByLive, setFilterByLive] = useState(false);
   const [showMyEvents, setShowMyEvents] = useState(false);
-  const [loading, setLoading] = useState(true); // Add a loading state
+  const [loading, setLoading] = useState(true);
+
 
   const eventsPerPage = 4;
 
@@ -25,17 +26,16 @@ const Events = () => {
       } catch (error) {
         console.error('Unable to fetch public events', error);
       } finally {
-        setLoading(false); // Set loading to false regardless of success or error
+        setLoading(false); 
       }
     };
 
     fetchPublicEvents();
   }, [searchItem, publicEvents]);
 
+
   useEffect(() => {
-    const filteredItems = publicEvents.filter((event) =>
-      event.title.toLowerCase().includes(searchItem.toLowerCase())
-    );
+    const filteredItems = publicEvents.filter((event) => event.title.toLowerCase().includes(searchItem.toLowerCase()));
 
     if (filterByOnline) {
       setFilteredEvents(filteredItems.filter((event) => event.isOnline));

@@ -1,9 +1,8 @@
-import { get, set, ref, query, equalTo, update, remove, orderByChild } from 'firebase/database';
-import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
+import { get, set, ref, query, equalTo, update, orderByChild } from 'firebase/database';
+import { ref as sRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase/firebase-config';
 import { USER_ROLES } from '../constants/userRoles';
 import dayjs from 'dayjs';
-import { updateProfile } from 'firebase/auth';
 
 
 const currentDateTime = dayjs();
@@ -14,7 +13,7 @@ export const getUserByHandle = (uid) => {
 return get(ref(db, `users/${uid}`));
 };
 
-export const createUserHandle = (uid, email, firstName, lastName, userName, country, phone, isActive, isAvailable) => {
+export const createUserHandle = (uid, email, firstName, lastName, userName, country, phone) => {
   const userData = {
     uid,
     userName,

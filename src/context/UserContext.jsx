@@ -46,8 +46,7 @@ export const AuthContextProvider = ({ children }) => {
           })
       } else {
         // User data doesn't exist, handle this case if needed
-        alert(`User data doesn't exist`)
-        console.log(`User data doesn't exist`)
+
       }
     };
     // Set up the listener using onValue
@@ -86,7 +85,7 @@ export const AuthContextProvider = ({ children }) => {
 
   }, [user]);
 
-  if (loading || authState.userData === null) {
+  if (loading && authState.userData === null) {
     // Render loading indicator or screen
     return <div>Loading...</div>;
   }
