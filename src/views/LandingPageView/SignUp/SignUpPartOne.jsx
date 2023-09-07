@@ -17,7 +17,7 @@ const SignUpPartOne = ({ stageOneFormData }) => {
       .min(1, 'Too Short!')
       .max(30, 'Too Long!')
       .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
-    country: Yup.string().required('Country is mandatory.').oneOf(countries.map(country => country.code), 'Invalid country selected.'),
+    country: Yup.string().required('Country is mandatory.').oneOf(countries.map(country => country.code), 'Please, select a country.'),
   })
 
   const formOptions = { resolver: yupResolver(userSchema) }

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signTwo } from '../../../assets';
 import { useState } from "react";
-import { FaEyeSlash, FaEye } from 'react-icons/fa'
+import { FaEye } from 'react-icons/fa'
 
 const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const getCharacterValidationError = (str) => {

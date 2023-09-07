@@ -7,7 +7,7 @@ import { logo } from '../../../assets/'
 import { USER_ROLES } from '../../../constants/userRoles';
 import { login } from '../../../assets/';
 import toast from 'react-hot-toast'
-
+import errorHandler from '../../../services/errors.service';
 const Login = () => {
   const { setAuthState } = useContext(AuthContext)
   const navigate = useNavigate()
@@ -28,28 +28,26 @@ const Login = () => {
     e.preventDefault();
     try {
       const credential = await loginUser(form.email, form.password);
-
-
       const userRole = await getUserRole(credential.user.uid);
 
-
-      //TODO need to add better alert message
       if (userRole === USER_ROLES.Blocked) {
         toast.error('Your account is blocked. Contact support for assistance.');
-        return; // Prevent login
+        return; 
       }
-
       toast.success('Login Successful')
-
       setAuthState({
         user: credential.user,
       });
       navigate('/application/dashboard');
-    } catch (error) {
-      console.error(error)
-      toast.error('An error occurred while trying to log in. Please try again.');
+    } catch (e) {
+      const message = errorHandler(e);
+      console.error(e)
+      toast.error(message)
+   
     }
   }
+
+
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900 md:flex">
