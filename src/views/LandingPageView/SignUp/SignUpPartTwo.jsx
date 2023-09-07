@@ -1,8 +1,9 @@
+import * as Yup from 'yup';
 import { NavLink } from "react-router-dom";
 import { logo } from "../../../assets";
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as Yup from 'yup'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signTwo } from '../../../assets';
 
 const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const getCharacterValidationError = (str) => {
@@ -36,7 +37,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
             .matches(/[0-9]/, getCharacterValidationError("digit"))
             .matches(/[a-z]/, getCharacterValidationError("lowercase"))
             .matches(/[A-Z]/, getCharacterValidationError("uppercase"))
-            .matches(/[!@#$%^&*()-+]+/, getCharacterValidationError('special character') ), 
+            .matches(/[!@#$%^&*()-+]+/, getCharacterValidationError('special character')),
         confirmPwd: Yup.string()
             .required('Password is mandatory!')
             .oneOf([Yup.ref('password')], 'Passwords does not match!'),
@@ -54,8 +55,8 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     }
 
     return (
-        <section className="bg-gray-50 dark:bg-gray-900">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <section className="bg-gray-50 dark:bg-gray-900 md:flex">
+            <div className="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0 md:w-[50%] md:border-r-2">
                 <NavLink to='/'><img src={logo} alt='eventSync' className='w-[124px] h-[50px] mb-[20px]' /></NavLink>
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -144,6 +145,17 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                         </form>
                     </div>
                 </div>
+            </div>
+            <div className=' flex-col items-center justify-center py-8 md:h-screen lg:py-0 md:w-[50%] hidden md:flex opacity-30'>
+                {/* <Lottie animationData={animationData} /> */}
+                <video
+                    className=' w-full h-full object-cover object-center'
+                    src={signTwo}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                ></video>
             </div>
         </section>
     );
