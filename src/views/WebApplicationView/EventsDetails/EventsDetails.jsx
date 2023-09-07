@@ -42,7 +42,7 @@ const EventsDetails = () => {
 
       <img src={eventsDetailed.photo} alt="photo" className='w-[700px] h-[300px] rounded' />
 
-      <div className='flex flex-col gap-4 items-start'>
+      <div className='flex flex-col gap-4 items-center'>
         <p>{eventsDetailed.description}</p>
         <hr className='w-[500px] opacity-20' />
         <div className='flex justify-between w-[500px] items-center'>
@@ -50,7 +50,7 @@ const EventsDetails = () => {
             Add To Calendar
           </button>
 
-          <div className='flex'>
+          <div className='flex gap-1'>
             <Lottie className='w-[50px] cursor-pointer' animationData={instIcon} />
             <Lottie className='w-[35px] cursor-pointer' animationData={linkedinIcon} />
           </div>
