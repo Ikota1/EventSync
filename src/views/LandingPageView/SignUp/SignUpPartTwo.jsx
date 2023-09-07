@@ -4,6 +4,8 @@ import { logo } from "../../../assets";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signTwo } from '../../../assets';
+import { useState } from "react";
+import { FaEyeSlash, FaEye } from 'react-icons/fa'
 
 const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const getCharacterValidationError = (str) => {
@@ -45,6 +47,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const formOptions = { resolver: yupResolver(formSchema) }
     const { register, handleSubmit, formState } = useForm(formOptions)
     const { isValid, errors } = formState
+    const [passwordShown, setPasswordShown] = useState(false);
 
     const onSubmit = (data) => {
         if (isValid) {
@@ -54,6 +57,9 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
         }
     }
 
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown)
+    }
     return (
         <section className="bg-gray-50 dark:bg-gray-900 md:flex">
             <div className="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0 md:w-[50%] md:border-r-2">
@@ -65,67 +71,60 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                         </h1>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6" action="#">
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Your E-mail
-                                </label>
+                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Email Address </label>
                                 <input
                                     type="text"
                                     name="email"
                                     id="email"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="name@company.com"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100"
+                                    placeholder=" Enter your email address "
                                     {...register('email')} />
                                 <div className="invalid-feedback text-red-700">{errors.email?.message}</div>
                             </div>
                             <div>
-                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Your Username
-                                </label>
+                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Username </label>
                                 <input
                                     type="text"
                                     name="username"
                                     id="username"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="huh"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100"
+                                    placeholder=" Choose a unique username "
                                     {...register('username')} />
                                 <div className="invalid-feedback text-red-700">{errors.username?.message}</div>
                             </div>
                             <div>
-                                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Your Phone Number
-                                </label>
+                                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
                                 <input
                                     type="text"
                                     name="phone"
                                     id="phone"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="number"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100"
+                                    placeholder=" Add your phone number "
                                     {...register('phone')} />
                                 <div className="invalid-feedback text-red-700">{errors.phone?.message}</div>
                             </div>
                             <div>
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    placeholder="••••••••"
-                                    className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.password ? 'is-invalid' : ''}`} sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                                    {...register('password')} />
-                                <div className="invalid-feedback text-red-700">{errors.password?.message}</div>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Password </label>
+                                <div className="flex">
+                                    <input
+                                        type={passwordShown ? "text" : "password"}
+                                        name="password"
+                                        placeholder="••••••••"
+                                        className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.password ? 'is-invalid' : ''}`} sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100`}
+                                        {...register('password')} />
+                                       <FaEye onClick={togglePassword} />
+                                </div>
+                                   <div className="invalid-feedback text-red-700">{errors.password?.message}</div>
                             </div>
                             <div>
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Verify Password
-                                </label>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Verify Password </label>
                                 <input
-                                    type="password"
+                                    type={passwordShown ? "text" : "password"}
                                     name="verifypwd"
                                     placeholder="••••••••"
                                     {...register('confirmPwd')}
-                                    className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`} />
-                                <div className="invalid-feedback text-red-700">{errors.confirmPwd?.message}</div>
+                                    className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100`} />
+                                    <div className="invalid-feedback text-red-700">{errors.confirmPwd?.message}</div>
                             </div>
                             <div className='flex'>
                                 <button onClick={handleBackBtnClick}
