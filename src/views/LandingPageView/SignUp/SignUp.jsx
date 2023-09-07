@@ -4,6 +4,8 @@ import { useState } from "react";
 import { registerUser } from "../../../services/auth.service";
 import { createUserHandle } from "../../../services/user.services";
 import { useNavigate } from "react-router-dom";
+import errorHandler from "../../../services/errors.service";
+import toast from 'react-hot-toast'
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -39,8 +41,10 @@ const SignUp = () => {
       const userSetup = await registerUser(email, password);
       await createUserHandle(userSetup.user.uid, email, formData.firstName, formData.lastName, username, formData.country, phone);
       navigate('/application/dashboard');
-    } catch (error) {
-      console.error("Error registering user:", error);
+    } catch (e) {
+      const message = errorHandler(e);
+      console.error(e)
+      toast.error(message);
     }
   }
 
