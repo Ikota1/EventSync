@@ -5,6 +5,7 @@ import { loginUser } from '../../../services/auth.service';
 import { getUserRole } from '../../../services/user.services';
 import { logo } from '../../../assets/'
 import { USER_ROLES } from '../../../constants/userRoles';
+import { login } from '../../../assets/';
 import toast from 'react-hot-toast'
 
 const Login = () => {
@@ -26,12 +27,12 @@ const Login = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     try {
-      const credential  = await loginUser(form.email, form.password);
+      const credential = await loginUser(form.email, form.password);
 
 
       const userRole = await getUserRole(credential.user.uid);
-  
-      
+
+
       //TODO need to add better alert message
       if (userRole === USER_ROLES.Blocked) {
         toast.error('Your account is blocked. Contact support for assistance.');
@@ -48,12 +49,11 @@ const Login = () => {
       console.error(error)
       toast.error('An error occurred while trying to log in. Please try again.');
     }
-
   }
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section className="bg-gray-50 dark:bg-gray-900 md:flex">
+      <div className="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0 md:w-[50%] md:border-r-2">
         <NavLink to='/'>
           <img src={logo} alt='eventSync' className='w-[124px] h-[50px] mb-[20px]' />
         </NavLink>
@@ -109,7 +109,18 @@ const Login = () => {
             </form>
           </div>
         </div>
-       
+
+      </div>
+      <div className=' flex-col items-center justify-center py-8 md:h-screen lg:py-0 md:w-[50%] hidden md:flex opacity-30'>
+        {/* <Lottie animationData={animationData} /> */}
+        <video
+          className=' w-full h-full object-cover object-center'
+          src={login}
+          autoPlay
+          muted
+          loop
+          playsInline
+        ></video>
       </div>
     </section>
   )
