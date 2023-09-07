@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import getCountryNameByCode from "../../../constants/countries"
 import getUserRoleByCode, { USER_ROLES } from "../../../constants/userRoles"
 import toast from 'react-hot-toast'
+import { getInitials } from '../../../constants/helpersFns/getInitials'
 
 export const ControlUsers = () => {
     const [searchItem, setSearchItem] = useState('')
@@ -131,10 +132,6 @@ export const ControlUsers = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
-    };
-
-    const getInitials = (firstName, lastName) => {
-        return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
     };
 
     return (

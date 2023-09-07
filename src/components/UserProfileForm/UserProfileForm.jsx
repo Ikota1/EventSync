@@ -7,6 +7,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { getInitials } from "../../constants/helpersFns/getInitials";
 
 
 const UserProfileForm = ({ onClose, formData }) => {
@@ -87,10 +88,6 @@ const UserProfileForm = ({ onClose, formData }) => {
 
         onClose();
 
-    };
-
-    const getInitials = (firstName, lastName) => {
-        return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
     };
 
     return (

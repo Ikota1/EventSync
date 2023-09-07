@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 import UserEditProfileButton from "../UserEditProfileButton/UserEditProfileButton";
 import { updateUserProfile } from "../../services/user.services";
+import { getInitials } from "../../constants/helpersFns/getInitials";
 
 export const UserProfile = () => {
   const { userData } = useContext(AuthContext);
@@ -25,9 +26,6 @@ export const UserProfile = () => {
     return <p>Loading...</p>;
   }
 
-  const getInitials = (firstName, lastName) => {
-    return `${firstName.charAt(0) || ""}${lastName.charAt(0) || ""}`.toUpperCase();
-  };
   console.log(userData)
   return (
     <div className="p-16">
@@ -100,9 +98,9 @@ export const UserProfile = () => {
         </div>
         <div className="font-normal font-poppins mt-12 flex flex-col justify-center text-justify pb-12">
           <h3 className="text-center underline dark:text-white">About</h3>
-            <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
-              {`${userData?.about}` || `Edit your profile and tell us more about yourself!`}
-            </p>
+          <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
+            {`${userData?.about}` || `Edit your profile and tell us more about yourself!`}
+          </p>
         </div>
         {userData && isModalOpen === false ? (
           <label className="relative inline-flex items-center mr-5 cursor-pointer mt-6">
@@ -114,7 +112,7 @@ export const UserProfile = () => {
               onChange={handleDoNotDisturb}
             />
             <div className={`w-11 h-6 bg-gray-200 rounded-full peer ${isAvailable ? 'peer-checked:bg-purple-500' : 'dark:bg-gray-300'} dark:border-gray-600 dark:peer-focus:bg-purple-500 dark:peer-checked:after:translate-x-full dark:peer-checked:bg-purple-500 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white`}></div>
-            {}
+            { }
             <span className={`${isAvailable === true ? `ml-3 text-sm font-normal font-poppins text-purple-500` : `ml-3 text-sm font-normal font-poppins text-gray-900 dark:text-gray-300`} `}>Available</span>
           </label>
         ) : (

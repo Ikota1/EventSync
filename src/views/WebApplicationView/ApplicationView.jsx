@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Outlet } from "react-router-dom";
 import { useContext } from 'react';
+import { getInitials } from '../../constants/helpersFns/getInitials';
 
 const ApplicationView = () => {
   const { userData } = useContext(AuthContext);
@@ -13,10 +14,6 @@ const ApplicationView = () => {
   const handlePhotoClick = () => {
     nav('/application/settings')
   }
-
-  const getInitials = (firstName, lastName) => {
-    return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
-  };
 
   return (
     <div className="flex">
