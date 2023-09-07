@@ -21,6 +21,7 @@ const Events = () => {
 
   useEffect(() => {
     const fetchPublicEvents = async () => {
+      setLoading(true);
       try {
         const publicEventsData = await getPublicEvents();
         setPublicEvents(publicEventsData);
@@ -30,37 +31,40 @@ const Events = () => {
         setLoading(false);
       }
     };
-
+  
     fetchPublicEvents();
-  }, [searchItem, publicEvents]);
-
+  }, []);
+  
 
   useEffect(() => {
-    const filteredItems = publicEvents.filter((event) => event.title.toLowerCase().includes(searchItem.toLowerCase()));
-
-    if (filterByOnline) {
-      setFilteredEvents(filteredItems.filter((event) => event.isOnline));
-    } else if (filterByLive) {
-      setFilteredEvents(filteredItems.filter((event) => !event.isOnline));
-    } else {
-      setFilteredEvents(filteredItems);
+    let filteredItems = publicEvents;
+  
+    if (searchItem) {
+      filteredItems = filteredItems.filter((event) => event.title.toLowerCase().includes(searchItem.toLowerCase()));
     }
-  }, [searchItem, publicEvents]);
-
-  const handleFilterOnline = (e) => {
-    e.preventDefault();
+  
+    if (filterByOnline) {
+      filteredItems = filteredItems.filter((event) => event.isOnline);
+    }
+  
+    if (filterByLive) {
+      filteredItems = filteredItems.filter((event) => !event.isOnline);
+    }
+  
+    setFilteredEvents(filteredItems);
+  }, [searchItem, filterByOnline, filterByLive, publicEvents]);
+  
+  const handleFilterOnline = () => {
     setFilterByOnline(true);
     setFilterByLive(false);
   };
 
-  const handleFilterLive = (e) => {
-    e.preventDefault();
+  const handleFilterLive = () => {
     setFilterByOnline(false);
     setFilterByLive(true);
   };
 
-  const handleAllEventsFilter = (e) => {
-    e.preventDefault();
+  const handleAllEventsFilter = () => {
     setFilterByOnline(false);
     setFilterByLive(false);
   };
