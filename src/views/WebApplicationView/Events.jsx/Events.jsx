@@ -15,7 +15,7 @@ const Events = () => {
   const [filterByLive, setFilterByLive] = useState(false);
   const [showMyEvents, setShowMyEvents] = useState(false);
   const [loading, setLoading] = useState(true);
-  const router = useNavigate()
+  const navigate = useNavigate()
 
   const eventsPerPage = 4;
 
@@ -31,29 +31,29 @@ const Events = () => {
         setLoading(false);
       }
     };
-  
+
     fetchPublicEvents();
   }, []);
-  
+
 
   useEffect(() => {
     let filteredItems = publicEvents;
-  
+
     if (searchItem) {
       filteredItems = filteredItems.filter((event) => event.title.toLowerCase().includes(searchItem.toLowerCase()));
     }
-  
+
     if (filterByOnline) {
       filteredItems = filteredItems.filter((event) => event.isOnline);
     }
-  
+
     if (filterByLive) {
       filteredItems = filteredItems.filter((event) => !event.isOnline);
     }
-  
+
     setFilteredEvents(filteredItems);
   }, [searchItem, filterByOnline, filterByLive, publicEvents]);
-  
+
   const handleFilterOnline = () => {
     setFilterByOnline(true);
     setFilterByLive(false);
@@ -125,7 +125,7 @@ const Events = () => {
                 .map((event) => (
                   <div
                     key={event.id}
-                    onClick={() => router(`${event.id}`)}
+                    onClick={() => navigate(`${event.id}`)}
                     className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
                     <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
                     <h2 className="text-lg font-semibold">{event.title}</h2>
@@ -144,7 +144,6 @@ const Events = () => {
             <button onClick={handlePreviousPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm text-white transition duration-150 hover:bg-blue-500" disabled={currentPage === 1}>Prev</button>
             <button onClick={handleNextPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm  text-white transition duration-150 hover:bg-blue-500">Next</button>
           </div>
-
         </div>
       )}
     </>
