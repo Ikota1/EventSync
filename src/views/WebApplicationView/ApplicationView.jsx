@@ -23,7 +23,7 @@ const ApplicationView = () => {
       <Sidebar />
       <div className='flex-1 h-screen overflow-hidden'>
         <div className='flex justify-end bg-gray-700 px-7 py-2 items-center gap-4'>
-          <div onClick={handlePhotoClick} className="h-12 w-12 flex-shrink-0 ">
+          <div onClick={handlePhotoClick} className="h-12 w-12 flex-shrink-0 cursor-pointer">
             {userData && userData.photo ? (
               <img className="h-full w-full rounded-full" src={userData.photo} alt="Avatar" />
             ) : (
