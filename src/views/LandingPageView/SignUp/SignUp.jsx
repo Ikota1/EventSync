@@ -43,7 +43,6 @@ const SignUp = () => {
       navigate('/application/dashboard');
     } catch (e) {
       const message = errorHandler(e);
-      console.error(e)
       toast.error(message);
     }
   }

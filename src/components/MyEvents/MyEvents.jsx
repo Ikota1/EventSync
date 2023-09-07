@@ -9,7 +9,7 @@ const MyEvents = ({ onBackToPublicClick }) => {
   const [user] = useAuthState(auth);
   const [myEventsData, setMyEventsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 2;
+  const eventsPerPage = 4;
 
   useEffect(() => {
     const fetchUserEvents = async () => {
@@ -28,9 +28,11 @@ const MyEvents = ({ onBackToPublicClick }) => {
       }
     };
 
+
     fetchUserEvents();
   }, [user]);
 
+  console.log(myEventsData)
   const handleNextPage = () => {
     const totalPages = Math.ceil(myEventsData.length / eventsPerPage);
     if (currentPage < totalPages) {
@@ -56,9 +58,10 @@ const MyEvents = ({ onBackToPublicClick }) => {
   return (
     <>
       <div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-4 gap-4">
           {paginatedEvents.map(event => (
             <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105">
+             {console.log('ID', event.id)}
               <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
               <h2 className="text-lg font-semibold">{event.title}</h2>
               <p className='pt-6 pb-6'>{event.description}</p>

@@ -35,6 +35,9 @@ const errorHandler = (errorCode) => {
     case 'auth/email-already-exists':
         message = 'Email already exists';
         break;
+    case 'auth/missing-password':
+        message = 'Please, write your password';
+        break;
     default:
         message = `There was an error: "${errorCode.code}: ${errorCode.message}}"`;
         break;
