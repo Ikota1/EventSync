@@ -22,6 +22,9 @@ import news from './chart.png';
 
 import arrowLeft from './arrow-left.png';
 import arrowRight from './arrow-right.png';
+import login from './login.mp4';
+import signOne from './signOne.mp4';
+import signTwo from './signTwo.mp4';
 
 export {
   menu,
@@ -45,4 +48,7 @@ export {
   news,
   arrowLeft,
   arrowRight,
+  login,
+  signOne,
+  signTwo,
 };
