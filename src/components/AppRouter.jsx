@@ -22,12 +22,13 @@ import ControlUsers from "../views/WebApplicationView/Admin/ControlUsers";
 import ControlEvents from "../views/WebApplicationView/Admin/ControlEvents";
 import PendingFriends from "../views/WebApplicationView/Friends/PendingFriends";
 import SearchFriends from "../views/WebApplicationView/Friends/SearchFriends";
+import EventsDetails from "../views/WebApplicationView/EventsDetails/EventsDetails";
 
 const AuthenticatedRoute = ({ element }) => {
   const [user, loading] = useAuthState(auth);
 
   return user ? <> {element} </> : !loading && <Navigate to="/login" />
- 
+
 };
 
 const AppRouter = () => (
@@ -44,22 +45,23 @@ const AppRouter = () => (
     <Route path="/application" element={<AuthenticatedRoute element={<ApplicationView />} />}>
       <Route path="/application/dashboard" element={<Dashboard />} />
       <Route path="inbox" element={<Inbox />} />
-      <Route path="events" element={<Events />}> 
-      <Route path="my-events" element={<MyEvents />} />
+      <Route exact path="events" element={<Events />} >
+        <Route path="my-events" element={<MyEvents />} />
       </Route>
+      <Route exact path="events/:id" element={<EventsDetails />} />
       <Route path="friends" element={<Friends />} />
       <Route path="pending-friends" element={<PendingFriends />} />
       <Route path="search-friends" element={<SearchFriends />} />
       <Route path="calendar" element={<Calendar />} />
       <Route path="support" element={<Support />} />
       <Route path="settings" element={<Settings />} />
-      <Route element={<AdminRoute  />}>
-          <Route path="admin" element={<Admin />}>
+      <Route element={<AdminRoute />}>
+        <Route path="admin" element={<Admin />}>
           <Route path="controlusers" element={<ControlUsers />} />
           <Route path="controlevents" element={<ControlEvents />} />
+        </Route>
       </Route>
-      </Route>
-    
+
       <Route path="/application" element={<Navigate to="/application/dashboard" />} />
     </Route>
   </Routes>

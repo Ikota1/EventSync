@@ -4,6 +4,7 @@ import DropDownFilterBtn from '../../../components/DropDownFilterBtn/DropDownFil
 import TicketPurchaseBtn from '../../../components/TicketPurchaseBtn/TicketPurchaseBtn';
 import MyEvents from '../../../components/MyEvents/MyEvents';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +15,7 @@ const Events = () => {
   const [filterByLive, setFilterByLive] = useState(false);
   const [showMyEvents, setShowMyEvents] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const router = useNavigate()
 
   const eventsPerPage = 4;
 
@@ -26,7 +27,7 @@ const Events = () => {
       } catch (error) {
         console.error('Unable to fetch public events', error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -118,7 +119,10 @@ const Events = () => {
             <div className="grid grid-cols-4 gap-3 p-5 h-[100%]">
               {filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
                 .map((event) => (
-                  <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105">
+                  <div
+                    key={event.id}
+                    onClick={() => router(`${event.id}`)}
+                    className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
                     <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
                     <h2 className="text-lg font-semibold">{event.title}</h2>
                     <p className="pt-6 pb-6">{event.description}</p>
@@ -144,29 +148,3 @@ const Events = () => {
 };
 
 export default Events;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
