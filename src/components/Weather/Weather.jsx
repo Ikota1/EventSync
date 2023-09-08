@@ -1,51 +1,17 @@
-import { useEffect, useState } from "react"
-import { LocationResults } from "./Loaction";
+import PropTypes from 'prop-types';
 
-
-const WeatherForecast = () => {
-    const [word, setWord] = useState('');
-    const [city, setCity] = useState('')
-       
-    const fetchLocation = (e) => {
-        e.preventDefault();
-        const API_KEY = "66abec26fe034546987185308232907"
-        
-        fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${word}&aqi=no`)
-        .then(res => res.json()) 
-        .then(setCity);
-        console.log(city)
-    }  
-
-    const handleLocation = (event) => {
-        setWord(event.target.value)
-    }
-
+export const LocationResults = ({ location: { location, current } }) => {
     return (
-        <div>
-            <form onSubmit={fetchLocation}>
-                <label htmlFor="word-action" className="text-white">Find your location: </label>
-                <input 
-                    value={word}
-                    onChange={(e) => handleLocation(e)}
-                    id='word-action'
-                    style={{marginTop: '10px', size:'250'}}
-                />
-                <button className="text-white">Submit</button>
-            </form>
-            <div>
-                {
-                    city ? 
-                    <> 
-                    <LocationResults location={city}></LocationResults>
-                    </> :
-                    <>
-                    {null}
-                    </>
-                }
+        <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:text-gray-100">
+            <div className="text-center">
+                <h2 className="text-xl font-semibold">{location?.name} / {location?.country}</h2>
+                <p className="text-sm dark:text-gray-400">{current?.last_updated}</p>
             </div>
+            <img src={current?.condition.icon} alt={current?.condition.text} />
+            <div className="mb-2 text-3xl font-semibold">{current?.temp_c}°
+                <span className="mx-1 font-normal">/</span>{current?.feelslike_c}°
+            </div>
+            <p className="dark:text-gray-400">{current?.condition.text}</p>
         </div>
     )
-
 }
-
-export default WeatherForecast
