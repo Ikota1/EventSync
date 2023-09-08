@@ -8,27 +8,13 @@ import { getInitials } from "../../constants/helpersFns/getInitials";
 export const UserProfile = () => {
   const { userData } = useContext(AuthContext);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAvailable, setIsAvailable] = useState(true);
-
-  useEffect(() => {
-    setIsAvailable(userData?.isAvailable)
-  }, [userData]);
-
-  const handleDoNotDisturb = async () => {
-    let updatedProfile = { ...userData, isAvailable: !isAvailable };
-
-    await updateUserProfile(userData.uid, updatedProfile);
-    setIsAvailable(!isAvailable)
-  }
-
   if (!userData) {
     return <p>Loading...</p>;
   }
 
   return (
     <div className="p-16">
-      <div className="p-8 dark:bg-gray-800 shadow mt-24 rounded-lg border-2 border-purple-500/50">
+      <div className="p-8 dark:bg-gray-800 shadow mt-24 rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0 ">
             <div>
@@ -53,7 +39,7 @@ export const UserProfile = () => {
             </div>
           </div>
           <div className="relative">
-            <div className={`w-48 h-48 bg-indigo-100 mx-auto rounded-full border-2 ring-offset-2 ring-4 ${userData && userData.isActive === true ? "ring-green-500" : "ring-red-500"} ring-green-500 shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500`}>
+            <div className={`w-48 h-48 bg-indigo-100 mx-auto rounded-full border-2 ring-offset-2 ring-4 ${userData && userData.doNotDisturb === false ? "ring-green-500" : "ring-red-500"} ring-green-500 shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500`}>
               {userData && userData?.photo ? (
                 <div className="relative">
                   <img
@@ -83,7 +69,7 @@ export const UserProfile = () => {
                 </button>
               </Link>
             )}
-            <UserEditProfileButton formData={userData} isModalOpen={setIsModalOpen} />
+            <UserEditProfileButton formData={userData} />
           </div>
         </div>
 
@@ -100,7 +86,7 @@ export const UserProfile = () => {
           <p className="font-light dark:text-white mt-3">{`#${userData.userName}`}</p>
         </div>
         <div className="font-normal font-poppins mt-12 flex flex-col justify-center text-justify pb-12">
-          <h3 className="text-center underline dark:text-white">About</h3>          
+          <h3 className="text-center underline dark: text-purple-500 pb-2">About</h3>          
             {userData && userData.about ? (
               <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
               {userData.about}
@@ -111,28 +97,6 @@ export const UserProfile = () => {
               </p>             
             )}
         </div>
-        {userData && isModalOpen === false ? (
-          <label className="relative inline-flex items-center mr-5 cursor-pointer mt-6">
-            <input
-              type="checkbox"
-              value=""
-              className="sr-only peer"
-              checked={isAvailable || ''}
-              onChange={handleDoNotDisturb}
-            />
-            <div className={`
-              w-11 h-6 bg-gray-200 rounded-full peer
-              ${isAvailable === true ? 'peer-checked:bg-purple-500' : 'dark:bg-gray-300'}
-              dark:border-gray-600  dark:peer-checked:after:translate-x-full
-              dark:peer-checked:bg-purple-500 after:content-[''] after:absolute after:top-0.5
-              after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full
-              after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white
-            `}></div>
-            <span className={`${isAvailable === true ? `ml-3 text-sm font-normal font-poppins text-purple-500` : `ml-3 text-sm font-normal font-poppins text-gray-900 dark:text-gray-300`} `}>Available</span>
-          </label>
-        ) : (
-          <div>{null}</div>
-        )}
       </div>
     </div>
   );
