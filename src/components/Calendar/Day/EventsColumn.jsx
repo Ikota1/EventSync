@@ -31,20 +31,22 @@ const EventsColumn = ({ date, isUsedInWeek = false }) => {
     }}>
       {Object.values(events).map((e, i) => (
         <div
-          className={`col-span-1 bg-pink-600 border-[0.5px] p-1`}
+          className={`grid col-span-1 bg-pink-600 bg-opacity-50 border-[0.5px] p-1`}
           style={{
             gridRowStart:
               areDatesTheSame(date, e.endDate) && !areDatesTheSame(e.startDate, e.endDate)
-                ? 0
+                ? 1
                 : !areDatesTheSame(e.startDate, date) && isIntermediateDate(date, e)
-                  ? 0
+                  ? 1
                   : e.startHour * 2 + (e.startAtHalf ? 2 : 1),
-            gridRowSpan:
-              areDatesTheSame(date, e.endDate) && !areDatesTheSame(e.startDate, e.endDate)
-                ? 48
-                : !areDatesTheSame(e.startDate, date) && isIntermediateDate(date, e)
-                  ? 48
-                  : differenceInHours(e.endDate, e.startDate) * 2,
+            gridRowEnd:
+              areDatesTheSame(date, e.startDate) && !areDatesTheSame(e.startDate, e.endDate)
+                ? 49
+                :
+                !areDatesTheSame(e.endDate, date) && isIntermediateDate(date, e)
+                  ? 49
+                  :
+                  differenceInHours(e.endDate, e.startDate) * 2
           }} key={i}>
           <EventBoxDay isIntermediate={isIntermediateDate(date, e)} isUsedInWeek={isUsedInWeek} {...e} />
         </div>
