@@ -22,7 +22,7 @@ const Sidebar = () => {
       .then(res => res.json())
       .then(setCity);
   }, [])
-
+  
 
   const onLogout = () => {
     logoutUser().then(() => {
@@ -49,7 +49,7 @@ const Sidebar = () => {
         <ul className="pt-6">
           {navLinksSidebar.map((nav, index) => (
             <NavLink key={nav.id} to={nav.id} className=''>
-              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
+              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-dimWhite text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
                 <img src={nav.img} className='w-[20px] h-auto' />
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
                   {nav.title}
@@ -63,7 +63,7 @@ const Sidebar = () => {
               Admin
             </span>
           </NavLink>)}
-          <NavLink to="/" className='flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
+          <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
             <img src={signOut} className='w-[20px] h-auto' />
             <span className={`${!open && "hidden"} origin-left duration-200`}>
               Logout
