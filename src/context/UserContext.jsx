@@ -20,12 +20,30 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [showEventModal, setShowEventModal] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
 
   const [user, loading, error] = useAuthState(auth);
   const [authState, setAuthState] = useState({
     user: null,
     userData: null,
   });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          // update the value of userlocation variable
+          setUserLocation({ latitude, longitude });
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }, []);
 
   useEffect(() => {
     if (user?.uid) {
@@ -99,7 +117,8 @@ export const AuthContextProvider = ({ children }) => {
         user: authState.user,
         userData: authState.userData,
         setAuthState,
-        loading
+        loading,
+        userLocation,
       }}>
         {children}
       </AuthContext.Provider>
