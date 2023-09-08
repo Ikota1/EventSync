@@ -36,7 +36,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={` ${open ? "w-72" : "w-20 "} h-screen p-5  pt-8 relative duration-300 bg-gray-800`}>
+      <div className={` ${open ? "w-72" : "w-20 "} h-screen p-5 pt-8 relative duration-300 bg-gray-800`}>
         <img src={control}
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)} />
@@ -58,12 +58,18 @@ const Sidebar = () => {
             </NavLink>
           ))}
           {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4 `}>
-            <img src={adminIcon} className='w-[20px] h-auto' />  Admin
+            <img src={adminIcon} className='w-[20px] h-auto' />
+            <span className={`${!open && "hidden"} origin-left duration-200`}>
+              Admin
+            </span>
           </NavLink>)}
+          <NavLink to="/" className='flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
+            <img src={signOut} className='w-[20px] h-auto' />
+            <span className={`${!open && "hidden"} origin-left duration-200`}>
+              Logout
+            </span>
+          </NavLink>
         </ul>
-        <NavLink to="/" className='flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
-          <img src={signOut} className='w-[20px] h-auto' />  Logout
-        </NavLink>
         {open ? (
           <div className='sticky top-[100vh] duration-300'>
             <LocationResults location={city} />
@@ -73,7 +79,6 @@ const Sidebar = () => {
             {null}
           </div>
         )}
-
       </div>
     </>
   )
