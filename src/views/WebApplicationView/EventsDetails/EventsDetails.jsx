@@ -39,30 +39,35 @@ const EventsDetails = () => {
   }, [])
 
   return (
-      <div className='text-white flex justify-center flex-col gap-4 items-center'>
-        <h1 className='text-gradient uppercase text-4xl font-medium'>{eventsDetailed.title}</h1>
-        <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.startDate} To {eventsDetailed.startDate}</span>
+    <div className='text-white flex justify-center flex-col gap-4 items-center'>
+      <h1 className='text-gradient uppercase text-4xl font-medium'>{eventsDetailed.title}</h1>
+      <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.startDate} To {eventsDetailed.startDate}</span>
 
-        <TicketPurchaseBtn />
+      <TicketPurchaseBtn />
+      <div className='flex flex-row gap-4'>
+        <div className='col-span-1'>
+          <img src={eventsDetailed.photo} alt="photo" className='w-[700px] h-[300px] rounded' />
+        </div>
+        <div className='col-span-2'>
+          {!loading ? <EventLocation userLocation={eventsDetailed.location} /> : null}
+        </div>
+      </div>
 
-        <img src={eventsDetailed.photo} alt="photo" className='w-[700px] h-[300px] rounded' />
-        {!loading ? <EventLocation userLocation={eventsDetailed.location} /> : null}
+      <div className='flex flex-col gap-4 items-start'>
+        <p>{eventsDetailed.description}</p>
+        <hr className='w-[500px] opacity-20' />
+        <div className='flex justify-between w-[500px] items-center'>
+          <button className="bg-blue-500 text-white px-2 py-1 rounded mb-4" >
+            Add To Calendar
+          </button>
 
-        <div className='flex flex-col gap-4 items-start'>
-          <p>{eventsDetailed.description}</p>
-          <hr className='w-[500px] opacity-20' />
-          <div className='flex justify-between w-[500px] items-center'>
-            <button className="bg-blue-500 text-white px-2 py-1 rounded mb-4" >
-              Add To Calendar
-            </button>
-
-            <div className='flex'>
-              <Lottie className='w-[50px] cursor-pointer' animationData={instIcon} />
-              <Lottie className='w-[35px] cursor-pointer' animationData={linkedinIcon} />
-            </div>
+          <div className='flex'>
+            <Lottie className='w-[50px] cursor-pointer' animationData={instIcon} />
+            <Lottie className='w-[35px] cursor-pointer' animationData={linkedinIcon} />
           </div>
         </div>
       </div>
+    </div>
   )
 }
 
