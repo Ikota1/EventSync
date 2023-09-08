@@ -1,17 +1,27 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { navLinksSidebar } from '../../constants/navLinks';
 import { NavLink } from 'react-router-dom';
 import { logoIcon, control, adminIcon } from '../../assets';
 import { logoutUser } from '../../services/auth.service';
 import { AuthContext } from '../../context/UserContext';
 import { USER_ROLES } from '../../constants/userRoles';
+import { LocationResults } from '../Weather/Weather';
 
 const Sidebar = () => {
-  const { userData, setAuthState } = useContext(AuthContext)
+  const { userData, setAuthState, userLocation } = useContext(AuthContext)
   const [open, setOpen] = useState(true);
+  const [city, setCity] = useState({})
 
 
   const isAdmin = userData?.userRole === USER_ROLES.Admin;
+
+  useEffect(() => {
+    const API_KEY = "66abec26fe034546987185308232907"
+
+    fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${userLocation?.latitude},${userLocation?.longitude}&aqi=no`)
+      .then(res => res.json())
+      .then(setCity);
+  }, [])
 
 
   const onLogout = () => {
@@ -54,8 +64,17 @@ const Sidebar = () => {
         <NavLink to="/" className='flex w-[20px] h-auto' onClick={onLogout}>
           Logout
         </NavLink>
-      </div>
+        {open ? (
+          <div className='sticky top-[100vh] duration-300'>
+            <LocationResults location={city} />
+          </div>
+        ) : (
+          <div className='sticky top-[100vh]'>
+            {null}
+          </div>
+        )}
 
+      </div>
     </>
   )
 }
