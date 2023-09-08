@@ -81,15 +81,15 @@ const Events = () => {
           }
           return event;
         }));
-    
+
         setAllEvents(updatedEvents);
-        
+
       } catch (error) {
         console.error(error)
       }
- 
+
     };
-  
+
     updateExpiredEvents();
   }, []);
 
@@ -125,56 +125,55 @@ const Events = () => {
 
   return (
     <>
-    <EventLinks/>
-      
-        <div className="block p-5">
-          <div className="flex justify-center pb-12">
-            <input
-              type="text"
-              placeholder="Search events..."
-              value={searchItem}
-              onChange={(e) => setSearchItem(e.target.value)}
-              className="bg-white rounded-l-lg p-2 focus:outline-none w-64 border border-gray-300" />
-            <DropDownFilterBtn
-              onFilterOnline={handleFilterOnline}
-              onFilterLive={handleFilterLive}
-              onFilterAll={handleAllEventsFilter} />
-            <div className="flex justify-end pl-16">
-            </div>
-          </div>
-          {loading ? (
-            <div className="flex justify-center items-center h-full">
-              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-400"></div>
-            </div>
-          ) : filteredEvents.length === 0 ? (
-            <div className="flex justify-center items-center h-full">
-              <p className="text-blue-300 text-4xl">No Events Found</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-4 gap-3 p-5 h-[100%]">
-              {paginatedEvents
-                .map((event) => (
-                  <div
-                    key={event.id}
-                    onClick={() => navigate(`${event.id}`)}
-                    className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
-                    <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
-                    <h2 className="text-lg font-semibold">{event.title}</h2>
-                    <p className="pt-6 pb-6">{event.description}</p>
-                    <TicketPurchaseBtn />
-                    <p className="pb-4">Tickets Remaining 42</p>
-                    <p className="pb-4">Location: {event.location}</p>
-                    <p> {format(new Date(event.startDate), 'do MMM')} |{' '} {event.startHour}h - {event.endHour}h </p>
-                  </div>
-                ))}
-            </div>
-          )}
-          {/* Pagination controls */}
-          <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
-            <button onClick={handlePreviousPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm text-white transition duration-150 hover:bg-blue-500" disabled={currentPage === 1}>Prev</button>
-            <button onClick={handleNextPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm  text-white transition duration-150 hover:bg-blue-500">Next</button>
+      <EventLinks />
+      <div className="block p-5">
+        <div className="flex justify-center pb-3">
+          <input
+            type="text"
+            placeholder="Search events..."
+            value={searchItem}
+            onChange={(e) => setSearchItem(e.target.value)}
+            className="bg-white rounded-l-lg p-2 focus:outline-none w-64 border border-gray-300" />
+          <DropDownFilterBtn
+            onFilterOnline={handleFilterOnline}
+            onFilterLive={handleFilterLive}
+            onFilterAll={handleAllEventsFilter} />
+          <div className="flex justify-end pl-16">
           </div>
         </div>
+        {loading ? (
+          <div className="flex justify-center items-center h-full">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-400"></div>
+          </div>
+        ) : filteredEvents.length === 0 ? (
+          <div className="flex justify-center items-center h-full">
+            <p className="text-blue-300 text-2xl">No Events Found</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-4 gap-3 p-5 h-[100%]">
+            {paginatedEvents
+              .map((event) => (
+                <div
+                  key={event.id}
+                  onClick={() => navigate(`${event.id}`)}
+                  className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
+                  <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
+                  <h2 className="text-lg font-semibold">{event.title}</h2>
+                  <p className="pt-6 pb-6">{event.description}</p>
+                  <TicketPurchaseBtn />
+                  <p className="pb-4">Tickets Remaining 42</p>
+                  <p className="pb-4">Location: {event.location}</p>
+                  <p> {format(new Date(event.startDate), 'do MMM')} |{' '} {event.startHour}h - {event.endHour}h </p>
+                </div>
+              ))}
+          </div>
+        )}
+        {/* Pagination controls */}
+        <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
+          <button onClick={handlePreviousPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm text-white transition duration-150 hover:bg-blue-500" disabled={currentPage === 1}>Prev</button>
+          <button onClick={handleNextPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm  text-white transition duration-150 hover:bg-blue-500">Next</button>
+        </div>
+      </div>
 
     </>
   );

@@ -6,29 +6,29 @@ import { getAllArchivedEvents } from "../../../services/events.service";
 import format from 'date-fns/format';
 
 const EventHistory = () => {
-const [user] = useAuthState(auth);
-const [myHistoryEvents, setMyHistoryEvents] = useState([]);
-const [loading, setLoading] = useState(true);
-const [currentPage, setCurrentPage] = useState(1);
-const eventsPerPage = 4;
+    const [user] = useAuthState(auth);
+    const [myHistoryEvents, setMyHistoryEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const eventsPerPage = 4;
 
-useEffect(() => {
-    const fetchedHistoryEvents = async () => {
-        setLoading(true);
-     try {
-        if (user) {
-        const archivedEvents = await getAllArchivedEvents();
-        const userHistory = archivedEvents.filter((event) => {
-                    
-            return event.participants.includes(user.uid);
-        });
-             setMyHistoryEvents(userHistory);
+    useEffect(() => {
+        const fetchedHistoryEvents = async () => {
+            setLoading(true);
+            try {
+                if (user) {
+                    const archivedEvents = await getAllArchivedEvents();
+                    const userHistory = archivedEvents.filter((event) => {
+
+                        return event.participants.includes(user.uid);
+                    });
+                    setMyHistoryEvents(userHistory);
+                }
+            } catch (error) {
+                console.error('Unable ot fetch historyEvents', error)
+            } finally {
+                setLoading(false)
             }
-        } catch (error) {
-             console.error('Unable ot fetch historyEvents', error)
-        } finally {
-             setLoading(false)
-         }
 
         }
 
@@ -59,18 +59,18 @@ useEffect(() => {
                 </div>
             ) : myHistoryEvents.length === 0 ? (
                 <div className="flex justify-center items-center h-full">
-                    <p className="text-blue-300 text-4xl">No Events Found</p>
+                    <p className="text-blue-300 text-2xl">No Events Found</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-4 gap-3 p-5 h-[100%]">
                     {paginatedEvents.map((event) => (
-                    <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
-                        <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4 opacity-20" />
-                        <h2 className="text-lg font-semibold">{event.title}</h2>
-                        <p className="pt-6 pb-6">{event.description}</p>
-                        <p className="pb-4">Location: {event.location}</p>
-                        <p> {format(new Date(event.endDate), 'do MMM')} </p>
-                    </div>
+                        <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
+                            <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4 opacity-20" />
+                            <h2 className="text-lg font-semibold">{event.title}</h2>
+                            <p className="pt-6 pb-6">{event.description}</p>
+                            <p className="pb-4">Location: {event.location}</p>
+                            <p> {format(new Date(event.endDate), 'do MMM')} </p>
+                        </div>
                     ))};
                 </div>
             )};

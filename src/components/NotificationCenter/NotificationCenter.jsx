@@ -23,8 +23,8 @@ const NotificationCenter = ({ onClick }) => {
 
     return (
         <div className="notification-center">
-             <div onClick={handleNotificationCenterClick} className={`notification-badge ${notificationCount > 0 ? 'bg-purple-500 text-white' : ''} flex items-center cursor-pointer rounded-full p-1`}>
-                <MdNotifications className="mr-1" />
+            <div onClick={handleNotificationCenterClick} className={`notification-badge ${notificationCount > 0 ? 'bg-purple-500 text-white' : 'text-white'} flex items-center cursor-pointer rounded-full p-1`}>
+                <MdNotifications className="mr-1 fill-white" />
                 {notificationCount}
             </div>
             {expanded && (

@@ -22,25 +22,25 @@ const MyEvents = ({ onBackToPublicClick }) => {
         if (user) {
           const userEventsSnapshot = await getEventsByCurrentUser(user.uid);
           const userEventsArray = userEventsSnapshot.val();
-  
+
           if (userEventsArray) {
-            const eventDataPromises = userEventsArray.map(async (eventID) => { 
+            const eventDataPromises = userEventsArray.map(async (eventID) => {
               const eventSnapshot = await getEventByHandle(eventID);
-  
+
               return eventSnapshot.exists() ? eventSnapshot.val() : null;
             });
             const eventDataArray = await Promise.all(eventDataPromises);
-  
+
             setMyEventsData(eventDataArray.filter(eventData => eventData !== null));
           }
         }
-        
+
       } catch (error) {
         console.error(error)
       } finally {
         setLoading(false);
       }
-    
+
     };
 
 
@@ -79,14 +79,14 @@ const MyEvents = ({ onBackToPublicClick }) => {
         </div>
       ) : myEventsData.length === 0 ? (
         <div className="flex justify-center items-center h-full">
-          <p className="text-blue-300 text-4xl">No Events Found</p>
+          <p className="text-blue-300 text-2xl">No Events Found</p>
         </div>
       ) : (
         <div>
           <div className="grid grid-cols-4 gap-4">
             {paginatedEvents.map((event) => (
               <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105" >
-                <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4"/>
+                <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
                 <h2 className="text-lg font-semibold">{event.title}</h2>
                 <p className="pt-6 pb-6">{event.description}</p>
                 <p className="pb-4">Location: {event.location}</p>
@@ -99,7 +99,7 @@ const MyEvents = ({ onBackToPublicClick }) => {
           {/* Pagination controls */}
           <div className={`fixed bottom-0 right-0 py-2 px-6 shadow`}>
             <div className="pagination text-blue-500">
-              <button onClick={handlePreviousPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm text-white transition duration-150 hover:bg-blue-500"disabled={currentPage === 1}>Prev </button>
+              <button onClick={handlePreviousPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm text-white transition duration-150 hover:bg-blue-500" disabled={currentPage === 1}>Prev </button>
               <button onClick={handleNextPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm  text-white transition duration-150 hover:bg-blue-500" > Next</button>
             </div>
           </div>
