@@ -4,6 +4,7 @@ import { getUserByHandle } from "../../../services/user.services";
 import { acceptFriendRequest, rejectFriendRequest } from "../../../services/social.service";
 import toast from "react-hot-toast";
 import FriendsLinks from "./FriendsLinks";
+import { getInitials } from "../../../constants/helpersFns/getInitials";
 
 const PendingFriends = () => {
     const [pendingFriends, setPendingFriends] = useState([]);
@@ -68,7 +69,13 @@ const PendingFriends = () => {
             pendingFriends.map((user) => !user.isClosed && (
               <div key={user.uid} className="my-4 p-4 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex items-center justify-center">
-                  <img className="w-24 h-24 rounded-full shadow-lg" src={user.photo} alt="User image" />
+                {user && user.photo ? (
+                  <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={user?.photo} alt={`${user?.firstName}'s profile`} />
+                ) : (
+                  <span className="w-24 h-24 rounded-full flex items-center justify-center bg-indigo-100 cursor:pointer">
+                  {getInitials(user?.firstName, user?.lastName)}
+                </span>
+                )}  
                 </div>
                 <h5 className="mt-3 mb-1 text-xl font-medium text-gray-900 dark:text-white text-center">{user.firstName} {user.lastName}</h5>
                 <span className="text-sm text-gray-500 dark:text-gray-400 text-center">@{user.userName}</span>
