@@ -87,7 +87,6 @@ export const NewsData = () => {
                   <h2 className="text-lg font-semibold">{el.title}</h2>
                   <p className="pt-6 pb-6">{el.description}</p>
                   {userData !== null && <TicketPurchaseBtn />}
-                  <TicketPurchaseBtn />
                   <p className="pb-4">Tickets Remaining 42</p>
                   <p className="pb-4">Location: {el.location}</p>
                   <p>
