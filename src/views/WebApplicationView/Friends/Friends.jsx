@@ -5,6 +5,7 @@ import { getUserByHandle } from "../../../services/user.services";
 import FriendsLinks from "./FriendsLinks";
 import { deleteFriend } from "../../../services/social.service";
 import toast from 'react-hot-toast'
+import { getInitials } from "../../../constants/helpersFns/getInitials";
 
 
 const Friends = () => {
@@ -57,7 +58,13 @@ const Friends = () => {
           userFriends.map((user) => (
             <div key={user?.uid} className="w-full max-w-sm pt-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div className="flex flex-col items-center pb-10">
-                <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={user?.photo} alt={`${user?.firstName}'s profile`} />
+                {user && user.photo ? (
+                  <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={user?.photo} alt={`${user?.firstName}'s profile`} />
+                ) : (
+                  <span className="w-24 h-24 rounded-full flex items-center justify-center bg-indigo-100 cursor:pointer">
+                  {getInitials(user?.firstName, user?.lastName)}
+                </span>
+                )}                
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{user?.firstName} {user?.lastName}</h5>
                 <span className="text-sm text-gray-500 dark:text-gray-400">{user?.userName}</span>
                 <p className="text-sm text-gray-500 dark:text-gray-400">{user?.country}</p>
