@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { navLinksSidebar } from '../../constants/navLinks';
 import { NavLink } from 'react-router-dom';
-import { logoIcon, control, adminIcon } from '../../assets';
+import { logoIcon, control, adminIcon, signOut } from '../../assets';
 import { logoutUser } from '../../services/auth.service';
 import { AuthContext } from '../../context/UserContext';
 import { USER_ROLES } from '../../constants/userRoles';
@@ -61,8 +61,8 @@ const Sidebar = () => {
             <img src={adminIcon} className='w-[20px] h-auto' />  Admin
           </NavLink>)}
         </ul>
-        <NavLink to="/" className='flex w-[20px] h-auto' onClick={onLogout}>
-          Logout
+        <NavLink to="/" className='flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
+          <img src={signOut} className='w-[20px] h-auto' />  Logout
         </NavLink>
         {open ? (
           <div className='sticky top-[100vh] duration-300'>
