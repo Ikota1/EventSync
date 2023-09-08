@@ -10,7 +10,6 @@ import { auth } from "../firebase/firebase-config";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Dashboard from "../views/WebApplicationView/Dashboard/Dashboard";
 import Calendar from "../views/WebApplicationView/Calendar.jsx/Calendar";
-import Inbox from "../views/WebApplicationView/Inbox/Inbox";
 import Events from "../views/WebApplicationView/Events.jsx/Events";
 import Friends from "../views/WebApplicationView/Friends/Friends";
 import Support from "../views/WebApplicationView/Suppport/Support";
@@ -45,10 +44,9 @@ const AppRouter = () => (
     {/* Application view */}
     <Route path="/application" element={<AuthenticatedRoute element={<ApplicationView />} />}>
       <Route path="/application/dashboard" element={<Dashboard />} />
-      <Route path="inbox" element={<Inbox />} />
-        <Route path="events" element={<Events />} />
-        <Route path="my-events" element={<MyEvents />} />
-        <Route path="event-history" element={<EventHistory />} />
+      <Route path="events" element={<Events />} />
+      <Route path="my-events" element={<MyEvents />} />
+      <Route path="event-history" element={<EventHistory />} />
       <Route exact path="events/:id" element={<EventsDetails />} />
       <Route path="friends" element={<Friends />} />
       <Route path="pending-friends" element={<PendingFriends />} />
