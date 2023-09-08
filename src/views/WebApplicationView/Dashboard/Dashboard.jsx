@@ -72,7 +72,7 @@ const Dashboard = () => {
                             </thead>
                             <tbody className="bg-white">
                               {allPublicEvents.slice(-5).map((ev) => (
-                                <tr key={ev.title}>
+                                <tr key={ev.id}>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
                                     <span className="font-semibold">{ev.title}</span>
                                   </td>
