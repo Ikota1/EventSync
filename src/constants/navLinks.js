@@ -30,11 +30,6 @@ export const navLinksSidebar = [
     img: dashboard,
   },
   {
-    id: "Inbox",
-    title: "inbox",
-    img: inbox,
-  },
-  {
     id: "events",
     title: "Events",
     img: events,
@@ -53,7 +48,7 @@ export const navLinksSidebar = [
   {
     id: "support",
     title: "Support",
-    img: help,
+    img: inbox,
     gap: true,
   },
   {
