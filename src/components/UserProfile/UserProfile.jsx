@@ -26,14 +26,17 @@ export const UserProfile = () => {
     return <p>Loading...</p>;
   }
 
-  console.log(userData)
   return (
     <div className="p-16">
       <div className="p-8 dark:bg-gray-800 shadow mt-24 rounded-lg border-2 border-purple-500/50">
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0 ">
             <div>
-              <p className="font-bold font-poppins text-gray-700 text-xl dark:text-white">TBU</p>
+              {userData && userData.friends ? (
+                <p className="font-bold font-poppins text-gray-700 text-xl dark:text-white">{Object.keys(userData.friends).length}</p>
+              ) : (
+                <p className="font-bold font-poppins text-gray-700 text-xl dark:text-white">0</p>
+              )}
               <p className="text-gray-400 font-poppins dark:text-white">Friends</p>
             </div>
             <div>
@@ -97,10 +100,16 @@ export const UserProfile = () => {
           <p className="font-light dark:text-white mt-3">{`#${userData.userName}`}</p>
         </div>
         <div className="font-normal font-poppins mt-12 flex flex-col justify-center text-justify pb-12">
-          <h3 className="text-center underline dark:text-white">About</h3>
-          <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
-            {`${userData?.about}` || `Edit your profile and tell us more about yourself!`}
-          </p>
+          <h3 className="text-center underline dark:text-white">About</h3>          
+            {userData && userData.about ? (
+              <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
+              {userData.about}
+              </p>
+            ) : (
+              <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
+              Edit your profile and tell us more about yourself!
+              </p>             
+            )}
         </div>
         {userData && isModalOpen === false ? (
           <label className="relative inline-flex items-center mr-5 cursor-pointer mt-6">
@@ -111,13 +120,18 @@ export const UserProfile = () => {
               checked={isAvailable || ''}
               onChange={handleDoNotDisturb}
             />
-            <div className={`w-11 h-6 bg-gray-200 rounded-full peer ${isAvailable ? 'peer-checked:bg-purple-500' : 'dark:bg-gray-300'} dark:border-gray-600 dark:peer-focus:bg-purple-500 dark:peer-checked:after:translate-x-full dark:peer-checked:bg-purple-500 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white`}></div>
-            { }
+            <div className={`
+              w-11 h-6 bg-gray-200 rounded-full peer
+              ${isAvailable === true ? 'peer-checked:bg-purple-500' : 'dark:bg-gray-300'}
+              dark:border-gray-600  dark:peer-checked:after:translate-x-full
+              dark:peer-checked:bg-purple-500 after:content-[''] after:absolute after:top-0.5
+              after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full
+              after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white
+            `}></div>
             <span className={`${isAvailable === true ? `ml-3 text-sm font-normal font-poppins text-purple-500` : `ml-3 text-sm font-normal font-poppins text-gray-900 dark:text-gray-300`} `}>Available</span>
           </label>
         ) : (
           <div>{null}</div>
-
         )}
       </div>
     </div>
