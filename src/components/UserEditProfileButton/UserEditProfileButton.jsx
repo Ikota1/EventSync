@@ -1,15 +1,13 @@
 import UserProfileForm from "../UserProfileForm/UserProfileForm";
 import { useState } from "react";
 
-const UserEditProfileButton = ( {formData, isModalOpen} ) => {
+const UserEditProfileButton = ( {formData} ) => {
   const [showUpdateFrom, setShowUpdateForm] = useState(false);
   const handleShowForm = () => {
-    isModalOpen(true);
     setShowUpdateForm(!showUpdateFrom);
   };
   
   const handleCloseForm = (updatedData) => {
-    isModalOpen(false);
     setShowUpdateForm(false);
   };
   
