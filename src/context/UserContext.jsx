@@ -67,11 +67,11 @@ export const AuthContextProvider = ({ children }) => {
         }
       };
       // Set up the listener using onValue
-      onValue(userRef, onDataChange);
+      const cleanUpFunction = onValue(userRef, onDataChange);
       // Clean up the listener when the component unmounts
       return () => {
         // Unsubscribe from the listener
-        onValue(userRef, onDataChange);
+        cleanUpFunction();
       };
     }
   }, [user?.uid]);
