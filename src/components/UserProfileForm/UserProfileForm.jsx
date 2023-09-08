@@ -17,7 +17,6 @@ const UserProfileForm = ({ onClose, formData }) => {
     const [avatar, setAvatar] = useState(null);
     const [avatarName, setAvatarName] = useState("");
     const [userAbout, setUserAbout] = useState("");
-    const [isActive, setIsActive] = useState(true);
     const [addressLocation, setAddressLocation] = useState("")
 
     var phoneRegEx = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -49,7 +48,6 @@ const UserProfileForm = ({ onClose, formData }) => {
     useEffect(() => {
         setUserProfileData(userData);
         setUserAbout(userData.about || "");
-        setIsActive(userData.isActive)
         setAddressLocation(userData.address || "")
     }, [userData]);
 
@@ -70,13 +68,9 @@ const UserProfileForm = ({ onClose, formData }) => {
         }));
     };
 
-    const handleIsActive = () => {
-        setIsActive(!isActive)
-    }
-
     const onSubmit = async () => {
 
-        let updatedProfile = { ...userProfileData, about: userAbout, isActive, address: addressLocation };
+        let updatedProfile = { ...userProfileData, about: userAbout, address: addressLocation };
 
         if (avatar) {
             const photoURL = await uploadProfilePhoto(userData.uid, avatar);
@@ -84,7 +78,6 @@ const UserProfileForm = ({ onClose, formData }) => {
         }
 
         await updateUserProfile(userData.uid, updatedProfile);
-        setIsActive(true)
 
         onClose();
 
@@ -171,16 +164,6 @@ const UserProfileForm = ({ onClose, formData }) => {
                                 accept="image/*"
                                 onChange={handleAvatarChange}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                            <label className="relative inline-flex items-center mr-5 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    value=""
-                                    className="sr-only peer"
-                                    checked={!isActive}
-                                    onChange={handleIsActive} />
-                                <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 ${isActive ? 'peer-checked:bg-red-600' : 'dark:bg-gray-700'} ${isActive ? 'peer-focus:ring-red-300' : 'dark:peer-focus:ring-red-800'} dark:border-gray-600 dark:peer-focus:ring-red-800 dark:peer-checked:after:translate-x-full dark:peer-checked:bg-red-800 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:after:border-white`}></div>
-                                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Incognito</span>
-                            </label>
                             <div className="flex items-center justify-between">
                                 <button
                                     type="button"
