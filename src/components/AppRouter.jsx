@@ -23,6 +23,7 @@ import ControlEvents from "../views/WebApplicationView/Admin/ControlEvents";
 import PendingFriends from "../views/WebApplicationView/Friends/PendingFriends";
 import SearchFriends from "../views/WebApplicationView/Friends/SearchFriends";
 import EventsDetails from "../views/WebApplicationView/EventsDetails/EventsDetails";
+import EventHistory from "../views/WebApplicationView/Events.jsx/EventHistory";
 
 const AuthenticatedRoute = ({ element }) => {
   const [user, loading] = useAuthState(auth);
@@ -45,9 +46,9 @@ const AppRouter = () => (
     <Route path="/application" element={<AuthenticatedRoute element={<ApplicationView />} />}>
       <Route path="/application/dashboard" element={<Dashboard />} />
       <Route path="inbox" element={<Inbox />} />
-      <Route exact path="events" element={<Events />} >
+        <Route path="events" element={<Events />} />
         <Route path="my-events" element={<MyEvents />} />
-      </Route>
+        <Route path="event-history" element={<EventHistory />} />
       <Route exact path="events/:id" element={<EventsDetails />} />
       <Route path="friends" element={<Friends />} />
       <Route path="pending-friends" element={<PendingFriends />} />
