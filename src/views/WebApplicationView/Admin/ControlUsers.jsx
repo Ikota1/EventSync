@@ -214,13 +214,13 @@ export const ControlUsers = () => {
                                                     <span className="whitespace-no-wrap">{user.createdOn}</span>
                                                 </td>
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
-                                                    {users && user.isActive ? (
+                                                    {users && user.doNotDisturb === false ? (
                                                         <span className="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">
                                                             Active
                                                         </span>
                                                     ) : (
                                                         <span className="rounded-full bg-red-200 px-3 py-1 text-xs font-semibold text-green-900">
-                                                            Offline
+                                                            DND
                                                         </span>
                                                     )}
 
