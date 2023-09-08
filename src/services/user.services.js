@@ -22,8 +22,7 @@ export const createUserHandle = (uid, email, firstName, lastName, userName, coun
     lastName,
     country,
     phone,
-    isActive: true,
-    isAvailable: true,
+    doNotDisturb: false,
     createdOn: currentDateTimeString,
     userRole: USER_ROLES.RegularUser,
     eventStatistics: {
