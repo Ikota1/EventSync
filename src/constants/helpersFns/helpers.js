@@ -8,3 +8,13 @@ export const currentTimeToLocalString = () => {
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
+
+
+  export const isEventExpired = (event) => {
+    const currentDateTime = new Date().getTime(); 
+    const expiryDateTime = new Date(`${event.endDate}T${event.endHour}`).getTime();
+
+    return expiryDateTime < currentDateTime;
+  };
+  
+  
