@@ -26,6 +26,8 @@ import login from './login.mp4';
 import signOne from './signOne.mp4';
 import signTwo from './signTwo.mp4';
 
+import signOut from './sign-out.png';
+
 export {
   menu,
   close,
@@ -51,4 +53,5 @@ export {
   login,
   signOne,
   signTwo,
+  signOut,
 };
