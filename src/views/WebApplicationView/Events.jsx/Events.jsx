@@ -1,30 +1,36 @@
 import { useState, useEffect } from 'react';
-import { getPublicEvents } from '../../../services/events.service';
+import { archiveExpiredEvents, getAllEvents, getPublicEvents } from '../../../services/events.service';
 import DropDownFilterBtn from '../../../components/DropDownFilterBtn/DropDownFilterBtn';
 import TicketPurchaseBtn from '../../../components/TicketPurchaseBtn/TicketPurchaseBtn';
-import MyEvents from '../../../components/MyEvents/MyEvents';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import EventLinks from './EventLinks';
+import { isEventExpired } from '../../../constants/helpersFns/helpers';
 
 const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [publicEvents, setPublicEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [searchItem, setSearchItem] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [filterByOnline, setFilterByOnline] = useState(false);
   const [filterByLive, setFilterByLive] = useState(false);
-  const [showMyEvents, setShowMyEvents] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
-
   const eventsPerPage = 4;
 
   useEffect(() => {
-    const fetchPublicEvents = async () => {
+    const fetchEvents = async () => {
       setLoading(true);
       try {
         const publicEventsData = await getPublicEvents();
+        console.log('Fetched public events:', publicEventsData)
         setPublicEvents(publicEventsData);
+
+        const allEventsData = await getAllEvents();
+        console.log('Fetched public events:', allEventsData)
+        setAllEvents(allEventsData)
+
       } catch (error) {
         console.error('Unable to fetch public events', error);
       } finally {
@@ -32,7 +38,7 @@ const Events = () => {
       }
     };
 
-    fetchPublicEvents();
+    fetchEvents();
   }, []);
 
 
@@ -53,6 +59,39 @@ const Events = () => {
 
     setFilteredEvents(filteredItems);
   }, [searchItem, filterByOnline, filterByLive, publicEvents]);
+
+
+  useEffect(() => {
+    const updateExpiredEvents = async () => {
+
+      try {
+        const updatedEvents = await Promise.all(allEvents.map(async (event) => {
+          if (isEventExpired(event)) {
+
+            await archiveExpiredEvents(
+              event.id,
+              event.title,
+              event.eventOwner,
+              event.endDate,
+              event.location,
+              event.description,
+              event.participants,
+              event.photo
+            );
+          }
+          return event;
+        }));
+    
+        setAllEvents(updatedEvents);
+        
+      } catch (error) {
+        console.error(error)
+      }
+ 
+    };
+  
+    updateExpiredEvents();
+  }, []);
 
   const handleFilterOnline = () => {
     setFilterByOnline(true);
@@ -82,19 +121,12 @@ const Events = () => {
     }
   };
 
-  const handleMyEventsBtnClick = () => {
-    setShowMyEvents(!showMyEvents);
-  };
-
-  const handleBackToPublicClick = () => {
-    setShowMyEvents(false);
-  };
+  const paginatedEvents = filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
 
   return (
     <>
-      {showMyEvents ? (
-        <MyEvents onBackToPublicClick={handleBackToPublicClick} />
-      ) : (
+    <EventLinks/>
+      
         <div className="block p-5">
           <div className="flex justify-center pb-12">
             <input
@@ -108,7 +140,6 @@ const Events = () => {
               onFilterLive={handleFilterLive}
               onFilterAll={handleAllEventsFilter} />
             <div className="flex justify-end pl-16">
-              <button className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300" onClick={handleMyEventsBtnClick}>My Events</button>
             </div>
           </div>
           {loading ? (
@@ -121,7 +152,7 @@ const Events = () => {
             </div>
           ) : (
             <div className="grid grid-cols-4 gap-3 p-5 h-[100%]">
-              {filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
+              {paginatedEvents
                 .map((event) => (
                   <div
                     key={event.id}
@@ -134,7 +165,6 @@ const Events = () => {
                     <p className="pb-4">Tickets Remaining 42</p>
                     <p className="pb-4">Location: {event.location}</p>
                     <p> {format(new Date(event.startDate), 'do MMM')} |{' '} {event.startHour}h - {event.endHour}h </p>
-                    {/* <p>Type: {event.isOnline ? 'Online' : 'Live'}</p> */}
                   </div>
                 ))}
             </div>
@@ -145,7 +175,7 @@ const Events = () => {
             <button onClick={handleNextPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm  text-white transition duration-150 hover:bg-blue-500">Next</button>
           </div>
         </div>
-      )}
+
     </>
   );
 };
