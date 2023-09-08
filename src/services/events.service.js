@@ -1,5 +1,5 @@
 import { db, storage } from '../firebase/firebase-config'
-import { get, set, ref, update, push, remove, orderByKey, equalTo, query } from 'firebase/database';
+import { get, set, ref, update, push, remove, orderByKey, equalTo, query} from 'firebase/database';
 import { uploadBytesResumable, getDownloadURL, ref as sRef } from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs';
@@ -42,12 +42,12 @@ export const getEventByHandle = (uid) => {
           id: newEventKey,
           isPublic: isPublic,
           isOnline: isOnline,
+          isExpired: false,
           reoccurrence: reoccurrence === eventReoccurrence.never ? null : reoccurrence,
         };
     
         await set(newEventRef, eventData);
-    
-        // Update user's events and statistics
+
         const userRef = ref(db, `users/${eventOwner}`);
         const userSnapshot = await get(userRef);
         const userData = userSnapshot.val();
@@ -69,7 +69,7 @@ export const getEventByHandle = (uid) => {
           };
           
           await update(ref(db), updateUserEvents);
-        // return getEventById(newEventKey); need to create the getEventById func so this returns the newly created event object
+
           return newEventKey;
         } else {
           console.error('Invalid userSnapshot data structure');
@@ -103,6 +103,27 @@ export const getEventByHandle = (uid) => {
       }
     };
 
+
+
+    export const getAllArchivedEvents = async () => {
+      try {
+        const eventsRef = ref(db, 'archived-events');
+        const snapshot = await get(eventsRef);
+        const events = [];
+    
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            const eventData = childSnapshot.val(); 
+            events.push(eventData);
+          });
+        }
+    
+        return events;
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        throw error;
+      }
+    };
 
     export const getPublicEvents = async () => {
       try {
@@ -221,5 +242,36 @@ export const getEventByHandle = (uid) => {
       }
     };
  
+
+
+    export const archiveExpiredEvents = async (eventID, title, eventOwner, endDate, location, description, participants, photo ) => {
+      
+      try {
+        const archivedEventRef = ref(db, 'archived-events');
+        const newArchivedEventRef = push(archivedEventRef);
+        const archivedEventKey = newArchivedEventRef.key
+
+        const archivedEventData = {
+          title: title,
+          eventOwner: eventOwner,
+          endDate: endDate,
+          location: location,
+          description: description,
+          participants: participants,
+          photo: photo,
+          id: archivedEventKey,
+          archivedOn: currentDateTimeString,
+        };
+
+        await set(newArchivedEventRef, archivedEventData);
+
+        const eventRef = ref(db, `events/${eventID}`);
+        await remove(eventRef);
+        
+      } catch (error) {
+        console.error(error)
+      }
+
+    };
 
 
