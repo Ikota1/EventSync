@@ -70,7 +70,7 @@ export const NewsData = () => {
           ref={sliderRef}
           className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar">
           {eventsData.map((el, index) => (
-            <div className="inline-block px-3 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105" key={el.id}>
+            <div className="inline-block px-3 py-11 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105" key={el.id}>
               <div
                 id={el.id}
                 className={`w-96 h-auto max-w-xs cursor-pointer overflow-hidden rounded-lg hover:scale-105 duration-300 ease-in-out`}
