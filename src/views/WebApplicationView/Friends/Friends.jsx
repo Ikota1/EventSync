@@ -38,6 +38,10 @@ const Friends = () => {
   const handleRemoveFriendBtnClick = async (userToDeleteID, deletedUserName) => {
     try {
       await deleteFriend(userData.uid, userToDeleteID)
+
+      const updatedUserFriends = userFriends.filter((user) => user.uid !== userToDeleteID);
+
+      setUserFriends(updatedUserFriends);
       toast.success(`${deletedUserName} has been deleted from your Friendlist.`)
     } catch (error) {
       console.error(error)
