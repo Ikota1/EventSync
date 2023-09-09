@@ -128,6 +128,7 @@
   }
 }
 
+/* Landing page horizontal scroll */
 @layer utilities {
   @variants responsive {
     .no-scrollbar::-webkit-scrollbar {
@@ -140,6 +141,33 @@
     }
   }
 }
+
+/* Infinite scroll */
+@keyframes infiniteScroll {
+  from {transform: translateX(0) }
+  to {transform: translateX(calc(0px - 50% - 50%));}
+}
+#horizontal-scrolling-items {
+  animation-name: infiniteScroll;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+#horizontal-scrolling-items {
+  display: flex;
+  font-size: 16px;
+  width: 2600px;
+  animation-name: infiniteScroll;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  margin: 25px 0 50px
+}
+#horizontal-scrolling-items__item {
+  white-space: nowrap;
+}
+
 
 .feature-card:hover {
   background: var(--black-gradient);
