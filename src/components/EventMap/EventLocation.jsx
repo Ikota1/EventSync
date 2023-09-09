@@ -28,8 +28,7 @@ const EventLocation = ({ userLocation }) => {
             <GoogleMap
                 center={userDefLocation}
                 zoom={14}
-                mapContainerStyle={{ width: '400px', height: '300px', borderRadius:"5px"}}
-            >
+                mapContainerStyle={{ width: 'auto', height: '300px', borderRadius: "5px" }}>
                 <Marker position={userDefLocation} />
             </GoogleMap>
         </div>
