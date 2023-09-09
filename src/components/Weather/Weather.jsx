@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const LocationResults = ({ location: { location, current } }) => {
     return (
-        <div className="flex flex-row items-center p-3 justify-evenly rounded-md bg-gray-700 w-50 sm:px-5 dark:text-gray-100">
+        <div className="flex flex-row items-center p-3 justify-start rounded-md w-50 sm:px-5 dark:text-gray-100">
             <div className='flex flex-col text-left'>
                 <div className="text-center">
                     <h2 className="text-base font-normal font-poppins">{location?.name}</h2>

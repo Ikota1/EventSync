@@ -43,43 +43,43 @@ const Dashboard = () => {
         <main>
           <div className="px-4">
             <div className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-              <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+              <div className="bg-gray-800 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div className="mb-4 flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Latest Events</h3>
-                    <span className="text-base font-normal text-gray-500">
+                    <h3 className="text-xl font-bold text-white mb-2">Latest Events</h3>
+                    <span className="text-base font-normal text-gray-400">
                       This is a list of latest events
                     </span>
                   </div>
                   <div className="flex-shrink-0">
-                    <button className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2" onClick={() => navigate(`../events`)}>View All</button>
+                    <button className="text-sm font-medium text-white hover:bg-gray-700 rounded-lg p-2" onClick={() => navigate(`../events`)}>View All</button>
                   </div>
                 </div>
                 {loading ? (
-                  <div className="text-center">Loading...</div>
+                  <div className="text-center text-white">Loading...</div>
                 ) : (
                   <div className="flex flex-col mt-8">
-                    <div className=" rounded-lg">
+                    <div className="rounded-lg">
                       <div className="align-middle inline-block min-w-full">
-                        <div className="shadow overflow-hidden sm:rounded-lg">
+                        <div className="overflow-hidden sm:rounded-lg">
                           <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
+                            <thead className="bg-gray-800">
                               <tr>
-                                <th scope="col" className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Events</th>
-                                <th scope="col" className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start Time</th>
-                                <th scope="col" className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Events</th>
+                                <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Start Time</th>
+                                <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Amount</th>
                               </tr>
                             </thead>
-                            <tbody className="bg-white">
+                            <tbody className="bg-gray-800">
                               {allPublicEvents.slice(-5).map((ev) => (
                                 <tr key={ev.id}>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-white">
                                     <span className="font-semibold">{ev.title}</span>
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-white">
                                     {ev.startDate}
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-white">
                                     $2300
                                   </td>
                                 </tr>
@@ -96,13 +96,13 @@ const Dashboard = () => {
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4"></div>
               ) : (
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-gray-800 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                        <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                           {liveEvents.length}
                         </span>
-                        <h3 className="text-base font-normal text-gray-500">Live Events</h3>
+                        <h3 className="text-base font-normal text-gray-400">Live Events</h3>
                       </div>
                       <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
                         14.6%
@@ -119,13 +119,13 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-gray-800 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                        <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                           {onlineEvents.length}
                         </span>
-                        <h3 className="text-base font-normal text-gray-500">Online Events</h3>
+                        <h3 className="text-base font-normal text-gray-400">Online Events</h3>
                       </div>
                       <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
                         32.9%
@@ -146,9 +146,9 @@ const Dashboard = () => {
               )}
             </div>
             <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4 gap-3">
-              <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+              <div className="bg-gray-800 shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold leading-none text-gray-900">Latest Users</h3>
+                  <h3 className="text-xl font-bold leading-none text-white">Latest Users</h3>
                 </div>
                 <div className="flow-root">
                   <ul role="list" className="divide-y divide-gray-200">
@@ -165,7 +165,7 @@ const Dashboard = () => {
                             )}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 truncate">
+                            <p className="text-sm font-medium text-white truncate">
                               {user.userName}
                             </p>
                           </div>
@@ -178,9 +178,6 @@ const Dashboard = () => {
             </div>
           </div>
         </main>
-        <p className="text-center text-sm text-gray-500 my-10">
-          &copy; 2023 <a href="#" className="hover:underline" target="_blank">EventSync</a>. All rights reserved.
-        </p>
       </div>
     </div>
   );

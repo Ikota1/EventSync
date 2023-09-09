@@ -7,7 +7,7 @@ const MonthControl = ({ date, onChange }) => {
   const currentDate = () => onChange(new Date());
 
   return (
-    <div className='flex items-center mx-4'>
+    <div className='flex items-center'>
       <button onClick={currentDate}>Today</button>
       <button onClick={prevMonth}>
         <img src={arrowLeft} alt="" />

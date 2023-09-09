@@ -22,7 +22,7 @@ const Sidebar = () => {
       .then(res => res.json())
       .then(setCity);
   }, [])
-  
+
 
   const onLogout = () => {
     logoutUser().then(() => {
@@ -31,14 +31,13 @@ const Sidebar = () => {
         userData: null,
       });
     });
-
   };
 
   return (
     <>
-      <div className={` ${open ? "w-72" : "w-20 "} h-screen p-5 pt-8 relative duration-300 bg-gray-800`}>
+      <div className={` ${open ? "w-72" : "w-20 "} h-screen p-5 pt-8 relative duration-300 bg-gray-900`}>
         <img src={control}
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
+          className={`absolute cursor-pointer -right-3 top-9 w-7 border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)} />
         <div className="flex gap-x-4 items-center">
           <img src={logoIcon} className={`cursor-pointer duration-500 w-[32px] h-auto `} />
@@ -49,7 +48,7 @@ const Sidebar = () => {
         <ul className="pt-6">
           {navLinksSidebar.map((nav, index) => (
             <NavLink key={nav.id} to={nav.id} className=''>
-              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-dimWhite text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
+              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-gray-700 text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
                 <img src={nav.img} className='w-[20px] h-auto' />
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
                   {nav.title}
@@ -57,29 +56,36 @@ const Sidebar = () => {
               </li>
             </NavLink>
           ))}
-          {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-dimWhite text-sm items-center gap-x-4 `}>
+          {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-gray-700 text-sm items-center gap-x-4 `}>
             <img src={adminIcon} className='w-[20px] h-auto' />
             <span className={`${!open && "hidden"} origin-left duration-200`}>
               Admin
             </span>
           </NavLink>)}
-          <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
-            <img src={signOut} className='w-[20px] h-auto' />
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
-              Logout
-            </span>
-          </NavLink>
         </ul>
         {open ? (
           <div className='sticky top-[100vh] duration-300'>
             <LocationResults location={city} />
+            <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-gray-700 text-sm items-center gap-x-4' onClick={onLogout}>
+              <img src={signOut} className='w-[20px] h-auto' />
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
+                Logout
+              </span>
+            </NavLink>
           </div>
         ) : (
           <div className='sticky top-[100vh]'>
             {null}
+            <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
+              <img src={signOut} className='w-[20px] h-auto' />
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
+                Logout
+              </span>
+            </NavLink>
           </div>
         )}
       </div>
+
     </>
   )
 }
