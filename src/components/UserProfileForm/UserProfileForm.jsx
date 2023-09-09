@@ -24,22 +24,30 @@ const UserProfileForm = ({ onClose, formData }) => {
 
     const userSchema = Yup.object().shape({
         firstName: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
             .min(1, 'Too Short!')
             .max(30, 'Too Long!')
             .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
         lastName: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
             .min(1, 'Too Short!')
             .max(30, 'Too Long!')
             .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
         phone: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
             .matches(phoneRegEx, 'Phone number is not valid')
             .min(10, "Phone number is too short!")
             .max(10, "Phone number is too long!"),
         email: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
             .email('Must be a valid email!')
             .max(25)
-            .required('Email is required!')
-            .matches(/^(?!.*@[^,]*,)/),
+            .matches(/^(?!.*@[^,]*,)/)
+            .notRequired()
     });
 
     const formOptions = { resolver: yupResolver(userSchema) };
@@ -112,9 +120,8 @@ const UserProfileForm = ({ onClose, formData }) => {
                                 <input
                                     type="text"
                                     {...register("firstName")}
-                                    value={userProfileData.firstName || ''}
                                     onChange={(e) => { handleInputChange("firstName", e.target.value) }}
-
+                                    value={userProfileData.firstName || ''}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 <div className="invalid-feedback">{errors.firstName?.message}</div>
                             </div>
