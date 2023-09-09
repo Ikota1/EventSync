@@ -39,6 +39,24 @@
     background: #555;
 }
 
+.ql-container, .ql-snow, .ql-disabled {
+  border: none !important;
+}
+
+.ql-editor {
+  padding: 0;
+}
+
+.ql-picker-label {
+  color: #fff;
+}
+
+.ql-snow .ql-stroke {
+  stroke: #fff;
+}
+
+/* Optional: Change the color on hover */
+
 .text-gradient {
   background: radial-gradient(
     64.18% 64.18% at 71.16% 35.69%,

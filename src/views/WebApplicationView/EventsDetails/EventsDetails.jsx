@@ -9,6 +9,8 @@ import instIcon from '../../../assets/animation_lm9cz07c.json'
 import linkedinIcon from '../../../assets/animation_lm9d7gvz.json'
 import clockIcon from '../../../assets/animation_lm9dbhqr.json'
 import EventLocation from '../../../components/EventMap/EventLocation';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const EventsDetails = () => {
   const params = useParams()
@@ -54,7 +56,13 @@ const EventsDetails = () => {
       </div>
 
       <div className='flex flex-col gap-4 items-start'>
-        <p>{eventsDetailed.description}</p>
+        <div>
+          <ReactQuill
+            readOnly
+            value={eventsDetailed.description}
+            theme="snow"
+            modules={{ toolbar: false }} />
+        </div>
         <hr className='w-[500px] opacity-20' />
         <div className='flex justify-between w-[500px] items-center'>
           <button className="bg-blue-500 text-white px-2 py-1 rounded mb-4" >
