@@ -68,7 +68,7 @@ const ControlEvents = () => {
 
   return (
     <>
-    <AdminLinks />
+      <AdminLinks />
       <div className="flex justify-center mt-8">
         <input
           type="text"
@@ -95,7 +95,6 @@ const ControlEvents = () => {
                 <p>{format(new Date(event.startDate), "do MMM")} | {event.startHour}h - {event.endHour}h</p>
                 <EventEditBtn eventId={event.id} />
                 <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
-
               </div>
             )))
         }

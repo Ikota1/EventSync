@@ -24,15 +24,15 @@ function Calendar() {
       <div className="flex-grow">
         <div className="flex justify-between items-center max-h-[800px]">
           <ViewControl view={view} setView={setView} />
+          <CreateEventButton />
         </div>
-        <div className="max-h-[750px] overflow-y-scroll bg-gray-900 rounded border-2 text-white">
+        <div className="max-h-[750px] overflow-y-scroll rounded text-white">
           {view === calendarViews.MONTH && <MonthCalendar date={date} setDate={setDate} />}
           {view === calendarViews.DAY && <DayCalendar date={date} setDate={setDate} />}
           {view === calendarViews.WEEK && <WeekCalendar date={date} setDate={setDate} fullWeek={true} />}
           {view === calendarViews.WORK_WEEK && <WeekCalendar date={date} setDate={setDate} fullWeek={false} />}
         </div>
       </div>
-      <CreateEventButton />
       {/* {(view === calendarViews.MONTH || view === calendarViews.DAY) && <Agenda date={date} />} */}
       {/* {isOpen && <AddEventModal onClose={closeModal} />} */}
     </div>

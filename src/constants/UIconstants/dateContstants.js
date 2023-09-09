@@ -23,17 +23,15 @@ export const isIntermediateDate = (date, event) => {
   if (areDatesTheSame(currentDate, eventEndDate)) {
     return false
   }
-  if (
-    (event.isEndless === true || (!event.isEndless && currentDate < event.endOfSeries)) &&
-    intermediateDates > 0 &&
-    !areDatesTheSame(event.startDate, eventEndDate)
-  ) {
+
+  if (intermediateDates > 0 &&!areDatesTheSame(event.startDate, eventEndDate)) {
     if (
       event.reoccurrence === eventReoccurrence.weekly &&
       Math.round(intermediateDates % countDays.Weekly) <= Math.round(event.duration / 24)
     ) {
       return true
     }
+
     if (
       event.reoccurrence === eventReoccurrence.monthly &&
       eventStartDate.getDate() <= currentDate.getDate() &&
@@ -41,6 +39,7 @@ export const isIntermediateDate = (date, event) => {
     ) {
       return true
     }
+
     if (
       event.reoccurrence === eventReoccurrence.yearly &&
       eventStartDate.getDate() <= currentDate.getDate() &&
@@ -59,6 +58,7 @@ export const getEventsForDate = (events, date) =>
     if (!event.startDate || !event.endDate) {
       return false;
     }
+
     const eventStartDate = new Date(event.startDate)
     const eventEndDate = new Date(event.endDate)
     const currentDate = date
@@ -70,9 +70,9 @@ export const getEventsForDate = (events, date) =>
     if (eventStartDate <= currentDate && currentDate <= eventEndDate) {
       return true
     }
+
     if (
       eventStartDate < currentDate &&
-      (event.isEndless === true || (!event.isEndless && currentDate < event.endOfSeries)) &&
       ((event.reoccurrence === eventReoccurrence.daily && intermediateDates % countDays.Daily === 0) ||
         (event.reoccurrence === eventReoccurrence.weekly && intermediateDates % countDays.Weekly === 0) ||
         (event.reoccurrence === eventReoccurrence.monthly && currentDate.getDate() === eventStartDate.getDate()) ||
@@ -82,6 +82,7 @@ export const getEventsForDate = (events, date) =>
     ) {
       return true
     }
+    
     if (isIntermediateDate(date, event)) return true
     return areDatesTheSame(currentDate, event.startDate)
   })

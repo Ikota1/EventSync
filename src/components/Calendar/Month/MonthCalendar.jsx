@@ -35,7 +35,7 @@ const MonthCalendar = ({ date, setDate }) => {
 
   return (
     <div className="flex flex-col justify-center">
-      <div className="sticky top-0 z-60 bg-white dark:bg-gray-900">
+      <div className="sticky top-0 z-60 ">
         <MonthControl date={date} onChange={onChange} />
         <hr className="mb-2" />
         <Week />
