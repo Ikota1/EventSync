@@ -7,7 +7,7 @@ const UserEditProfileButton = ( {formData} ) => {
     setShowUpdateForm(!showUpdateFrom);
   };
   
-  const handleCloseForm = (updatedData) => {
+  const handleCloseForm = () => {
     setShowUpdateForm(false);
   };
   
