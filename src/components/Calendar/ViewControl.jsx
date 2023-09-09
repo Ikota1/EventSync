@@ -9,7 +9,7 @@ const ViewControl = ({ view, setView }) => {
   }
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left mb-3">
       <button
         onClick={toggleDropdown}
         type="button"
@@ -24,7 +24,7 @@ const ViewControl = ({ view, setView }) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+        <div className="fixed z-10 left-70 top-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
           <div className="py-1" role="none">
             <ul onClick={() => setIsDropdownOpen(false)}>
               {Object.values(calendarViews).map((v) => (
