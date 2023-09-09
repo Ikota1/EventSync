@@ -12,7 +12,6 @@ const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [city, setCity] = useState({})
 
-
   const isAdmin = userData?.userRole === USER_ROLES.Admin;
 
   useEffect(() => {
@@ -22,7 +21,6 @@ const Sidebar = () => {
       .then(res => res.json())
       .then(setCity);
   }, [])
-
 
   const onLogout = () => {
     logoutUser().then(() => {
@@ -35,7 +33,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={` ${open ? "w-72" : "w-20 "} h-screen p-5 pt-8 relative duration-300 bg-gray-900`}>
+      <div className={` ${open ? "w-64" : "w-20 "} h-screen p-5 pt-8 relative duration-300 bg-gray-900`}>
         <img src={control}
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)} />
