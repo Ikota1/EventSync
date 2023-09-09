@@ -18,6 +18,7 @@ const UserProfileForm = ({ onClose, formData }) => {
     const [avatarName, setAvatarName] = useState("");
     const [userAbout, setUserAbout] = useState("");
     const [addressLocation, setAddressLocation] = useState("")
+    const [doNotDisturb, setDoNotDisturb] = useState(true);
 
     var phoneRegEx = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -49,6 +50,7 @@ const UserProfileForm = ({ onClose, formData }) => {
         setUserProfileData(userData);
         setUserAbout(userData.about || "");
         setAddressLocation(userData.address || "")
+        setDoNotDisturb(userData?.doNotDisturb)
     }, [userData]);
 
     if (!userData) {
@@ -69,19 +71,21 @@ const UserProfileForm = ({ onClose, formData }) => {
     };
 
     const onSubmit = async () => {
-
         let updatedProfile = { ...userProfileData, about: userAbout, address: addressLocation };
 
         if (avatar) {
             const photoURL = await uploadProfilePhoto(userData.uid, avatar);
             updatedProfile.photo = photoURL;
         }
-
         await updateUserProfile(userData.uid, updatedProfile);
-
         onClose();
-
     };
+
+    const handleDoNotDisturb = async () => {
+        let updatedProfile = { ...userData, doNotDisturb: !doNotDisturb };
+        await updateUserProfile(userData.uid, updatedProfile);
+        setDoNotDisturb(!doNotDisturb)
+    }
 
     return (
         <section>
@@ -164,6 +168,16 @@ const UserProfileForm = ({ onClose, formData }) => {
                                 accept="image/*"
                                 onChange={handleAvatarChange}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <label className="relative flex mb-5 cursor-pointer  mt-5">
+                                <input
+                                    type="checkbox"
+                                    value=""
+                                    className="sr-only peer"
+                                    checked={doNotDisturb || ''}
+                                    onChange={handleDoNotDisturb} />
+                                <div className={`w-9 h-5 bg-gray-200 rounded-full peer ${doNotDisturb === true ? 'peer-checked:bg-purple-500' : 'dark:bg-gray-300'}  dark:border-gray-600  dark:peer-checked:after:translate-x-full  dark:peer-checked:bg-purple-500 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:border-white`}></div>
+                                <span className={`${doNotDisturb === true ? `ml-3 text-sm font-normal font-poppins text-purple-500` : `ml-3 text-sm font-normal font-poppins text-gray-900 dark:text-gray-300`} `}>Incognito</span>
+                            </label>
                             <div className="flex items-center justify-between">
                                 <button
                                     type="button"

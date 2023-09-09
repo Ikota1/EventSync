@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, } from "react";
 import { AuthContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 import UserEditProfileButton from "../UserEditProfileButton/UserEditProfileButton";
-import { updateUserProfile } from "../../services/user.services";
 import { getInitials } from "../../constants/helpersFns/getInitials";
 
 export const UserProfile = () => {
@@ -86,16 +85,16 @@ export const UserProfile = () => {
           <p className="font-light dark:text-white mt-3">{`#${userData.userName}`}</p>
         </div>
         <div className="font-normal font-poppins mt-12 flex flex-col justify-center text-justify pb-12">
-          <h3 className="text-center underline dark: text-purple-500 pb-2">About</h3>          
-            {userData && userData.about ? (
-              <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
+          <h3 className="text-center underline dark: text-purple-500 pb-2">About</h3>
+          {userData && userData.about ? (
+            <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
               {userData.about}
-              </p>
-            ) : (
-              <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
+            </p>
+          ) : (
+            <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
               Edit your profile and tell us more about yourself!
-              </p>             
-            )}
+            </p>
+          )}
         </div>
       </div>
     </div>

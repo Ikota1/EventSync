@@ -21,10 +21,8 @@ export const ControlUsers = () => {
         const getUsers = async () => {
             try {
                 const fetchedUsers = await getAllUsers();
-
                 setUsers(fetchedUsers);
                 setFilteredUsers(fetchedUsers);
-
             } catch (error) {
                 console.error('Error:', error);
                 setError(error);
@@ -80,7 +78,7 @@ export const ControlUsers = () => {
             await blockUser(uid);
             toast.success('User has been blocked successfully!')
         } catch (error) {
-    
+
             toast.error('Failed to block user')
         }
     }
@@ -135,7 +133,7 @@ export const ControlUsers = () => {
 
     return (
         <>
-        <AdminLinks/>
+            <AdminLinks />
             <div className="flex justify-center mt-8">
                 <input
                     type="text"
@@ -220,7 +218,7 @@ export const ControlUsers = () => {
                                                         </span>
                                                     ) : (
                                                         <span className="rounded-full bg-red-200 px-3 py-1 text-xs font-semibold text-green-900">
-                                                            DND
+                                                            Inactive
                                                         </span>
                                                     )}
 
