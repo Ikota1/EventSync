@@ -4,6 +4,7 @@ import { getAllEvents } from '../../../services/events.service';
 import EventDeleteBtn from '../../../components/EventDeleteBtn/EventDeleteBtn';
 import EventEditBtn from '../../../components/EventEditBtn/EventEditBtn';
 import { useNavigate } from 'react-router';
+import AdminLinks from './AdminLinks';
 
 const ControlEvents = () => {
   const [searchItem, setSearchItem] = useState('');
@@ -67,6 +68,7 @@ const ControlEvents = () => {
 
   return (
     <>
+    <AdminLinks />
       <div className="flex justify-center mt-8">
         <input
           type="text"

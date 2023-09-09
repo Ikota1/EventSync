@@ -54,12 +54,11 @@ const AppRouter = () => (
       <Route path="calendar" element={<Calendar />} />
       <Route path="support" element={<Support />} />
       <Route path="settings" element={<Settings />} />
-      <Route element={<AdminRoute />}>
-        <Route path="admin" element={<Admin />}>
-          <Route path="controlusers" element={<ControlUsers />} />
-          <Route path="controlevents" element={<ControlEvents />} />
-        </Route>
-      </Route>
+    <Route element={<AdminRoute />}>
+      <Route path="admin" element={<Admin />} />
+      <Route path="control-users" element={<ControlUsers />} />
+      <Route path="control-events" element={<ControlEvents />} /> 
+    </Route>
 
       <Route path="/application" element={<Navigate to="/application/dashboard" />} />
     </Route>

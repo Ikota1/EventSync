@@ -4,6 +4,7 @@ import getCountryNameByCode from "../../../constants/countries"
 import getUserRoleByCode, { USER_ROLES } from "../../../constants/userRoles"
 import toast from 'react-hot-toast'
 import { getInitials } from '../../../constants/helpersFns/getInitials'
+import AdminLinks from './AdminLinks'
 
 export const ControlUsers = () => {
     const [searchItem, setSearchItem] = useState('')
@@ -13,7 +14,7 @@ export const ControlUsers = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
-    const usersPerPage = 7;
+    const usersPerPage = 6;
     const [rerender, setRerender] = useState(false);
 
     useEffect(() => {
@@ -48,7 +49,6 @@ export const ControlUsers = () => {
         setSearchItem(searchTerm);
 
         const searchWords = searchTerm.split(" ");
-
         let filteredItems = [];
 
         if (selectedSearchType === 'fullname') {
@@ -80,7 +80,7 @@ export const ControlUsers = () => {
             await blockUser(uid);
             toast.success('User has been blocked successfully!')
         } catch (error) {
-            console.error('Error:', error)
+    
             toast.error('Failed to block user')
         }
     }
@@ -99,7 +99,6 @@ export const ControlUsers = () => {
             await unblockUser(uid);
             toast.success('User has been unblocked successfully!')
         } catch (error) {
-            console.error('Error:', error)
             toast.success('Failed to unblock user!')
         }
     }
@@ -136,6 +135,7 @@ export const ControlUsers = () => {
 
     return (
         <>
+        <AdminLinks/>
             <div className="flex justify-center mt-8">
                 <input
                     type="text"
