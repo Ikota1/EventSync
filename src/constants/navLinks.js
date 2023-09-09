@@ -17,10 +17,6 @@ export const navLinksNavbar = [
     id: "login",
     title: "Login",
   },
-  {
-    id: "signup",
-    title: "Get Started",
-  },
 ];
 
 export const navLinksSidebar = [
