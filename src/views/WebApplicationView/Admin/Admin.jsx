@@ -2,25 +2,28 @@ import { getAllUsers } from '../../../services/user.services'
 import { useEffect, useState } from "react"
 import { getAllEvents } from "../../../services/events.service"
 import AdminLinks from "./AdminLinks"
-
+import BarChartUsers from '../../../components/BarChart/barChartUsers'
+import BarChartEvents from '../../../components/BarChart/BarChartEvents'
 
 export const Admin = () => {
   const [users, setUsers] = useState([])
   const [events, setEvents] = useState([])
-
+  const [isUsersFetched, setIsUsersFetched] = useState(false)
+  const [isEventsFetched, setIsEventsFetched] = useState(false)
 
   useEffect(() => {
     const getUsers = async () => {
       try {
         const fetchedUsers = await getAllUsers();
         setUsers(fetchedUsers);
+        setIsUsersFetched(true)
       } catch (error) {
         console.error('Error:', error);
       }
     };
 
     getUsers();
-  }, []);
+  }, [setUsers]);
 
 
   useEffect(() => {
@@ -28,7 +31,7 @@ export const Admin = () => {
       try {
         const fetchedEvents = await getAllEvents()
         setEvents(fetchedEvents)
-
+        setIsEventsFetched(true)
       } catch (error) {
         console.error('Error:', error);
       }
@@ -40,21 +43,30 @@ export const Admin = () => {
 
   return (
     <>
+
       <AdminLinks />
+
       <div className={`flex justify-center pt-12 space-x-6 text-white`}>
-          <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
-            <div className="border-b border-purple-700 mb-2 pb-2 bg-blend-color">Total registered users</div>
-            <div className="text-3xl font-semibold">{users.length}</div>
-          </div>
-          <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
-            <div className="border-b border-purple-700 mb-2 pb-2">Total Events created</div>
-            <div className="text-3xl font-semibold">{events.length}</div>
-          </div>
-          <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
-            <div className="border-b border-purple-700 mb-2 pb-2">Tickets sold to date</div>
-            <div className="text-3xl font-semibold">0</div>
-          </div>
+        <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
+          <div className="border-b border-purple-700 mb-2 pb-2 bg-blend-color">Total registered users</div>
+          <div className="text-3xl font-semibold">{users.length}</div>
+        </div>
+        <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
+          <div className="border-b border-purple-700 mb-2 pb-2">Total Events created</div>
+          <div className="text-3xl font-semibold">{events.length}</div>
+        </div>
+        <div className="flex flex-col items-center border border-gray-300 rounded-lg p-6">
+          <div className="border-b border-purple-700 mb-2 pb-2">Tickets sold to date</div>
+          <div className="text-3xl font-semibold">0</div>
+        </div>
       </div>
+
+      {(isUsersFetched && isEventsFetched) && (
+        <div className='flex justify-center pt-20'>
+          <BarChartUsers users={users} />
+          <BarChartEvents events={events} />
+        </div>
+      )}
 
     </>
   )

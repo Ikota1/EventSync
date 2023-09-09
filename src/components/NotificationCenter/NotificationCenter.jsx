@@ -28,7 +28,7 @@ const NotificationCenter = ({ onClick }) => {
                 {notificationCount}
             </div>
             {expanded && (
-                <div id="toast-undo" className="flex absolute top-16 right-7 items-center w-50 max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+                <div id="toast-undo" className="flex z-30 absolute top-16 right-7 items-center w-50 max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
                     <div className="text-sm font-normal">
                         You have a new friend request.
                     </div>
