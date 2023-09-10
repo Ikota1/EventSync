@@ -1,15 +1,18 @@
 import { get, ref } from 'firebase/database';
+import { auth, db } from '../../../firebase/firebase-config';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AuthContext } from '../../../context/UserContext';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getUserByHandle } from '../../../services/user.services';
+import { addUserToEvent, removeUserFromEvent } from '../../../services/events.service'
+import { getInitials } from '../../../constants/helpersFns/getInitials';
 import Lottie from 'lottie-react';
-import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useNavigate, useParams } from 'react-router-dom';
 import clockIcon from '../../../assets/animation_lm9dbhqr.json';
 import EventLocation from '../../../components/EventMap/EventLocation';
-import { auth, db } from '../../../firebase/firebase-config';
-import { getUserByHandle } from '../../../services/user.services';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { addUserToEvent, removeUserFromEvent } from '../../../services/events.service'
+
 
 const EventsDetails = () => {
   const params = useParams()
@@ -19,6 +22,7 @@ const EventsDetails = () => {
   const [userEventOwner, setUserEventOwner] = useState(null);
   const [attendance, setAttendance] = useState(false)
   const [attendingUsers, setAttendingUsers] = useState([])
+  const { userData } = useContext(AuthContext)
   const navigate = useNavigate();
 
   const fetchEventData = async () => {
@@ -50,17 +54,36 @@ const EventsDetails = () => {
   }, []);
 
   useEffect(() => {
+
     if (user.uid && eventsDetailed && eventsDetailed.participants.includes(user.uid)) {
       setAttendance(true);
     } else {
       setAttendance(false);
+    }
+    const fetchAttendingUsers = async () => {
+      try {
+        const users = await Promise.all(eventsDetailed.participants.map(async (participantUid) => {
+            const user = await getUserByHandle(participantUid);
+            return user.val();
+          })
+        );
+        setAttendingUsers(users);
+      } catch (error) {
+        console.error('Error fetching attending users', error);
+      }
+    };
+
+    if (eventsDetailed) {
+      fetchAttendingUsers();
     }
   }, [user, eventsDetailed]);
 
   const handleAttendBtnClick = async () => {
     try {
       await addUserToEvent(user.uid, params.id);
-      setAttendance(true);
+       setAttendance(true);
+       setAttendingUsers((prevAttendingUsers) => [...prevAttendingUsers, userData]);
+
     } catch (error) {
       console.error('Error while adding user to event', error);
     }
@@ -69,7 +92,9 @@ const EventsDetails = () => {
   const handleUnAttendBtnClick = async () => {
     try {
       await removeUserFromEvent(user.uid, params.id);
-      setAttendance(false);
+       setAttendance(false);
+       setAttendingUsers((prevAttendingUsers) => prevAttendingUsers.filter((u) => u.uid !== userData.uid));
+
     } catch (error) {
       console.error('Error while removing user from event', error);
     }
@@ -115,6 +140,37 @@ const EventsDetails = () => {
             </div>
             <div className='w-full'>
               <EventLocation userLocation={eventsDetailed.location || ''} />
+            </div>
+            <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4 gap-3">
+              <div className="bg-gray-800 shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold leading-none text-white">Event Participants</h3>
+                </div>
+                <div className="flow-root">
+                  <ul role="list" className="divide-y divide-gray-200">
+                    {attendingUsers.map((user) => (
+                      <li key={user.uid} className="py-3 sm:py-4">
+                        <div className="flex items-center space-x-4">
+                          <div className="flex-shrink-0">
+                            {user && user.photo ? (
+                              <img className="h-8 w-8 rounded-full" src={user.photo} alt="Avatar" />
+                            ) : (
+                              <span className="h-8 w-8 rounded-full flex items-center justify-center bg-indigo-100">
+                                {getInitials(user?.firstName, user?.lastName)}
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-white truncate">
+                              {user.userName}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </>
         )}
