@@ -275,3 +275,72 @@ export const getEventByHandle = (uid) => {
     };
 
 
+    export const addUserToEvent = async (userID, eventID) => {
+      try {
+        const userRef = ref(db, `users/${userID}`);
+        const eventRef = ref(db, `events/${eventID}`);
+    
+        const userSnapshot = await get(userRef);
+        const eventSnapshot = await get(eventRef);
+    
+        const userData = userSnapshot.val();
+        const eventData = eventSnapshot.val();
+    
+        if (userData && eventData) {
+
+          const updatedUserEvents = userData.events || [];
+          updatedUserEvents.push(eventID);
+
+          const updatedEventParticipants = eventData.participants || [];
+          updatedEventParticipants.push(userID);
+
+          const updateObj = {
+            [`users/${userID}/events`]: updatedUserEvents,
+            [`events/${eventID}/participants`]: updatedEventParticipants,
+          };
+    
+          await update(ref(db), updateObj);
+        }
+      } catch (error) {
+        console.error('Error updating event attendance:', error);
+      }
+    };
+
+
+    export const removeUserFromEvent = async (userID, eventID) => {
+      try {
+        const userRef = ref(db, `users/${userID}`);
+        const eventRef = ref(db, `events/${eventID}`);
+    
+        const userSnapshot = await get(userRef);
+        const eventSnapshot = await get(eventRef);
+    
+        const userData = userSnapshot.val();
+        const eventData = eventSnapshot.val();
+    
+        if (userData && eventData) {
+ 
+          const updatedUserEvents = userData.events || [];
+          const eventIndex = updatedUserEvents.indexOf(eventID);
+          if (eventIndex !== -1) {
+            updatedUserEvents.splice(eventIndex, 1);
+          }
+    
+          const updatedEventParticipants = eventData.participants || [];
+          const userIndex = updatedEventParticipants.indexOf(userID);
+          if (userIndex !== -1) {
+            updatedEventParticipants.splice(userIndex, 1);
+          }
+    
+          const updateObj = {
+            [`users/${userID}/events`]: updatedUserEvents,
+            [`events/${eventID}/participants`]: updatedEventParticipants,
+          };
+    
+          await update(ref(db), updateObj);
+        }
+      } catch (error) {
+        console.error('Error removing user from event:', error);
+      }
+    };
+    
