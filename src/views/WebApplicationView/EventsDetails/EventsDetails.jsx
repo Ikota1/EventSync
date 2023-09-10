@@ -12,6 +12,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import clockIcon from '../../../assets/animation_lm9dbhqr.json';
 import EventLocation from '../../../components/EventMap/EventLocation';
+import EventInvite from '../../../components/EventInvite/EventInvite';
 
 
 const EventsDetails = () => {
@@ -106,6 +107,7 @@ const EventsDetails = () => {
 
   return (
     <div className='text-white'>
+      {attendance && <EventInvite/> }
       <div className='w-[60%] flex justify-between flex-col items-center mx-auto'>
         {eventsDetailed && (
           <>
