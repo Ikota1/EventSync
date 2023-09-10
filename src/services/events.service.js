@@ -21,7 +21,7 @@ export const getEventByHandle = (uid) => {
       return get(ref(db, `users/${uid}/events`))
     }
 
-    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, isOnline, reoccurrence) => {
+    export const createEventHandle = async (title, eventOwner, startDate, startHour, endDate, endHour, description, location, photo, isPublic, isOnline, reoccurrence, category) => {
       try {
         const eventRef = ref(db, 'events');
         const newEventRef = push(eventRef);
@@ -44,6 +44,7 @@ export const getEventByHandle = (uid) => {
           isOnline: isOnline,
           isExpired: false,
           reoccurrence: reoccurrence === eventReoccurrence.never ? null : reoccurrence,
+          category: category
         };
     
         await set(newEventRef, eventData);

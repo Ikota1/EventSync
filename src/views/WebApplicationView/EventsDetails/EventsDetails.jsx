@@ -129,7 +129,7 @@ const EventsDetails = () => {
                   <ReactQuill
                     className='text-md'
                     readOnly
-                    value={eventsDetailed.description || ''}
+                    value={eventsDetailed?.description || ''}
                     theme="snow"
                     modules={{ toolbar: false }} />
                 </span>
@@ -149,11 +149,11 @@ const EventsDetails = () => {
                 <div className="flow-root">
                   <ul role="list" className="divide-y divide-gray-200">
                     {attendingUsers.map((user) => (
-                      <li key={user.uid} className="py-3 sm:py-4">
+                      <li key={user?.uid} className="py-3 sm:py-4">
                         <div className="flex items-center space-x-4">
                           <div className="flex-shrink-0">
-                            {user && user.photo ? (
-                              <img className="h-8 w-8 rounded-full" src={user.photo} alt="Avatar" />
+                            {user && user?.photo ? (
+                              <img className="h-8 w-8 rounded-full" src={user?.photo} alt="Avatar" />
                             ) : (
                               <span className="h-8 w-8 rounded-full flex items-center justify-center bg-indigo-100">
                                 {getInitials(user?.firstName, user?.lastName)}
@@ -162,7 +162,7 @@ const EventsDetails = () => {
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium text-white truncate">
-                              {user.userName}
+                              {user?.userName}
                             </p>
                           </div>
                         </div>

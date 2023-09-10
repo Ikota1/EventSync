@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 import { eventReoccurrence } from '../../constants/helpersFns/events.enum';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import eventCategories from '../../constants/categories';
 
 const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
@@ -27,7 +28,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
     reoccurrence: {
       repeat: 'none',
       endOfSeries: '',
-    }
+    },
+    category:'',
   });
 
   useEffect(() => {
@@ -80,6 +82,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
       eventData.isPublic,
       eventData.isOnline,
       eventData.reoccurrence,
+      eventData.category
     );
 
     if (tempIdentifier !== '' && eventId) {
@@ -102,7 +105,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
       reoccurrence: {
         repeat: 'none',
         endOfSeries: '',
-      }
+      },
+      category:'',
     });
     onClose();
   };
@@ -170,7 +174,22 @@ const EventForm = ({ onEventCreated, onClose }) => {
                     onChange={(e) => setEventData({ ...eventData, isPublic: e.target.checked })} />
                 </div>
               </div>
-
+              <div>
+                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                <select
+                  name="category"
+                  id="category"
+                  value={eventData.category || ""} // Add this line to bind the selected value
+                  onChange={(e) => setEventData({ ...eventData, category: e.target.value })}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                  <option value=""></option>
+                  {eventCategories.map((category) => (
+                    <option key={category.id} value={category.name} >
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <label>
                 <h4 className='pb-2'>Repeat:</h4>
                 <select
