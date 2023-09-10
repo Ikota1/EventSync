@@ -1,5 +1,6 @@
 import UserProfileForm from "../UserProfileForm/UserProfileForm";
 import { useState } from "react";
+import PropTypes from 'prop-types';
 
 const UserEditProfileButton = ( {formData} ) => {
   const [showUpdateFrom, setShowUpdateForm] = useState(false);
@@ -23,5 +24,10 @@ const UserEditProfileButton = ( {formData} ) => {
     </div>
   );
 };
+
+UserEditProfileButton.propTypes = {
+  formData: PropTypes.object.isRequired,
+};
+
 
 export default UserEditProfileButton;

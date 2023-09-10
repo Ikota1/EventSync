@@ -3,7 +3,6 @@ import LandingPage from "../views/LandingPageView/LandingPage/LandingPage";
 import Login from "../views/LandingPageView/Login/Login";
 import SignUpPartTwo from "../views/LandingPageView/SignUp/SignUpPartTwo";
 import SignUp from "../views/LandingPageView/SignUp/SignUp";
-import News from "../views/LandingPageView/News/News";
 import FAQ from "../views/LandingPageView/FAQ/FAQ";
 import ApplicationView from "../views/WebApplicationView/ApplicationView";
 import { auth } from "../firebase/firebase-config";
@@ -23,6 +22,8 @@ import PendingFriends from "../views/WebApplicationView/Friends/PendingFriends";
 import SearchFriends from "../views/WebApplicationView/Friends/SearchFriends";
 import EventsDetails from "../views/WebApplicationView/EventsDetails/EventsDetails";
 import EventHistory from "../views/WebApplicationView/Events.jsx/EventHistory";
+import PropTypes from 'prop-types';
+
 
 const AuthenticatedRoute = ({ element }) => {
   const [user, loading] = useAuthState(auth);
@@ -31,11 +32,14 @@ const AuthenticatedRoute = ({ element }) => {
 
 };
 
+AuthenticatedRoute.propTypes = {
+  element: PropTypes.element.isRequired,
+};
+
 const AppRouter = () => (
   <Routes>
     {/* Landing Page View */}
     <Route path="/" element={<LandingPage />} />
-    <Route path="/news" element={<News />} />
     <Route path="/faq" element={<FAQ />} />
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<SignUp />} />

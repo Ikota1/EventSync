@@ -6,7 +6,8 @@ import format from 'date-fns/format';
 import EventDeleteBtn from '../EventDeleteBtn/EventDeleteBtn';
 import EventLinks from '../../views/WebApplicationView/Events.jsx/EventLinks';
 
-const MyEvents = ({ onBackToPublicClick }) => {
+
+const MyEvents = () => {
   const [user] = useAuthState(auth);
   const [myEventsData, setMyEventsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -108,6 +109,7 @@ const MyEvents = ({ onBackToPublicClick }) => {
     </>
   );
 };
+
 
 export default MyEvents;
 

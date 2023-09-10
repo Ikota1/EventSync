@@ -1,9 +1,11 @@
-import { useEffect, useState, createContext, useCallback } from "react";
-import { auth, app, db } from "../firebase/firebase-config";
+import { useEffect, useState, createContext } from "react";
+import { auth, app } from "../firebase/firebase-config";
 import { getUserData } from "../services/user.services";
 import { useAuthState } from "react-firebase-hooks/auth";
-import dayjs from 'dayjs';
 import { getDatabase, ref, onValue } from 'firebase/database';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+
 
 const database = getDatabase(app);
 
@@ -22,11 +24,15 @@ export const AuthContextProvider = ({ children }) => {
   const [showEventModal, setShowEventModal] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
 
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [authState, setAuthState] = useState({
     user: null,
     userData: null,
   });
+  
+  AuthContextProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {

@@ -1,13 +1,9 @@
-import { news, calendar, events, help, user, dashboard, settings, inbox } from "../assets";
+import { calendar, events, user, dashboard, settings, inbox } from "../assets";
 
 export const navLinksNavbar = [
   {
     id: "",
     title: "Home",
-  },
-  {
-    id: "news",
-    title: "News",
   },
   {
     id: "faq",

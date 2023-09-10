@@ -44,7 +44,7 @@ const Sidebar = () => {
           </h1>
         </div>
         <ul className="pt-6">
-          {navLinksSidebar.map((nav, index) => (
+          {navLinksSidebar.map((nav) => (
             <NavLink key={nav.id} to={nav.id} className=''>
               <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-gray-700 text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
                 <img src={nav.img} className='w-[20px] h-auto' />

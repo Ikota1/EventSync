@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from 'recharts';
-  
-  
+import PropTypes from 'prop-types';
+
 const BarChartEvents = ({ events }) => {
 
-  const [eventsData, setEventsData] = useState(Array.from({ length: 7 }).map((event, index) => {
+  const [eventsData] = useState(Array.from({ length: 7 }).map((event, index) => {
 
     const date = dayjs()
       .add(index - (7 - 1), 'day')
@@ -17,31 +17,18 @@ const BarChartEvents = ({ events }) => {
       if (date === formattedDate) {
         return event;
       }
-
     })
-
     return {
       date,
       events: eventsToday.length
     }
-
   }))
 
   return (
 
-    <BarChart
-      width={500}
-      height={300}
-      data={eventsData}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
+    <BarChart width={500} height={300} data={eventsData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }} >
       <XAxis dataKey="date" />
-      <YAxis allowDecimals={false}/>
+      <YAxis allowDecimals={false} />
       <Tooltip />
       <Legend />
       <Bar dataKey="events" fill="#8884d8" />
@@ -49,5 +36,8 @@ const BarChartEvents = ({ events }) => {
 
   );
 }
+BarChartEvents.propTypes = {
+  events: PropTypes.array.isRequired,
+};
 
 export default BarChartEvents

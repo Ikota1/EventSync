@@ -1,10 +1,10 @@
 import { useState } from 'react'
-
 import { close, menu, logo } from '../../assets';
 import { navLinksNavbar } from '../../constants/navLinks';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
+  
   const [toggle, setToggle] = useState(false);
   return (
     <nav className='w-full flex py-6 justify-between items-center navbar'>

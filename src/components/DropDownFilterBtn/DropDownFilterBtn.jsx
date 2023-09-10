@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const DropDownFilterBtn = ({ onFilterLive, onFilterOnline, onFilterAll }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -30,6 +31,12 @@ const DropDownFilterBtn = ({ onFilterLive, onFilterOnline, onFilterAll }) => {
       )}
     </React.Fragment>
   );
+};
+
+DropDownFilterBtn.propTypes = {
+  onFilterLive: PropTypes.func.isRequired,
+  onFilterOnline: PropTypes.func.isRequired,
+  onFilterAll: PropTypes.func.isRequired,
 };
 
 export default DropDownFilterBtn;

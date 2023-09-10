@@ -2,9 +2,9 @@ import { useEffect, useState, useContext } from "react"
 import { getAllUsers } from "../../../services/user.services"
 import { sendFriendRequest } from '../../../services/social.service'
 import { AuthContext } from "../../../context/UserContext"
+import { getInitials } from "../../../constants/helpersFns/getInitials";
 import toast from "react-hot-toast"
 import FriendsLinks from "./FriendsLinks"
-import { getInitials } from "../../../constants/helpersFns/getInitials";
 
 const SearchFriends = () => {
   const { userData } = useContext(AuthContext);

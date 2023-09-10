@@ -1,14 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/UserContext";
-import {
-    uploadProfilePhoto,
-    updateUserProfile,
-} from "../../services/user.services";
+import { uploadProfilePhoto, updateUserProfile } from "../../services/user.services";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { getInitials } from "../../constants/helpersFns/getInitials";
-
+import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 
 const UserProfileForm = ({ onClose, formData }) => {
     const { userData } = useContext(AuthContext);
@@ -52,7 +49,7 @@ const UserProfileForm = ({ onClose, formData }) => {
 
     const formOptions = { resolver: yupResolver(userSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);
-    const { isValid, errors } = formState;
+    const { errors } = formState;
 
     useEffect(() => {
         setUserProfileData(userData);
@@ -206,5 +203,8 @@ const UserProfileForm = ({ onClose, formData }) => {
         </section>
     );
 };
-
+UserProfileForm.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    formData: PropTypes.object.isRequired,
+  };
 export default UserProfileForm;

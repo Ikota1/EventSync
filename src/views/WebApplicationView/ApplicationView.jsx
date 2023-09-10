@@ -2,13 +2,10 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import NotificationCenter from '../../components/NotificationCenter/NotificationCenter';
 import { AuthContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-
 import { Outlet } from "react-router-dom";
 import { useContext } from 'react';
 import { getInitials } from '../../constants/helpersFns/getInitials';
 
-import { useState, useEffect } from 'react';
-import { updateUserProfile } from '../../services/user.services';
 
 
 const ApplicationView = () => {

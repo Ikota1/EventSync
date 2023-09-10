@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
-import { useLocation } from 'react-router-dom';
+import  { useState, useEffect } from 'react';
+import { GoogleMap, Marker } from '@react-google-maps/api';
+import PropTypes from 'prop-types';
+
 
 const EventLocation = ({ userLocation }) => {
     const [userDefLocation, setDefUserLocation] = useState(null);
@@ -34,5 +35,8 @@ const EventLocation = ({ userLocation }) => {
         </div>
     );
 };
-
+EventLocation.propTypes = {
+    userLocation: PropTypes.string.isRequired, // Assuming userLocation is a string
+  };
+  
 export default EventLocation;

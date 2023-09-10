@@ -4,7 +4,7 @@ import { MdNotifications } from 'react-icons/md';
 import { AuthContext } from "../../context/UserContext";
 import { removeIncomingEventRequest } from "../../services/social.service";
 
-const NotificationCenter = ({ onClick }) => {
+const NotificationCenter = () => {
     const [expanded, setExpanded] = useState(false);
     const { userData } = useContext(AuthContext)
     const nav = useNavigate();

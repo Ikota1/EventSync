@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
+
 const CustomToggleCheckBox = ({ id, checked, label, onChange }) => {
+  
   return (
     <div className="inline-flex items-center">
       <input
@@ -11,6 +14,13 @@ const CustomToggleCheckBox = ({ id, checked, label, onChange }) => {
       <label htmlFor={id} className="hover:cursor-pointer">{label}</label>
     </div>
   );
+};
+
+CustomToggleCheckBox.propTypes = {
+  id: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default CustomToggleCheckBox;

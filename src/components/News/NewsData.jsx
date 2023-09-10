@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../style";
 import { getPublicEvents } from "../../services/events.service";
 import format from "date-fns/format";
-import TicketPurchaseBtn from "../TicketPurchaseBtn/TicketPurchaseBtn";
-import { AuthContext } from "../../context/UserContext";
-import { useContext } from "react";
 
 export const NewsData = () => {
-  const { userData } = useContext(AuthContext);
 
   const [eventsData, setEventsData] = useState([]);
 
@@ -34,7 +30,7 @@ export const NewsData = () => {
         <div
           id="horizontal-scrolling-items"
           className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
-          {eventsData.slice(0,5).map((el, index) => (
+          {eventsData.slice(0,5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
               <div
                 id={el.id}
@@ -51,8 +47,6 @@ export const NewsData = () => {
                     className="w-full h-60 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{el.title}</h2>
                   <p className="pt-6 pb-6">{el.description}</p>
-                  {userData !== null && <TicketPurchaseBtn />}
-                  <p className="pb-4">Tickets Remaining 42</p>
                   <p className="pb-4">Location: {el.location}</p>
                   <p>
                     {format(new Date(el.startDate), "do MMM")} | {el.startHour}h - {el.endHour}h
@@ -66,7 +60,7 @@ export const NewsData = () => {
         <div
           id="horizontal-scrolling-items"
           className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
-          {eventsData.slice(0,5).map((el, index) => (
+          {eventsData.slice(0,5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
               <div
                 id={el.id}
@@ -83,7 +77,6 @@ export const NewsData = () => {
                     className="w-full h-60 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{el.title}</h2>
                   <p className="pt-6 pb-6">{el.description}</p>
-                  {userData !== null && <TicketPurchaseBtn />}
                   <p className="pb-4">Tickets Remaining 42</p>
                   <p className="pb-4">Location: {el.location}</p>
                   <p>

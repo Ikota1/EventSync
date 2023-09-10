@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/UserContext";
 import { getUserByHandle } from "../../../services/user.services";
 import { acceptFriendRequest, rejectFriendRequest } from "../../../services/social.service";
+import { getInitials } from "../../../constants/helpersFns/getInitials";
 import toast from "react-hot-toast";
 import FriendsLinks from "./FriendsLinks";
-import { getInitials } from "../../../constants/helpersFns/getInitials";
 
 const PendingFriends = () => {
     const [pendingFriends, setPendingFriends] = useState([]);
