@@ -14,20 +14,18 @@ export const sendFriendRequest = async (senderID, recipientID) => {
         const senderData = senderSnapshot.val();
         const recipientData = recipientSnapshot.val();
 
-        if(senderData && recipientData) {
+        if (senderData && recipientData) {
             const outGoingReqsArray = senderData.outGoingFriendRequests || [];
             outGoingReqsArray.push(recipientID)
             const incomingReqsArray = recipientData.incomingFriendRequests || [];
             incomingReqsArray.push(senderID)
-            
+
             const updatedSenderData = { ...senderData, outGoingFriendRequests: outGoingReqsArray };
             const updatedRecipientData = { ...recipientData, incomingFriendRequests: incomingReqsArray };
-            
+
             await set(senderRef, updatedSenderData);
             await set(recipientRef, updatedRecipientData);
-            
         }
-
     } catch (error) {
         console.error('Error in sendFriendRequest:', error);
     }
@@ -38,7 +36,7 @@ export const sendFriendRequest = async (senderID, recipientID) => {
 export const acceptFriendRequest = async (senderID, recipientID) => {
     try {
         console.log('Executing acceptFriend function');
-        
+
         const senderRef = ref(db, `users/${senderID}`);
         const recipientRef = ref(db, `users/${recipientID}`);
 
@@ -50,19 +48,19 @@ export const acceptFriendRequest = async (senderID, recipientID) => {
 
         if (senderSnapshot.exists() && recipientSnapshot.exists()) {
 
-        const updatedSenderOutgoing = (senderData.outGoingFriendRequests || []).filter(request => request !== recipientID);
-        const updatedRecipientIncoming = (recipientData.incomingFriendRequests || []).filter(request => request !== senderID);
+            const updatedSenderOutgoing = (senderData.outGoingFriendRequests || []).filter(request => request !== recipientID);
+            const updatedRecipientIncoming = (recipientData.incomingFriendRequests || []).filter(request => request !== senderID);
 
-        const updatedSenderFriends = {...(senderData.friends || {}), [recipientID]: true };
-        const updatedRecipientFriends = {...(recipientData.friends || {}), [senderID]: true };
+            const updatedSenderFriends = { ...(senderData.friends || {}), [recipientID]: true };
+            const updatedRecipientFriends = { ...(recipientData.friends || {}), [senderID]: true };
 
-        const updateObj = {};
-        updateObj[`users/${senderID}/outGoingFriendRequests`] = updatedSenderOutgoing;
-        updateObj[`users/${recipientID}/incomingFriendRequests`] = updatedRecipientIncoming;
-        updateObj[`users/${senderID}/friends`] = updatedSenderFriends;
-        updateObj[`users/${recipientID}/friends`] = updatedRecipientFriends;
+            const updateObj = {};
+            updateObj[`users/${senderID}/outGoingFriendRequests`] = updatedSenderOutgoing;
+            updateObj[`users/${recipientID}/incomingFriendRequests`] = updatedRecipientIncoming;
+            updateObj[`users/${senderID}/friends`] = updatedSenderFriends;
+            updateObj[`users/${recipientID}/friends`] = updatedRecipientFriends;
 
-        await update(ref(db), updateObj);
+            await update(ref(db), updateObj);
 
         }
     } catch (error) {
@@ -77,15 +75,11 @@ export const rejectFriendRequest = async (recipientID, senderID) => {
         const recipientData = recipientSnapshot.val();
 
         if (recipientSnapshot.exists()) {
+
             const incomingFriendRequests = recipientData.incomingFriendRequests || [];
-
-            console.log('Incoming Friend Requests:', incomingFriendRequests);
-
             const updatedRecipientIncoming = incomingFriendRequests.filter(request => request !== senderID);
-
-            console.log('Updated Incoming Friend Requests:', updatedRecipientIncoming);
-
             const updateObj = {};
+
             updateObj[`users/${recipientID}/incomingFriendRequests`] = updatedRecipientIncoming;
 
             await update(ref(db), updateObj);
@@ -109,7 +103,7 @@ export const deleteFriend = async (currentUserID, friendToDelete) => {
         const userToDeleteData = userToDeleteSnapshot.val();
 
         console.log('datas', currentUserData, userToDeleteData)
-      
+
 
         if (currentUserSnapshot.exists() && userToDeleteSnapshot.exists()) {
 
@@ -118,23 +112,77 @@ export const deleteFriend = async (currentUserID, friendToDelete) => {
                 userToDeleteData.friends &&
                 currentUserData.friends[friendToDelete] &&
                 userToDeleteData.friends[currentUserID]
-              ) {
-              
+            ) {
+
                 delete currentUserData.friends[friendToDelete];
                 delete userToDeleteData.friends[currentUserID];
-        
+
                 await set(currentUserRef, currentUserData);
                 await set(userToDeleteRef, userToDeleteData);
-                
+
                 console.log(`Successfully removed ${friendToDelete} from your friends list.`);
-              } else {
-                console.log('Both users are not friends.');
-              }
             } else {
-              console.log('One or both users do not exist.');
+                console.log('Both users are not friends.');
             }
+        } else {
+            console.log('One or both users do not exist.');
+        }
 
     } catch (error) {
         console.error('Error in deleteFriend:', error);
+    }
+}
+
+export const friendEventInvite = async (recipientID, eventID, senderID) => {
+
+    const recipientRef = ref(db, `users/${recipientID}`);
+    const senderRef = ref(db, `users/${senderID}`);
+
+    const recipientSnapshot = await get(recipientRef);
+    const senderSnashot = await get(senderRef);
+
+    const recipientData = recipientSnapshot.val();
+    const senderData = senderSnashot.val();
+
+    if (recipientSnapshot.exists() && senderSnashot.exists()) {
+
+     const incomingEventRequests = recipientData.incomingEventRequests || {};
+     const outGoingEventRequests = senderData.outGoingEventRequests || {};
+     incomingEventRequests[eventID] = true;
+     outGoingEventRequests[eventID] = true;
+
+     await update(ref(db, `users/${recipientID}`), {  
+        incomingEventRequests,
+      });
+      await update(ref(db, `users/${senderID}`), {  
+        outGoingEventRequests,
+      });
+
+    }
+}
+
+
+export const removeIncomingEventRequest = async (recipientID, eventID) => {
+    
+    try {  
+        
+    const recipientRef = ref(db, `users/${recipientID}`);
+    const recipientSnapshot = await get(recipientRef);
+    const recipientData = recipientSnapshot.val();
+
+    if (recipientSnapshot.exists()) {
+
+        const incomingEventRequests = recipientData.incomingEventRequests || {};
+
+        delete incomingEventRequests[eventID];
+
+        await update(ref(db, `users/${recipientID}`), {
+            incomingEventRequests: incomingEventRequests,
+        });
+
+    }
+
+    } catch (error) {
+        console.error(error)
     }
 }
