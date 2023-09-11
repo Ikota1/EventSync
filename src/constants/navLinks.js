@@ -10,6 +10,10 @@ export const navLinksNavbar = [
     title: "FAQ",
   },
   {
+    id: "about",
+    title: "About Us",
+  },
+  {
     id: "login",
     title: "Login",
   },
