@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { getInitials } from "../../constants/helpersFns/getInitials";
 import toast from "react-hot-toast";
 import PropTypes from 'prop-types';
+import * as Yup from 'yup';
 
 
 const UserProfileForm = ({ onClose, formData }) => {
