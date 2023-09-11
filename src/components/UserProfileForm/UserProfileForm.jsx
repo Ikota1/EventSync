@@ -4,8 +4,9 @@ import { uploadProfilePhoto, updateUserProfile } from "../../services/user.servi
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getInitials } from "../../constants/helpersFns/getInitials";
-import * as Yup from 'yup';
+import toast from "react-hot-toast";
 import PropTypes from 'prop-types';
+
 
 const UserProfileForm = ({ onClose, formData }) => {
     const { userData } = useContext(AuthContext);
@@ -44,7 +45,14 @@ const UserProfileForm = ({ onClose, formData }) => {
             .email('Must be a valid email!')
             .max(25)
             .matches(/^(?!.*@[^,]*,)/)
-            .notRequired()
+            .notRequired(),
+        about: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
+            .min(20, 'Description should be min 20 characters.')
+            .max(150, 'Description should be max 150 characters.')
+            .matches(/^[a-zA-Z0-9]+$/, 'Description should contain only characters and numbers')
+            .notRequired(),
     });
 
     const formOptions = { resolver: yupResolver(userSchema) };
@@ -83,6 +91,7 @@ const UserProfileForm = ({ onClose, formData }) => {
             updatedProfile.photo = photoURL;
         }
         await updateUserProfile(userData.uid, updatedProfile);
+        toast.success(`${userProfileData.userName}'s profile has been updated..`)
         onClose();
     };
 
@@ -162,10 +171,12 @@ const UserProfileForm = ({ onClose, formData }) => {
                             <div>
                                 <textarea
                                     placeholder="Description"
+                                    {...register("about")}
                                     value={userAbout || ""}
                                     onChange={(e) => setUserAbout(e.target.value)}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 />
+                                <div className="invalid-feedback">{errors.about?.message}</div>
                             </div>
                             <input
                                 type="file"
@@ -203,8 +214,19 @@ const UserProfileForm = ({ onClose, formData }) => {
         </section>
     );
 };
+
 UserProfileForm.propTypes = {
     onClose: PropTypes.func.isRequired,
-    formData: PropTypes.object.isRequired,
-  };
+    formData: PropTypes.shape({
+        userName: PropTypes.string,
+        photo: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        email: PropTypes.string,
+        phone: PropTypes.string,
+        about: PropTypes.string,
+        address: PropTypes.string
+    })
+};
+
 export default UserProfileForm;
