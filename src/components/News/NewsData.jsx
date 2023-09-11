@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../../style";
 import { getPublicEvents } from "../../services/events.service";
 import format from "date-fns/format";
+import ReactQuill from "react-quill";
 
 export const NewsData = () => {
 
@@ -29,12 +30,12 @@ export const NewsData = () => {
       <div className="relative flex flex-item overflow-x-hidden">
         <div
           id="horizontal-scrolling-items"
-          className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
-          {eventsData.slice(0,5).map((el) => (
+          className="w-full scroll scroll-smooth no-scrollbar">
+          {eventsData.slice(-5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
               <div
                 id={el.id}
-                className={`w-96 h-auto whitespace-nowrap max-w-xs cursor-pointer overflow-hidden rounded-lg hover:scale-105 duration-300 ease-in-out`}
+                className={`w-96 max-w-xs cursor-pointer rounded-lg hover:scale-105 duration-300 ease-in-out`}
                 data-te-carousel-active
                 data-te-carousel-item
                 style={{ backfaceVisibility: "hidden" }}>
@@ -46,7 +47,16 @@ export const NewsData = () => {
                     alt={el.title}
                     className="w-full h-60 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{el.title}</h2>
-                  <p className="pt-6 pb-6">{el.description}</p>
+                  <div className="event-description">
+                    <span className='text-md'>
+                      <ReactQuill
+                        className='text-md'
+                        readOnly
+                        value={el?.description || ''}
+                        theme="snow"
+                        modules={{ toolbar: false }} />
+                    </span>
+                  </div>
                   <p className="pb-4">Location: {el.location}</p>
                   <p>
                     {format(new Date(el.startDate), "do MMM")} | {el.startHour}h - {el.endHour}h
@@ -59,12 +69,12 @@ export const NewsData = () => {
         {/* second set of items */}
         <div
           id="horizontal-scrolling-items"
-          className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
-          {eventsData.slice(0,5).map((el) => (
+          className="w-full scroll scroll-smooth no-scrollbar">
+          {eventsData.slice(-5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
               <div
                 id={el.id}
-                className={`w-96 h-auto whitespace-nowrap max-w-xs cursor-pointer overflow-hidden rounded-lg hover:scale-105 duration-300 ease-in-out`}
+                className={`w-96 max-w-xs cursor-pointer rounded-lg hover:scale-105 duration-300 ease-in-out`}
                 data-te-carousel-active
                 data-te-carousel-item
                 style={{ backfaceVisibility: "hidden" }}>
@@ -76,8 +86,16 @@ export const NewsData = () => {
                     alt={el.title}
                     className="w-full h-60 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{el.title}</h2>
-                  <p className="pt-6 pb-6">{el.description}</p>
-                  <p className="pb-4">Tickets Remaining 42</p>
+                  <div className="event-description">
+                    <span className='text-md'>
+                      <ReactQuill
+                        className='text-md'
+                        readOnly
+                        value={el?.description || ''}
+                        theme="snow"
+                        modules={{ toolbar: false }} />
+                    </span>
+                  </div>
                   <p className="pb-4">Location: {el.location}</p>
                   <p>
                     {format(new Date(el.startDate), "do MMM")} | {el.startHour}h - {el.endHour}h
