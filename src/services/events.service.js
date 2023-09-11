@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs';
 import { differenceInMinutes } from "date-fns"
 import { eventReoccurrence } from '../constants/UIconstants/count.days';
+import { useReducer } from 'react';
 
 
 const currentDateTime = dayjs();
@@ -236,7 +237,7 @@ export const getEventByHandle = (uid) => {
     
       try {
         await remove(ref(db, `events/${eventId}`));
-      
+              
       } catch (error) {
         console.error('Error deleting thread:', error);
         throw error;
@@ -296,11 +297,25 @@ export const getEventByHandle = (uid) => {
           updatedEventParticipants.push(userID);
 
           const updateObj = {
-            [`users/${userID}/events`]: updatedUserEvents,
+            //when click going this line makes so it adds and event as if the participant has created it
+            // [`users/${userID}/events`]: updatedUserEvents,
             [`events/${eventID}/participants`]: updatedEventParticipants,
           };
     
           await update(ref(db), updateObj);
+          
+          //add update eventStatistics - ticketsBought
+          const userStatistics = userData.eventStatistics;
+          const updatedUserStatistics = {
+            ...userStatistics,
+            ticketsBought: (userStatistics.ticketsBought || 0) + 1,
+          };
+          const updateUserEvents = {
+            [`/users/${userData.uid}/eventStatistics`]: updatedUserStatistics,
+          };
+          
+          await update(ref(db), updateUserEvents);
+
         }
       } catch (error) {
         console.error('Error updating event attendance:', error);
@@ -339,6 +354,18 @@ export const getEventByHandle = (uid) => {
           };
     
           await update(ref(db), updateObj);
+
+          //remove update eventStatistics - ticketsBought
+          const userStatistics = userData.eventStatistics;
+          const updatedUserStatistics = {
+            ...userStatistics,
+            ticketsBought: (userStatistics.ticketsBought || 0) - 1,
+          };
+          const updateUserEvents = {
+            [`/users/${userData.uid}/eventStatistics`]: updatedUserStatistics,
+          };
+          
+          await update(ref(db), updateUserEvents);
         }
       } catch (error) {
         console.error('Error removing user from event:', error);
