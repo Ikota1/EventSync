@@ -8,9 +8,9 @@ export const accordionConstants = [
   {
     id: "accordion-2",
     title:
-      "What are the difference between Public user, User and Premium user?",
+      "What are the difference between Public user, User",
     content:
-      "The Public user has a restricted access, and is allow to few features of the sites such as: Landing Page, News, FAQ and Sign up. After successful registration the User has access to the main interface, where event can be browsed, searched and bought. Furthermore the User has access to schedule calendar where he/she can track events. The Premium user on top of the rights of the User, can create events and sent gifts to other users ",
+      "The Public user has a restricted access, and is allow to few features of the sites such as: Landing Page, FAQ and Sign up. After successful registration the User has access to the main interface, where event can be browsed, searched and bought. Furthermore the User has access to schedule calendar where he/she can track events.",
   },
   {
     id:"accordion-3",
