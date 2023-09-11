@@ -162,7 +162,7 @@ const Events = () => {
                   key={event.id}
                   onClick={() => navigate(`${event.id}`)}
                   className="bg-gray-900 text-white rounded-lg shadow-md p-4 transition-transform duration-300  hover:-translate-y-2">
-                  <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
+                  <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4 cursor-pointer" />
                   <h2 className="text-lg font-semibold">{event.title}</h2>
                   <div className="event-description">
                     <p
