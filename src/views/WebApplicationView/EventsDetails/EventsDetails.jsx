@@ -105,77 +105,81 @@ const EventsDetails = () => {
   }
 
   return (
-    <div className='text-white'>
-      {attendance && <EventInvite />}
+    <div className='text-white overflow-y-scroll h-[800px] '>
       <div className='w-[60%] flex justify-between flex-col items-center mx-auto'>
-        {eventsDetailed && (
-          <>
-            <div className='flex justify-between w-[100%]'>
-              <span>{eventsDetailed.isPublic ? 'Public' : 'Is Not Public'}</span>
-              <div className='flex gap-4'>
-                <button onClick={() => navigate('../../application/events')} className="bg-blue-500 text-white px-2 py-1 rounded">Back</button>
-                <button onClick={attendance ? handleUnAttendBtnClick : handleAttendBtnClick} className={`bg-${attendance ? 'red' : 'blue'}-500 text-white px-2 py-1 rounded`}>
-                  {attendance ? "I'm Staying Home" : "I'm Going"}
-                </button>
+        <div className='bg-gray-900 p-4 rounded-lg'>
+          {eventsDetailed && (
+            <>
+              <div className='flex justify-between items-cente w-[100%]'>
+                <span className='bg-pink-800 px-2 py-1 rounded'>{eventsDetailed.isPublic ? 'Public' : 'Is not public'}</span>
+                <div className='flex gap-4'>
+                  <button onClick={() => navigate('../../application/events')} className="bg-pink-800 hover:bg-pink-900  text-white px-2 py-1 rounded">Back</button>
+                  <button onClick={attendance ? handleUnAttendBtnClick : handleAttendBtnClick} className={`bg-${attendance ? 'pink-800' : 'pink-800'} hover:bg-pink-900  text-white px-2 py-1 rounded`}>
+                    {attendance ? "I'm Staying Home" : "I'm Going"}
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className='flex justify-between w-[100%] my-5'>
-              <div className='flex flex-col w-[50%] gap-5'>
-                <h1 className='text-3xl'>{eventsDetailed.title || ''}</h1>
-                <p>{eventsDetailed.location || ''}</p>
-                <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.startDate || ''} To {eventsDetailed.startDate || ''}</span>
-                <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.endDate || ''} To {eventsDetailed.endDate || ''}</span>
-                <span>Organized by: {userEventOwner?.userName || ''}</span>
-                <span className='w-full'>
+              <div className='flex justify-between w-[100%] my-5'>
+                <div className='flex flex-col w-[50%] gap-5'>
+                  <h1 className='text-3xl'>{eventsDetailed.title || ''}</h1>
+                  <p>{eventsDetailed.location || ''}</p>
+                  <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.startDate || ''} To {eventsDetailed.startDate || ''}</span>
+                  <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.endDate || ''} To {eventsDetailed.endDate || ''}</span>
+                  <span>Organized by: {userEventOwner?.userName || ''}</span>
+                </div>
+                <div className='w-[50%]'>
+                  <img src={eventsDetailed.photo || ''} alt="photo" className='rounded-lg' />
+                </div>
+              </div>
+              <div className='w-full '>
+                <span className=''>
                   <ReactQuill
-                    className='text-md'
+                    className='text-md pb-2'
                     readOnly
                     value={eventsDetailed?.description || ''}
                     theme="snow"
                     modules={{ toolbar: false }} />
                 </span>
+                {attendance && <EventInvite />}
+                <EventLocation userLocation={eventsDetailed.location || ''} />
               </div>
-              <div className='w-[50%]'>
-                <img src={eventsDetailed.photo || ''} alt="" />
-              </div>
+            </>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 mt-4 gap-3 w-full">
+          <div className="bg-gray-900 p-4 rounded-lg shadow sm:p-6 h-full">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold leading-none text-white">Event Participants</h3>
             </div>
-            <div className='w-full'>
-              <EventLocation userLocation={eventsDetailed.location || ''} />
+            <div className="flow-root">
+              <ul role="list" className="divide-y divide-gray-200">
+                {attendingUsers.map((user) => (
+                  <li key={user?.uid} className="py-3 sm:py-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="flex-shrink-0">
+                        {user && user?.photo ? (
+                          <img className="h-8 w-8 rounded-full" src={user?.photo} alt="Avatar" />
+                        ) : (
+                          <span className="h-8 w-8 rounded-full flex items-center justify-center bg-indigo-100">
+                            {getInitials(user?.firstName, user?.lastName)}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-white truncate">
+                          {user?.userName}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4 gap-3">
-              <div className="bg-gray-800 shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold leading-none text-white">Event Participants</h3>
-                </div>
-                <div className="flow-root">
-                  <ul role="list" className="divide-y divide-gray-200">
-                    {attendingUsers.map((user) => (
-                      <li key={user?.uid} className="py-3 sm:py-4">
-                        <div className="flex items-center space-x-4">
-                          <div className="flex-shrink-0">
-                            {user && user?.photo ? (
-                              <img className="h-8 w-8 rounded-full" src={user?.photo} alt="Avatar" />
-                            ) : (
-                              <span className="h-8 w-8 rounded-full flex items-center justify-center bg-indigo-100">
-                                {getInitials(user?.firstName, user?.lastName)}
-                              </span>
-                            )}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-white truncate">
-                              {user?.userName}
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
+          </div>
+        </div>
       </div>
+
     </div>
   )
 }

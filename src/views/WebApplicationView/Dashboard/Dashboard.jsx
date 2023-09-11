@@ -83,7 +83,7 @@ const Dashboard = () => {
                               {allPublicEvents.slice(-5).map((ev) => (
                                 <tr key={ev.id}>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-white">
-                                  <Link to={`../events/${ev.id}`} className="font-semibold">{ev.title}</Link>   
+                                    <Link to={`../events/${ev.id}`} className="font-semibold">{ev.title}</Link>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-white">
                                     {ev.startDate}
@@ -152,46 +152,46 @@ const Dashboard = () => {
               )}
             </div>
             <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4 gap-3">
-  <div className="bg-gray-800 shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
-    <div className="flex items-center justify-between mb-4">
-      <h3 className="text-xl font-bold leading-none text-white">Latest Users</h3>
-    </div>
-    <div className="flow-root">
-      <ul role="list" className="divide-y divide-gray-200">
-        {allUsers.slice(-5).map((user) => (
-          <li key={user.uid} className="py-3 sm:py-4">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                {user && user.photo ? (
-                  <img className="h-12 w-12 rounded-full" src={user.photo} alt="Avatar" />
-                ) : (
-                  <span className="h-12 w-12 rounded-full flex items-center justify-center bg-indigo-100 text-gray-800">
-                    {getInitials(user?.firstName, user?.lastName)}
-                  </span>
-                )}
-                <div>
-                  <p className="text-lg font-semibold text-white">{user.userName}</p>
-                  <p className="text-sm text-gray-400">{getCountryNameByCode(user.country)}</p>
+              <div className="bg-gray-800 shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold leading-none text-white">Latest Users</h3>
+                </div>
+                <div className="flow-root">
+                  <ul role="list" className="divide-y divide-gray-200">
+                    {allUsers.slice(-5).map((user) => (
+                      <li key={user.uid} className="py-3 sm:py-4">
+                        <div className="flex items-center justify-between space-x-4">
+                          <div className="flex items-center space-x-2">
+                            {user && user.photo ? (
+                              <img className="h-12 w-12 rounded-full" src={user.photo} alt="Avatar" />
+                            ) : (
+                              <span className="h-12 w-12 rounded-full flex items-center justify-center bg-indigo-100 text-gray-800">
+                                {getInitials(user?.firstName, user?.lastName)}
+                              </span>
+                            )}
+                            <div>
+                              <p className="text-lg font-semibold text-white">{user.userName}</p>
+                              <p className="text-sm text-gray-400">{getCountryNameByCode(user.country)}</p>
+                            </div>
+                          </div>
+                          <div>
+                            <ReactCountryFlag
+                              countryCode={user.country}
+                              svg
+                              style={{
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '50%',
+                                border: '2px solid white',
+                              }} />
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-              <div>
-                <ReactCountryFlag
-                  countryCode={user.country}
-                  svg
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    border: '2px solid white',
-                  }}/>
-              </div>
             </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-</div>
           </div>
         </main>
       </div>
