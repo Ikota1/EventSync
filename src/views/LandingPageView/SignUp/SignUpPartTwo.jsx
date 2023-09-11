@@ -52,7 +52,6 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const onSubmit = (data) => {
         if (isValid) {
             JSON.stringify(data, null, 4);
-            console.log('Form data submitted:', data);
             stageTwoFormData(data.email, data.username, data.password, data.phone);
         }
     }
@@ -159,5 +158,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
         </section>
     );
 }
+
+
 
 export default SignUpPartTwo;
