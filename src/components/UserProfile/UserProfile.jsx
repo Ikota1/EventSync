@@ -55,19 +55,7 @@ export const UserProfile = () => {
             </div>
           </div>
 
-          <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
-            {/* premiumUser is to be a boolean */}
-            {userData && userData?.premiumUser ? (
-              <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                Create Events
-              </button>
-            ) : (
-              <Link>
-                <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                  Upgrade to Premium
-                </button>
-              </Link>
-            )}
+          <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-end">
             <UserEditProfileButton formData={userData} />
           </div>
         </div>
