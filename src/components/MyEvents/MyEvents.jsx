@@ -72,25 +72,47 @@ const MyEvents = () => {
 
   const paginatedEvents = myEventsData.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
 
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+
   return (
     <>
       <EventLinks />
       {loading ? (
         <div className="flex justify-center items-center h-full">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-400"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2"></div>
         </div>
       ) : myEventsData.length === 0 ? (
         <div className="flex justify-center items-center h-full">
-          <p className="text-blue-300 text-2xl">No Events Found</p>
+          <p className="text-2xl">No Events Found</p>
         </div>
       ) : (
         <div>
           <div className="grid grid-cols-4 gap-4">
             {paginatedEvents.map((event) => (
-              <NavLink to={`../events/${event.id}`} key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105">
+              <NavLink to={`../events/${event.id}`} key={event.id} className="bg-gray-900 text-white rounded-lg shadow-md p-4 transition-transform duration-300  hover:-translate-y-2">
+                {console.log(event.description.length)}
                 <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
                 <h2 className="text-lg font-semibold">{event.title}</h2>
-                <p className="pt-6 pb-6">{event.description}</p>
+                <div>
+                  <p
+                    className={`pt-6 pb-6 ${showFullDescription ? 'max-h-full overflow-y-auto' : 'max-h-[6em] overflow-hidden'}`}
+                    dangerouslySetInnerHTML={{ __html: event.description }}
+                  /> {!showFullDescription && event.description.length > 100 && (
+                    <span className="text-gray-400">...</span>
+                  )}
+                </div>
+                {event.description.length > 100 && (
+                  <button
+                    onClick={toggleDescription}
+                    className="text-pink-800 hover:text-pink-900 focus:outline-none"
+                  >
+                    {showFullDescription ? 'Read Less' : 'Read More'}
+                  </button>
+                )}
                 <p className="pb-4">Location: {event.location}</p>
                 <p>{format(new Date(event.startDate), 'do MMM')} | {event.startHour}h - {event.endHour}h</p>
                 <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>

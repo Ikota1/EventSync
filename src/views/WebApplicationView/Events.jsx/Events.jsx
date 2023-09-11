@@ -122,6 +122,12 @@ const Events = () => {
 
   const paginatedEvents = filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
 
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+
   return (
     <>
       <EventLinks />
@@ -155,13 +161,25 @@ const Events = () => {
                 <div
                   key={event.id}
                   onClick={() => navigate(`${event.id}`)}
-                  className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
+                  className="bg-gray-900 text-white rounded-lg shadow-md p-4 transition-transform duration-300  hover:-translate-y-2">
                   <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{event.title}</h2>
                   <div className="event-description">
-                    <p className="pt-6 pb-6" dangerouslySetInnerHTML={{ __html: event.description }}/>  
-                  </div>  
-                  <p className="pb-4">Tickets Remaining 42</p>
+                    <p
+                      className={`pt-6 pb-6 ${showFullDescription ? 'max-h-full overflow-y-auto' : 'max-h-[6em] overflow-hidden'}`}
+                      dangerouslySetInnerHTML={{ __html: event.description }}
+                    /> {!showFullDescription && event.description.length > 100 && (
+                      <span className="text-gray-400">...</span>
+                    )}
+                  </div>
+                  {event.description.length > 100 && (
+                    <button
+                      onClick={toggleDescription}
+                      className="text-pink-800 hover:text-pink-900 focus:outline-none"
+                    >
+                      {showFullDescription ? 'Read Less' : 'Read More'}
+                    </button>
+                  )}
                   <p className="pb-4">Location: {event.location}</p>
                   <p> {format(new Date(event.startDate), 'do MMM')} |{' '} {event.startHour}h - {event.endHour}h </p>
                 </div>

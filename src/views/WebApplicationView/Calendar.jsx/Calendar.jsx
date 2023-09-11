@@ -7,17 +7,8 @@ import WeekCalendar from "../../../components/Calendar/Week/WeekCalendar";
 import CreateEventButton from "../../../components/CreateEventButton/CreateEventButton";
 
 function Calendar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState(calendarViews.MONTH);
   const [date, setDate] = useState(new Date());
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
 
   return (
     <div className="flex flex-col lg:flex-row gap-5">
@@ -33,8 +24,6 @@ function Calendar() {
           {view === calendarViews.WORK_WEEK && <WeekCalendar date={date} setDate={setDate} fullWeek={false} />}
         </div>
       </div>
-      {/* {(view === calendarViews.MONTH || view === calendarViews.DAY) && <Agenda date={date} />} */}
-      {/* {isOpen && <AddEventModal onClose={closeModal} />} */}
     </div>
   );
 }
