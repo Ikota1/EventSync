@@ -59,6 +59,7 @@ const ControlEvents = () => {
   };
 
   const handleEventDelete = (eventId) => {
+
     const updatedEvents = events.filter((event) => event.id !== eventId);
     setEvents(updatedEvents);
 
@@ -95,7 +96,10 @@ const ControlEvents = () => {
                 <p className='pb-4'>Location: {event.location}</p>
                 <p>{format(new Date(event.startDate), "do MMM")} | {event.startHour}h - {event.endHour}h</p>
                 <EventEditBtn eventId={event.id} />
+                <div onClick={(e) => e.stopPropagation()}>
                 <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
+                </div>
+
               </div>
             )))
         }
