@@ -187,6 +187,13 @@
   white-space: nowrap;
 }
 
+/* line clamp */
+.event-description p {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
 
 .feature-card:hover {
   background: var(--black-gradient);
