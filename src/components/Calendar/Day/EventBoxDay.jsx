@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 const EventBoxDay = ({ title, id, duration, isUsedInWeek }) => {
   console.log(title);
@@ -6,11 +8,12 @@ const EventBoxDay = ({ title, id, duration, isUsedInWeek }) => {
   console.log(duration);
   console.log(isUsedInWeek);
 
+
   return (
-    <React.Fragment>
-      <h2 className={`truncate text-${isUsedInWeek ? "sm" : "md"} mb-1`}>
-        {title}
-      </h2>
+  <React.Fragment >
+    <Link to={`../events/${id}`} className={`truncate text-${isUsedInWeek ? "sm" : "md"} mb-1`} style={{ textDecoration: 'none', color: 'inherit' }}>
+     <h2>{title}</h2>
+   </Link>
       {/* TODO */}
       {/* {duration > 1 && (
         <p className="text-xs">
@@ -19,7 +22,7 @@ const EventBoxDay = ({ title, id, duration, isUsedInWeek }) => {
             : `Duration: ${Math.floor(duration / 24)} days, ${duration % 24} hours`}
         </p>
       )} */}
-    </React.Fragment>
+   </React.Fragment>
   );
 }
 
