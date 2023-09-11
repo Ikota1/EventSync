@@ -3,6 +3,7 @@ import { getAllEvents } from "../../../services/events.service";
 import { getAllUsers } from "../../../services/user.services";
 import { getInitials } from "../../../constants/helpersFns/getInitials";
 import { useNavigate } from "react-router";
+import getCountryNameByCode from "../../../constants/countries";
 
 const Dashboard = () => {
   const [onlineEvents, setOnlineEvents] = useState([]);
@@ -11,6 +12,10 @@ const Dashboard = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const onlineEventsPercentage = (onlineEvents.length / allPublicEvents.length) * 100;
+  const liveEventsPercentage = (liveEvents.length / allPublicEvents.length) * 100;
+
 
   useEffect(() => {
     const fetchAllEventsAndUsers = async () => {
@@ -36,6 +41,8 @@ const Dashboard = () => {
 
     fetchAllEventsAndUsers();
   }, []);
+
+
 
   return (
     <div className="flex">
@@ -67,7 +74,7 @@ const Dashboard = () => {
                               <tr>
                                 <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Events</th>
                                 <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Start Time</th>
-                                <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Amount</th>
+                                <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Location</th>
                               </tr>
                             </thead>
                             <tbody className="bg-gray-800">
@@ -80,7 +87,7 @@ const Dashboard = () => {
                                     {ev.startDate}
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold text-white">
-                                    $2300
+                                    {ev.location}
                                   </td>
                                 </tr>
                               ))}
@@ -105,7 +112,7 @@ const Dashboard = () => {
                         <h3 className="text-base font-normal text-gray-400">Live Events</h3>
                       </div>
                       <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
-                        14.6%
+                      {liveEventsPercentage.toFixed(1)}%
                         <svg
                           className="w-5 h-5"
                           fill="currentColor"
@@ -128,7 +135,7 @@ const Dashboard = () => {
                         <h3 className="text-base font-normal text-gray-400">Online Events</h3>
                       </div>
                       <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
-                        32.9%
+                      {onlineEventsPercentage.toFixed(1)}%
                         <svg
                           className="w-5 h-5"
                           fill="currentColor"
@@ -168,6 +175,7 @@ const Dashboard = () => {
                             <p className="text-sm font-medium text-white truncate">
                               {user.userName}
                             </p>
+                            <p className="text-sm font-medium text-white truncate"> Country: {getCountryNameByCode(user.country)}</p>
                           </div>
                         </div>
                       </li>
