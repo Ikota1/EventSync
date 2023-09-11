@@ -30,8 +30,8 @@ export const NewsData = () => {
       <div className="relative flex flex-item overflow-x-hidden">
         <div
           id="horizontal-scrolling-items"
-          className="w-full scroll scroll-smooth no-scrollbar">
-          {eventsData.slice(-5).map((el) => (
+          className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
+          {eventsData.slice(0, 5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
               <div
                 id={el.id}
@@ -47,16 +47,9 @@ export const NewsData = () => {
                     alt={el.title}
                     className="w-full h-60 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{el.title}</h2>
-                  <div className="event-description">
-                    <span className='text-md'>
-                      <ReactQuill
-                        className='text-md'
-                        readOnly
-                        value={el?.description || ''}
-                        theme="snow"
-                        modules={{ toolbar: false }} />
-                    </span>
-                  </div>
+                  <p className="pt-6 pb-6" dangerouslySetInnerHTML={{ __html: el.description }} />
+                  {/* {userData !== null && <TicketPurchaseBtn />} */}
+                  <p className="pb-4">Tickets Remaining 42</p>
                   <p className="pb-4">Location: {el.location}</p>
                   <p>
                     {format(new Date(el.startDate), "do MMM")} | {el.startHour}h - {el.endHour}h
@@ -69,8 +62,8 @@ export const NewsData = () => {
         {/* second set of items */}
         <div
           id="horizontal-scrolling-items"
-          className="w-full scroll scroll-smooth no-scrollbar">
-          {eventsData.slice(-5).map((el) => (
+          className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
+          {eventsData.slice(0, 5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
               <div
                 id={el.id}

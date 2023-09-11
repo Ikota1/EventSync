@@ -14,7 +14,6 @@ import clockIcon from '../../../assets/animation_lm9dbhqr.json';
 import EventLocation from '../../../components/EventMap/EventLocation';
 import EventInvite from '../../../components/EventInvite/EventInvite';
 
-
 const EventsDetails = () => {
   const params = useParams()
   const [user] = useAuthState(auth);
@@ -64,9 +63,9 @@ const EventsDetails = () => {
     const fetchAttendingUsers = async () => {
       try {
         const users = await Promise.all(eventsDetailed.participants.map(async (participantUid) => {
-            const user = await getUserByHandle(participantUid);
-            return user.val();
-          })
+          const user = await getUserByHandle(participantUid);
+          return user.val();
+        })
         );
         setAttendingUsers(users);
       } catch (error) {
@@ -82,8 +81,8 @@ const EventsDetails = () => {
   const handleAttendBtnClick = async () => {
     try {
       await addUserToEvent(user.uid, params.id);
-       setAttendance(true);
-       setAttendingUsers((prevAttendingUsers) => [...prevAttendingUsers, userData]);
+      setAttendance(true);
+      setAttendingUsers((prevAttendingUsers) => [...prevAttendingUsers, userData]);
 
     } catch (error) {
       console.error('Error while adding user to event', error);
@@ -93,8 +92,8 @@ const EventsDetails = () => {
   const handleUnAttendBtnClick = async () => {
     try {
       await removeUserFromEvent(user.uid, params.id);
-       setAttendance(false);
-       setAttendingUsers((prevAttendingUsers) => prevAttendingUsers.filter((u) => u.uid !== userData.uid));
+      setAttendance(false);
+      setAttendingUsers((prevAttendingUsers) => prevAttendingUsers.filter((u) => u.uid !== userData.uid));
 
     } catch (error) {
       console.error('Error while removing user from event', error);
@@ -107,7 +106,7 @@ const EventsDetails = () => {
 
   return (
     <div className='text-white'>
-      {attendance && <EventInvite/> }
+      {attendance && <EventInvite />}
       <div className='w-[60%] flex justify-between flex-col items-center mx-auto'>
         {eventsDetailed && (
           <>
@@ -116,7 +115,7 @@ const EventsDetails = () => {
               <div className='flex gap-4'>
                 <button onClick={() => navigate('../../application/events')} className="bg-blue-500 text-white px-2 py-1 rounded">Back</button>
                 <button onClick={attendance ? handleUnAttendBtnClick : handleAttendBtnClick} className={`bg-${attendance ? 'red' : 'blue'}-500 text-white px-2 py-1 rounded`}>
-                {attendance ? "I'm Staying Home" : "I'm Going"}
+                  {attendance ? "I'm Staying Home" : "I'm Going"}
                 </button>
               </div>
             </div>
@@ -182,14 +181,3 @@ const EventsDetails = () => {
 }
 
 export default EventsDetails;
-
-
-   
-        // <div>
-        //   <ReactQuill
-        //     readOnly
-        //     value={eventsDetailed.description}
-        //     theme="snow"
-        //     modules={{ toolbar: false }} />
-        // </div>
-   

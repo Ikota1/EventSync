@@ -56,7 +56,20 @@
   stroke: #fff;
 }
 
-/* Optional: Change the color on hover */
+.ql-fill {
+  fill: #fff !important;
+}
+
+.ql-editor, .ql-blank > p::placeholder {
+  color: #9CA3AF;
+  opacity: 1;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.ql-editor.ql-blank::before {
+  color: #9CA3AF;
+}
 
 .text-gradient {
   background: radial-gradient(
