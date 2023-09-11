@@ -50,7 +50,7 @@ const NotificationCenter = () => {
          <div id="toast-undo" className="flex z-30 absolute top-16 right-7 items-center w-50 max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
              {totalNotifications === 0 ? (
                <div className="notification-item">
-                <p>Fantastic news! You&apos;re all caught up and have no pending requests or event invitations right now. Enjoy your day!</p>
+                <p>You&apos;re all caught up and have no pending requests or event invitations right now.</p>
                </div>
               ) : (
                notifications.map((notification, index) => (

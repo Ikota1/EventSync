@@ -183,8 +183,7 @@ const Dashboard = () => {
                     height: '32px',
                     borderRadius: '50%',
                     border: '2px solid white',
-                  }}
-                />
+                  }}/>
               </div>
             </div>
           </li>
