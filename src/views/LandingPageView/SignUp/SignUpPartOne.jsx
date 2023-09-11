@@ -5,6 +5,7 @@ import { countries } from '../../../constants/countries';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signOne } from '../../../assets';
+import PropTypes from 'prop-types';
 
 const SignUpPartOne = ({ stageOneFormData }) => {
 
@@ -107,6 +108,10 @@ const SignUpPartOne = ({ stageOneFormData }) => {
       </div>
     </section>
   );
+};
+
+SignUpPartOne.propTypes = {
+  stageOneFormData: PropTypes.func,
 };
 
 export default SignUpPartOne;

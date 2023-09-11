@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 const EventBox = ({ startDate, title, id }) => {
   const navigate = useNavigate();
@@ -14,5 +15,11 @@ const EventBox = ({ startDate, title, id }) => {
     </div>
   );
 }
+
+EventBox.propTypes = {
+  startDate: PropTypes.instanceOf(Date).isRequired,
+  title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
 
 export default EventBox;

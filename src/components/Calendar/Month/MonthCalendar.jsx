@@ -5,6 +5,7 @@ import Days from "./Days";
 import Week from "./Week";
 import { AuthContext } from "../../../context/UserContext";
 import { getSpecificEventPropsByID } from "../../../services/events.service";
+import PropTypes from 'prop-types';
 
 const MonthCalendar = ({ date, setDate }) => {
   const { userData } = useContext(AuthContext);
@@ -49,6 +50,11 @@ const MonthCalendar = ({ date, setDate }) => {
         events={events} />
     </div>
   );
+};
+
+MonthCalendar.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  setDate: PropTypes.func.isRequired,
 };
 
 export default MonthCalendar;

@@ -9,6 +9,7 @@ import {
 } from "date-fns";
 import ControlsWeekView from "./ControlsWeekView";
 import HoursAndDays from "./HoursAndDays";
+import PropTypes from 'prop-types';
 
 const WeekCalendar = ({ date, setDate, fullWeek }) => {
   const [currentWeek, setCurrentWeek] = useState(getWeek(date));
@@ -48,6 +49,12 @@ const WeekCalendar = ({ date, setDate, fullWeek }) => {
       </div>
     </div>
   );
+};
+
+WeekCalendar.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  setDate: PropTypes.func.isRequired,
+  fullWeek: PropTypes.bool.isRequired,
 };
 
 export default WeekCalendar;

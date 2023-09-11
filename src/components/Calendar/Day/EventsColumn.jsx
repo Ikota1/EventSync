@@ -5,7 +5,7 @@ import { AuthContext } from "../../../context/UserContext";
 import { getSpecificEventPropsByID } from "../../../services/events.service";
 import { areDatesTheSame } from "../../../constants/UIconstants/calendarHelpers";
 import EventBoxDay from "./EventBoxDay";
-
+import PropTypes from 'prop-types';
 
 const EventsColumn = ({ date, isUsedInWeek = false }) => {
   const { userData } = useContext(AuthContext);
@@ -54,5 +54,10 @@ const EventsColumn = ({ date, isUsedInWeek = false }) => {
     </div >
   );
 }
+
+EventsColumn.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  isUsedInWeek: PropTypes.bool,
+};
 
 export default EventsColumn;

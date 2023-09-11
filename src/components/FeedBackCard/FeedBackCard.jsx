@@ -1,4 +1,5 @@
 import { quotes } from "../../assets"
+import PropTypes from 'prop-types';
 
 const FeedBackCard = ({ content, name, title, img }) => (
   <div className='flex justify-between flex-col px-10 py-12 rounded-[20px] max-w-[370px] md:mr-10 sm:mr-5 mr-0 my-5 feedback-card'>
@@ -17,6 +18,11 @@ const FeedBackCard = ({ content, name, title, img }) => (
     </div>
   </div>
 )
-
+FeedBackCard.propTypes = {
+  content: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+};
 
 export default FeedBackCard

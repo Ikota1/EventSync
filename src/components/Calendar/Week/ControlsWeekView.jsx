@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const ControlsWeekView = ({ value, onChange, isMonth }) => {
   return (
@@ -15,5 +16,11 @@ const ControlsWeekView = ({ value, onChange, isMonth }) => {
     </div>
   );
 }
+
+ControlsWeekView.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  isMonth: PropTypes.bool.isRequired,
+};
 
 export default ControlsWeekView;

@@ -1,6 +1,7 @@
 import Day from './Day';
 import { areDatesTheSame, getDateObj } from "../../../constants/UIconstants/calendarHelpers";
 import { getEventsForDate } from "../../../constants/UIconstants/dateContstants";
+import PropTypes from 'prop-types';
 
 const Days = ({ date, onChange, emptyDaysAtStart, emptyDaysAtEnd, numDays, events }) => {
   const month = date.getMonth();
@@ -40,5 +41,19 @@ const Days = ({ date, onChange, emptyDaysAtStart, emptyDaysAtEnd, numDays, event
     </div>
   );
 }
+
+Days.propTypes = {
+  date: PropTypes.instanceOf(Date),
+  onChange: PropTypes.func,
+  emptyDaysAtStart: PropTypes.number,
+  emptyDaysAtEnd: PropTypes.number,
+  numDays: PropTypes.number,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      eventName: PropTypes.string,
+      eventTime: PropTypes.string,
+    })
+  ),
+};
 
 export default Days;

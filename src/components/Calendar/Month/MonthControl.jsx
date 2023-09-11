@@ -1,5 +1,6 @@
 import { add, format, sub } from 'date-fns';
 import { arrowLeft, arrowRight } from '../../../assets';
+import PropTypes from 'prop-types';
 
 const MonthControl = ({ date, onChange }) => {
   const prevMonth = () => onChange(sub(date, { months: 1 }));
@@ -19,5 +20,10 @@ const MonthControl = ({ date, onChange }) => {
     </div>
   )
 }
+
+MonthControl.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default MonthControl

@@ -2,6 +2,7 @@ import React from "react";
 import { addDays, startOfWeek } from "date-fns";
 import HoursColumn from "../Day/HoursColumn";
 import DayBox from "./DayBox";
+import PropTypes from 'prop-types';
 
 const HoursAndDays = ({ date, fullWeek }) => {
   const daysOfWeek = fullWeek
@@ -26,6 +27,11 @@ const HoursAndDays = ({ date, fullWeek }) => {
       ))}
     </div>
   );
+};
+
+HoursAndDays.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  fullWeek: PropTypes.bool.isRequired,
 };
 
 export default HoursAndDays;

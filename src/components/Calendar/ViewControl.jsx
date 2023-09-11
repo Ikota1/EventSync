@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { calendarViews } from '../../constants/UIconstants/calendarEnumsConstants';
+import PropTypes from 'prop-types';
 
 const ViewControl = ({ view, setView }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -39,6 +40,13 @@ const ViewControl = ({ view, setView }) => {
     </div>
   )
 }
+
+ViewControl.propTypes = {
+  view: PropTypes.shape({
+    view: PropTypes.string.isRequired,
+  }).isRequired,
+  setView: PropTypes.func.isRequired,
+};
 
 export default ViewControl
 

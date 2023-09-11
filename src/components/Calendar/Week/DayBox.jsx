@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import EventsColumn from "../Day/EventsColumn";
+import PropTypes from 'prop-types';
 
 const DayBox = ({ date }) => {
   return (
@@ -13,6 +14,10 @@ const DayBox = ({ date }) => {
       <hr className="border-t" />
     </div>
   );
+};
+
+DayBox.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default DayBox;

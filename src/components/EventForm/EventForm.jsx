@@ -10,6 +10,7 @@ import { eventReoccurrence } from '../../constants/helpersFns/events.enum';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import eventCategories from '../../constants/categories';
+import PropTypes from 'prop-types';
 
 const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
@@ -269,6 +270,11 @@ const EventForm = ({ onEventCreated, onClose }) => {
       </div>
     </section >
   );
+};
+
+EventForm.propTypes = {
+  onEventCreated: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default EventForm;

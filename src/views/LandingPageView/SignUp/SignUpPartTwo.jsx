@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signTwo } from '../../../assets';
 import { useState } from "react";
 import { FaEye } from 'react-icons/fa'
+import PropTypes from 'prop-types';
 
 const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     const getCharacterValidationError = (str) => {
@@ -159,6 +160,9 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
     );
 }
 
-
+SignUpPartTwo.propTypes = {
+    stageTwoFormData: PropTypes.func,
+    handleBackBtnClick: PropTypes.func,
+  };
 
 export default SignUpPartTwo;

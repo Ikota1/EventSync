@@ -1,4 +1,5 @@
 import EventBox from "./EventBox";
+import PropTypes from 'prop-types';
 
 const Day = ({ day, date, onChange, active, events }) => {
   const boxStyles = active
@@ -26,5 +27,18 @@ const Day = ({ day, date, onChange, active, events }) => {
     </div>
   );
 }
+
+Day.propTypes = {
+  day: PropTypes.number, 
+  date: PropTypes.instanceOf(Date),
+  onChange: PropTypes.func,
+  active: PropTypes.bool,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      eventName: PropTypes.string,
+      eventTime: PropTypes.string,
+    })
+  ),
+};
 
 export default Day;

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MdNotifications } from 'react-icons/md';
 import { AuthContext } from "../../context/UserContext";
 import { removeIncomingEventRequest } from "../../services/social.service";
+import PropTypes from 'prop-types';
 
 const NotificationCenter = () => {
     const [expanded, setExpanded] = useState(false);
@@ -73,6 +74,9 @@ const NotificationCenter = () => {
             )}
      </div>
     );
+};
+NotificationCenter.propTypes = {
+    onClick: PropTypes.func,
 };
 
 export default NotificationCenter;

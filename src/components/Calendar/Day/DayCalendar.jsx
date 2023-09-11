@@ -1,6 +1,7 @@
 import DayControls from "./DayControls";
 import HoursColumn from "./HoursColumn";
 import EventsColumn from "./EventsColumn";
+import PropTypes from 'prop-types';
 
 const DayCalendar = ({ date, setDate }) => {
   return (
@@ -13,5 +14,10 @@ const DayCalendar = ({ date, setDate }) => {
     </div>
   );
 }
+
+DayCalendar.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  setDate: PropTypes.func.isRequired,
+};
 
 export default DayCalendar;

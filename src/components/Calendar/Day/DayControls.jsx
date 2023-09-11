@@ -2,6 +2,7 @@ import React from "react";
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { arrowLeft, arrowRight } from "../../../assets";
 import { add, format, sub } from "date-fns";
+import PropTypes from 'prop-types';
 
 const DayControls = ({ date, setDate }) => {
   const prevDay = () => setDate(sub(date, { days: 1 }));
@@ -31,5 +32,10 @@ const DayControls = ({ date, setDate }) => {
     </div>
   );
 }
+
+DayControls.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  setDate: PropTypes.func.isRequired,
+};
 
 export default DayControls;
