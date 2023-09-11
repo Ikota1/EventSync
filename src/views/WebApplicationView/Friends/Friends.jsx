@@ -6,6 +6,8 @@ import FriendsLinks from "./FriendsLinks";
 import { deleteFriend } from "../../../services/social.service";
 import toast from 'react-hot-toast'
 import { getInitials } from "../../../constants/helpersFns/getInitials";
+import ReactCountryFlag from "react-country-flag";
+import getCountryNameByCode from "../../../constants/countries";
 
 
 const Friends = () => {
@@ -69,11 +71,23 @@ const Friends = () => {
                   {getInitials(user?.firstName, user?.lastName)}
                 </span>
                 )}                
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{user?.firstName} {user?.lastName}</h5>
-                <span className="text-sm text-gray-500 dark:text-gray-400">{user?.userName}</span>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{user?.country}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{user?.email}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{user?.phone}</p>
+                <h5 className="mb-1 pt-2 text-xl font-medium text-gray-900  dark:text-white">{user?.firstName} {user?.lastName}</h5>
+                <span className="text-lg text-gray-500 dark:text-gray-400">{user?.userName}</span>
+                <div className="flex pt-2"> 
+                <ReactCountryFlag
+                  countryCode={user.country}
+                  svg
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    border: '2px solid white',
+                  }}/>
+                   <p className="text-lg text-gray-500 pt-2 ml-2 dark:text-gray-400">{getCountryNameByCode(user?.country)}</p>
+                </div>
+               
+                <p className="text-lg text-gray-500 pt-2 dark:text-gray-400">Email: {user?.email}</p>
+                <p className="text-lg text-gray-500 pt-2 dark:text-gray-400">Phone: {user?.phone}</p>
                 <div className="flex mt-4 space-x-3 md:mt-6">
                 </div>
               </div>
