@@ -158,7 +158,9 @@ const Events = () => {
                   className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105 cursor-pointer">
                   <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{event.title}</h2>
-                  <p className="pt-6 pb-6" dangerouslySetInnerHTML={{ __html: event.description }} />
+                  <div className="event-description">
+                    <p className="pt-6 pb-6" dangerouslySetInnerHTML={{ __html: event.description }}/>  
+                  </div>  
                   <p className="pb-4">Tickets Remaining 42</p>
                   <p className="pb-4">Location: {event.location}</p>
                   <p> {format(new Date(event.startDate), 'do MMM')} |{' '} {event.startHour}h - {event.endHour}h </p>
