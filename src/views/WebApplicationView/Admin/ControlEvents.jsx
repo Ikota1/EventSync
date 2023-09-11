@@ -66,6 +66,8 @@ const ControlEvents = () => {
     setFilteredEvents(updatedFilteredEvents);
   }
 
+  const paginatedEvents = filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
+
   return (
     <>
       <AdminLinks />
@@ -81,10 +83,9 @@ const ControlEvents = () => {
         {filteredEvents.length === 0 ? (
           <p className="flex justify-center text-blue-300">No Events Found</p>
         ) : (
-          filteredEvents
-            .slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
+          paginatedEvents
             .map((event) => (
-              <div onClick={() => navigate(`../../events/${event.id}`)}
+              <div onClick={() => navigate(`../events/${event.id}`)}
                 key={event.id}
                 className="bg-gray-900 text-gray-300 rounded-lg shadow p-4 cursor-pointer">
                 <img src={event.photo} alt={event.title} className="w-full h-40 object-cover rounded-lg mb-4" />

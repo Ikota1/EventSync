@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import format from 'date-fns/format';
 import EventDeleteBtn from '../EventDeleteBtn/EventDeleteBtn';
 import EventLinks from '../../views/WebApplicationView/Events.jsx/EventLinks';
+import { NavLink } from 'react-router-dom';
 
 
 const MyEvents = () => {
@@ -86,7 +87,7 @@ const MyEvents = () => {
         <div>
           <div className="grid grid-cols-4 gap-4">
             {paginatedEvents.map((event) => (
-              <div key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105" >
+              <NavLink to={`../events/${event.id}`} key={event.id} className="bg-gray-900 text-blue-300 rounded-lg shadow-md p-4 hover:bg-gray-800 hover:text-blue-400 transition-transform duration-300 transform scale-100 hover:scale-105">
                 <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
                 <h2 className="text-lg font-semibold">{event.title}</h2>
                 <p className="pt-6 pb-6">{event.description}</p>
@@ -94,7 +95,7 @@ const MyEvents = () => {
                 <p>{format(new Date(event.startDate), 'do MMM')} | {event.startHour}h - {event.endHour}h</p>
                 <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
                 <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
-              </div>
+              </NavLink>
             ))}
           </div>
           {/* Pagination controls */}
