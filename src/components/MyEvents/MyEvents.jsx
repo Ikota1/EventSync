@@ -4,8 +4,12 @@ import { auth } from '../../firebase/firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import format from 'date-fns/format';
 import EventDeleteBtn from '../EventDeleteBtn/EventDeleteBtn';
+import EventEditBtn from '../EventEditBtn/EventEditBtn';
 import EventLinks from '../../views/WebApplicationView/Events.jsx/EventLinks';
 import { NavLink } from 'react-router-dom';
+
+import { ref, onValue } from 'firebase/database';
+import { db } from '../../firebase/firebase-config';
 
 
 const MyEvents = () => {
@@ -13,12 +17,13 @@ const MyEvents = () => {
   const [myEventsData, setMyEventsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [allEvents, setAllEvents] = useState([])
 
   const eventsPerPage = 4;
 
   useEffect(() => {
     const fetchUserEvents = async () => {
-      setLoading(true)
+      setLoading(true);
 
       try {
         if (user) {
@@ -36,19 +41,23 @@ const MyEvents = () => {
             setMyEventsData(eventDataArray.filter(eventData => eventData !== null));
           }
         }
-
       } catch (error) {
-        console.error(error)
+        console.error(error);
       } finally {
         setLoading(false);
       }
-
     };
-
-
     fetchUserEvents();
-  }, [user]);
+  }, [allEvents]);
 
+  //listen for changes of any event in events folder
+  useEffect(() => {
+    const eventsRef = ref(db, 'events');
+    onValue(eventsRef, (snapshot) => {
+      const data = snapshot.val();
+      setAllEvents(data)
+    });
+  }, [user])
 
   const handleNextPage = () => {
     const totalPages = Math.ceil(myEventsData.length / eventsPerPage);
@@ -93,15 +102,18 @@ const MyEvents = () => {
         <div>
           <div className="grid grid-cols-4 gap-4">
             {paginatedEvents.map((event) => (
-              <NavLink to={`../events/${event.id}`} key={event.id} className="bg-gray-900 text-white rounded-lg shadow-md p-4 transition-transform duration-300  hover:-translate-y-2">
-                {console.log(event.description.length)}
-                <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
+              // <div className="bg-gray-900 text-white rounded-lg shadow-md p-4 transition-transform duration-300 hover:-translate-y-2" key={event.id}>
+              <div className="bg-gray-900 text-white rounded-lg shadow-md p-4" key={event.id}>
+                <NavLink to={`../events/${event.id}`}>
+                  <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
+                </NavLink>
                 <h2 className="text-lg font-semibold">{event.title}</h2>
                 <div>
                   <p
                     className={`pt-6 pb-6 ${showFullDescription ? 'max-h-full overflow-y-auto' : 'max-h-[6em] overflow-hidden'}`}
                     dangerouslySetInnerHTML={{ __html: event.description }}
-                  /> {!showFullDescription && event.description.length > 100 && (
+                  />
+                  {!showFullDescription && event.description.length > 100 && (
                     <span className="text-gray-400">...</span>
                   )}
                 </div>
@@ -116,8 +128,11 @@ const MyEvents = () => {
                 <p className="pb-4">Location: {event.location}</p>
                 <p>{format(new Date(event.startDate), 'do MMM')} | {event.startHour}h - {event.endHour}h</p>
                 <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
-                <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
-              </NavLink>
+                <div className="flex items-center justify-between">
+                  <EventEditBtn eventId={event.id} />
+                  <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
+                </div>
+              </div>
             ))}
           </div>
           {/* Pagination controls */}
