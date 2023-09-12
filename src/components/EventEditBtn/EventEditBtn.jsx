@@ -16,7 +16,7 @@ const EventEditBtn = ({ eventId }) => {
   return (
     // <button  className="bg-blue-700 text-white px-2 py-1 rounded mb-4 ml-1">Edit Event</button>
   <div>
-    <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+    <button className="bg-blue-400 hover:bg-blue-500 font-normal font-poppins text-white px-2 py-1 rounded mt-4"
      onClick={handleShowForm}>Edit Event</button>
     {showUpdateFrom && (
       <div className="overlay">
