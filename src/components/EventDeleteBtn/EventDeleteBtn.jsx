@@ -17,7 +17,7 @@ const EventDeleteBtn = ({ eventId, onDelete }) => {
   };
 
   return (
-    <button onClick={handleDeleteBtnClick} className="bg-pink-800 hover:bg-pink-900 text-white px-2 py-1 rounded mt-4">Delete Event</button>
+    <button onClick={handleDeleteBtnClick} className="bg-pink-800 hover:bg-pink-900 font-normal font-poppins text-white px-2 py-1 rounded mt-4">Delete Event</button>
   );
 };
 
