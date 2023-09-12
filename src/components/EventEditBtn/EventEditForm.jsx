@@ -1,51 +1,47 @@
-import { useContext, useEffect, useState } from 'react';
-import { createEventHandle, getEventByHandle, updateEventData, uploadEventPhoto } from '../../services/events.service'
-import { AuthContext } from '../../context/UserContext'
+import { useEffect, useState } from 'react';
+import { getEventByHandle, updateEventData, uploadEventPhoto } from '../../services/events.service'
 import CustomToggleCheckBox from '../CustomToggleCheckBox/CustomToggleCheckBox';
-import { getDefaultImgURL } from '../../services/events.service';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast'
 import eventCategories from '../../constants/categories';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useForm } from 'react-hook-form';
-// import { currentTimeToLocalString } from '../../constants/helpersFns/helpers';
-// import { eventReoccurrence } from '../../constants/helpersFns/events.enum';
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
-// import PropTypes from 'prop-types';
-// import { Controller, useForm } from 'react-hook-form';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { Controller, useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 export const EventEditForm = ({ eventId, onClose }) => {
-    // const { userData } = useContext(AuthContext)
-    // const [defaultPhotoURL, setDefaultPhotoURL] = useState('');
-    // const [value, setValue] = useState('');
 
     const [eventData, setEventData] = useState({})
     const [uploadPhoto, setUploadPhoto] = useState('')
 
-    // const schema = Yup.object().shape({
-    //     title: Yup.string()
-    //         .min(3, 'Too Short!')
-    //         .max(20, 'Too Long!')
-    //         .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
-    //     category: Yup.string()
-    //         .oneOf(eventCategories.map(cat => cat.name), 'Please, select a category.'),
-    //     description: Yup.string()
-    //         .min(3, 'Too Short!')
-    //         .max(150, 'Too Long!'),
-    //     location: Yup.string()
-    //         .min(3, 'Too Short!')
-    //         .max(40, 'Too Long!'),
-    //     file: Yup.mixed().test('fileSize', 'Only documents up to 2MB are permitted.', (value) => {
-    //         console.log(value)
-    //         return value && value[0]?.size <= 2000000
-    //     }),
-    // });
+    const schema = Yup.object().shape({
+        title: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
+            .min(3, 'Too Short!')
+            .max(20, 'Too Long!')
+            .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
+        category: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
+            .oneOf(eventCategories.map(cat => cat.name), 'Please, select a category.'),
+        description: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
+            .min(3, 'Too Short!')
+            .max(150, 'Too Long!'),
+        location: Yup.string()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
+            .min(3, 'Too Short!')
+            .max(40, 'Too Long!'),
+    });
 
-    // const formOptions = { resolver: yupResolver(schema) };
-    // const { register, handleSubmit, formState } = useForm(formOptions);
-    // const { errors } = formState;
+    const formOptions = { resolver: yupResolver(schema) };
+    const { register, handleSubmit, formState, control } = useForm(formOptions);
+    const { errors } = formState;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -71,12 +67,12 @@ export const EventEditForm = ({ eventId, onClose }) => {
     };
 
     const handleUploadPhoto = (e) => {
-        const newAvatar = e.target.files[0];
-        setUploadPhoto(newAvatar);
+        const photo = e.target.files[0];
+        setUploadPhoto(photo);
     };
+    console.log(uploadPhoto)
 
-    const handleFormSubmit = async (e) => {
-        e.preventDefault()
+    const handleFormSubmit = async () => {
 
         const newFormData = {
             ...eventData,
@@ -108,6 +104,19 @@ export const EventEditForm = ({ eventId, onClose }) => {
         onClose();
     };
 
+    const modules = {
+        toolbar: [
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          [
+            { list: 'ordered' },
+            { list: 'bullet' },
+            { indent: '-1' },
+            { indent: '+1' },
+          ],
+          ['link'],
+        ],
+    };    
+
     return (
         <section>
             <div className="overlay w-full bg-primary bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -116,21 +125,20 @@ export const EventEditForm = ({ eventId, onClose }) => {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Update Event Information
                         </h1>
-                        <form className="space-y-4 md:space-y-2"
-                            // onSubmit={handleSubmit(handleFormSubmit)}
-                            onSubmit={(handleFormSubmit)}
-                        >
+                        <form className="space-y-4 md:space-y-2" onSubmit={(e) => {
+                              handleSubmit(handleFormSubmit)(e)
+                        }}>
                             <div className='gap-2'>
                                 <input
                                     type="text"
                                     name="title"
-                                    // {...register('title')}
+                                    {...register('title')}
                                     placeholder={eventData.title || ""}
                                     value={eventData.title || ""}
                                     onChange={(e) => handleInputChange("title", e.target.value)}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3"
                                 />
-                                {/* <div className="invalid-feedback text-red-700 text-sm">{errors.title?.message}</div> */}
+                                <div className="invalid-feedback text-red-700 text-sm">{errors.title?.message}</div>
                             </div>
                             <div className='flex'>
                                 <div>
@@ -160,7 +168,7 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                 <select
                                     name="category"
                                     id="category"
-                                    // {...register('category')}
+                                    {...register('category')}
                                     value={eventData.category || ""}
                                     onChange={(e) => handleInputChange("category", e.target.value)}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
@@ -171,19 +179,26 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                         </option>
                                     ))}
                                 </select>
-                                {/* <div className="invalid-feedback text-red-700 text-sm">{errors.category?.message}</div> */}
+                                <div className="invalid-feedback text-red-700 text-sm">{errors.category?.message}</div>
                             </div>
-                            <div>
-                                <textarea
-                                    placeholder="Description"
-                                    // {...register("about")}
-                                    value={eventData.description || ""}
-                                    onChange={(e) => handleInputChange("description", e.target.value)}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                />
-                                {/* <div className="invalid-feedback">{errors.about?.message}</div> */}
-                            </div>
-
+                            <Controller name='description' control={control} render={({
+                                field: { onChange, value },
+                            }) => (
+                                <>
+                                    <ReactQuill
+                                        className='bg-gray-50 border dark:text-white border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                                        theme='snow'
+                                        value={value}
+                                        modules={modules}
+                                        placeholder='Description'
+                                        onChange={(quillValue) => {
+                                            onChange(quillValue); // Update the value in React Hook Form
+                                            handleInputChange('description', quillValue); // Call your custom function
+                                        }}
+                                        />
+                                     <div className="invalid-feedback text-red-700 text-sm">{errors.description?.message}</div> 
+                                </>
+                            )} />
                             <input
                                 type="text"
                                 id='location'
@@ -192,9 +207,9 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                 value={eventData.location || ''}
                                 onChange={(e) => handleInputChange("location", e.target.value)}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            // {...register('location')}
-                            />
-                            {/* <div className="invalid-feedback text-red-700 text-sm">{errors.location?.message}</div> */}
+                            {...register('location')}
+                            /> 
+                            <div className="invalid-feedback text-red-700 text-sm">{errors.location?.message}</div>
 
                             <div className='flex justify-between pb-4'>
                                 <div className='flex flex-col'>
@@ -203,10 +218,8 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                         type="datetime-local"
                                         name='start_date'
                                         className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                                        onChange={(e) => handleInputChange("startDate", e.target.value)}
-                                    // {...register('start_date')} 
+                                        onChange={(e) => handleInputChange("startDate", e.target.value)}                                     
                                     />
-                                    {/* <div className="invalid-feedback text-red-700 text-sm">{errors.start_date?.message}</div> */}
                                 </div>
                                 <div className='flex flex-col'>
                                     <p className='pb-2'>End Date:</p>
@@ -215,9 +228,7 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                         name='end_date'
                                         className='w-full rounded-lg bg-transparent bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex-1'
                                         onChange={(e) => handleInputChange("endDate", e.target.value)}
-                                    // {...register('end_date')} 
                                     />
-                                    {/* <div className="invalid-feedback text-red-700 text-sm">{errors.end_date?.message}</div> */}
                                 </div>
                             </div>
                             <label htmlFor="">
@@ -230,8 +241,7 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                     className="bg-gray-50 border border-gray-300 mb-4 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 //   {...register('file')} 
                                 />
-                                {/* <div className="invalid-feedback text-red-700 text-sm">{errors.file?.message}</div> */}
-
+                                {/* <div className="invalid-feedback text-red-700 text-sm"> {errors.file?.message}</div> */}
                                 <div className="flex items-center justify-between">
                                     <button
                                         type="button"
@@ -253,5 +263,10 @@ export const EventEditForm = ({ eventId, onClose }) => {
         </section >
     );
 }
+
+EventEditForm.propTypes = {
+    eventId: PropTypes.string,
+    onClose: PropTypes.func,
+};
 
 export default EventEditForm
