@@ -86,15 +86,17 @@ const ControlEvents = () => {
         ) : (
           paginatedEvents
             .map((event) => (
-              <div onClick={() => navigate(`../events/${event.id}`)}
+              <div
                 key={event.id}
-                className="bg-gray-900 text-gray-300 rounded-lg shadow p-4 cursor-pointer">
-                <img src={event.photo} alt={event.title} className="w-full h-40 object-cover rounded-lg mb-4" />
-                <h2 className="text-lg font-semibold">{event.title}</h2>
-                <p className='pt-6 pb-6'>{event.description}</p>
-                <p className='pb-4'>Tickets Remaining 42</p>
-                <p className='pb-4'>Location: {event.location}</p>
-                <p>{format(new Date(event.startDate), "do MMM")} | {event.startHour}h - {event.endHour}h</p>
+                className="bg-gray-900 text-gray-300 rounded-lg shadow p-4 ">
+                <div  className='cursor-pointer' onClick={() => navigate(`../events/${event.id}`)}>
+                  <img src={event.photo} alt={event.title} className="w-full h-40 object-cover rounded-lg mb-4" />
+                  <h2 className="text-lg font-semibold">{event.title}</h2>
+                  <p className='pt-6 pb-6'>{event.description}</p>
+                  <p className='pb-4'>Tickets Remaining 42</p>
+                  <p className='pb-4'>Location: {event.location}</p>
+                  <p>{format(new Date(event.startDate), "do MMM")} | {event.startHour}h - {event.endHour}h</p>
+                </div>
                 <EventEditBtn eventId={event.id} />
                 <div onClick={(e) => e.stopPropagation()}>
                 <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
