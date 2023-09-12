@@ -6,54 +6,46 @@ import { getDefaultImgURL } from '../../services/events.service';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast'
 import eventCategories from '../../constants/categories';
-import { currentTimeToLocalString } from '../../constants/helpersFns/helpers';
-import { eventReoccurrence } from '../../constants/helpersFns/events.enum';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import PropTypes from 'prop-types';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+// import { currentTimeToLocalString } from '../../constants/helpersFns/helpers';
+// import { eventReoccurrence } from '../../constants/helpersFns/events.enum';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
+// import PropTypes from 'prop-types';
+// import { Controller, useForm } from 'react-hook-form';
 
 export const EventEditForm = ({ eventId, onClose }) => {
-    const { userData } = useContext(AuthContext)
-    const [defaultPhotoURL, setDefaultPhotoURL] = useState('');
-    const [value, setValue] = useState('');
+    // const { userData } = useContext(AuthContext)
+    // const [defaultPhotoURL, setDefaultPhotoURL] = useState('');
+    // const [value, setValue] = useState('');
 
-    const [eventData, setEventData] = useState(eventId)
+    const [eventData, setEventData] = useState({})
     const [uploadPhoto, setUploadPhoto] = useState('')
 
-
-
-    //   const schema = Yup.object().shape({
+    // const schema = Yup.object().shape({
     //     title: Yup.string()
-    //       .required('Title is required!')
-    //       .min(3, 'Too Short!')
-    //       .max(20, 'Too Long!')
-    //       .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
+    //         .min(3, 'Too Short!')
+    //         .max(20, 'Too Long!')
+    //         .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
     //     category: Yup.string()
-    //       .required('Category is mandatory.').oneOf(eventCategories.map(cat => cat.name), 'Please, select a category.'),
+    //         .oneOf(eventCategories.map(cat => cat.name), 'Please, select a category.'),
     //     description: Yup.string()
-    //       .required('Description is required!')
-    //       .min(3, 'Too Short!')
-    //       .max(150, 'Too Long!'),
+    //         .min(3, 'Too Short!')
+    //         .max(150, 'Too Long!'),
     //     location: Yup.string()
-    //       .required('Location is required!')
-    //       .min(3, 'Too Short!')
-    //       .max(40, 'Too Long!'),
-    //     start_date: Yup.date()
-    //       .required("Start time cannot be empty!"),
-    //     end_date: Yup.date()
-    //       .required("End time is required!"),
-    //     file: Yup.mixed().required('You need to provide a file!').test('fileSize', 'Only documents up to 2MB are permitted.', (value) => {
-    //       console.log(value)
-    //       return value && value[0]?.size <= 2000000
+    //         .min(3, 'Too Short!')
+    //         .max(40, 'Too Long!'),
+    //     file: Yup.mixed().test('fileSize', 'Only documents up to 2MB are permitted.', (value) => {
+    //         console.log(value)
+    //         return value && value[0]?.size <= 2000000
     //     }),
-    //   });
+    // });
 
-    //   const formOptions = { resolver: yupResolver(schema) };
-    //   const { register, handleSubmit, formState, control } = useForm(formOptions);
-    //   const { isValid, errors } = formState;
+    // const formOptions = { resolver: yupResolver(schema) };
+    // const { register, handleSubmit, formState } = useForm(formOptions);
+    // const { errors } = formState;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -63,11 +55,7 @@ export const EventEditForm = ({ eventId, onClose }) => {
                     const curEvent = snapshot.val()
                     setEventData(curEvent)
                 }
-                console.log(eventData)
 
-
-                const defaultImgUrl = await getDefaultImgURL();
-                setDefaultPhotoURL(defaultImgUrl);
             } catch (error) {
                 console.error(error)
             }
@@ -87,14 +75,15 @@ export const EventEditForm = ({ eventId, onClose }) => {
         setUploadPhoto(newAvatar);
     };
 
-    const handleFormSubmit = async () => {
+    const handleFormSubmit = async (e) => {
+        e.preventDefault()
 
         const newFormData = {
             ...eventData,
         };
 
         if (uploadPhoto) {
-            const photoURL = await uploadEventPhoto( eventData.id, uploadPhoto);
+            const photoURL = await uploadEventPhoto(eventData.id, uploadPhoto);
             newFormData.photo = photoURL;
         }
 
@@ -119,26 +108,7 @@ export const EventEditForm = ({ eventId, onClose }) => {
         onClose();
     };
 
-    const modules = {
-        toolbar: [
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [
-                { list: 'ordered' },
-                { list: 'bullet' },
-                { indent: '-1' },
-                { indent: '+1' },
-            ],
-            ['link'],
-        ],
-    };
-
-
     return (
-        // <section>
-        //     <div className="overlay w-full bg-primary bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
-        //         hi
-        //     </div>
-        // </section>
         <section>
             <div className="overlay w-full bg-primary bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div className="w-[600px] bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-[600px] xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -146,19 +116,19 @@ export const EventEditForm = ({ eventId, onClose }) => {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Update Event Information
                         </h1>
-                        <form className="space-y-4 md:space-y-2" onSubmit={(e) => {
-                            e.preventDefault();
-                            //   handleSubmit(handleFormSubmit)()
-                            handleFormSubmit()
-                        }}>
+                        <form className="space-y-4 md:space-y-2"
+                            // onSubmit={handleSubmit(handleFormSubmit)}
+                            onSubmit={(handleFormSubmit)}
+                        >
                             <div className='gap-2'>
                                 <input
                                     type="text"
                                     name="title"
+                                    // {...register('title')}
                                     placeholder={eventData.title || ""}
+                                    value={eventData.title || ""}
                                     onChange={(e) => handleInputChange("title", e.target.value)}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3"
-                                //   {...register('title')} 
                                 />
                                 {/* <div className="invalid-feedback text-red-700 text-sm">{errors.title?.message}</div> */}
                             </div>
@@ -190,9 +160,9 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                 <select
                                     name="category"
                                     id="category"
+                                    // {...register('category')}
                                     value={eventData.category || ""}
                                     onChange={(e) => handleInputChange("category", e.target.value)}
-                                    //   {...register('category')}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                                     <option value="">Select a category</option>
                                     {eventCategories.map((category) => (
@@ -219,6 +189,7 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                 id='location'
                                 name='location'
                                 placeholder={eventData.location}
+                                value={eventData.location || ''}
                                 onChange={(e) => handleInputChange("location", e.target.value)}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             // {...register('location')}
@@ -267,8 +238,7 @@ export const EventEditForm = ({ eventId, onClose }) => {
                                         onClick={() => {
                                             onClose()
                                         }}
-                                        className="w-1/2 full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                    >
+                                        className="w-1/2 full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                         Close
                                     </button>
                                     <button type="submit" className="w-1/2 full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
