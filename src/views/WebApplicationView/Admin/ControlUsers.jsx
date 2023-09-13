@@ -1,10 +1,11 @@
-import { getAllUsers, blockUser, unblockUser, promoteUserToPremium } from '../../../services/user.services'
+import { getAllUsers, blockUser, unblockUser } from '../../../services/user.services'
 import { useEffect, useState } from "react"
+import { getInitials } from '../../../constants/helpersFns/getInitials'
+import AdminLinks from './AdminLinks'
 import getCountryNameByCode from "../../../constants/countries"
 import getUserRoleByCode, { USER_ROLES } from "../../../constants/userRoles"
 import toast from 'react-hot-toast'
-import { getInitials } from '../../../constants/helpersFns/getInitials'
-import AdminLinks from './AdminLinks'
+
 
 export const ControlUsers = () => {
     const [searchItem, setSearchItem] = useState('')
@@ -100,24 +101,7 @@ export const ControlUsers = () => {
             toast.success('Failed to unblock user!')
         }
     }
-    const handlePremiumUser = async (uid) => {
-        try {
-            const updatedUsers = users.map((user) => {
-                if (user.uid === uid) {
-                    return { ...user, userRole: USER_ROLES.PremiumUser };
-                }
-                return user;
-            });
-            toast.success('User has been promoted to Premium successfully!')
-            setUsers(updatedUsers)
-            setRerender((prev) => !prev)
-            await promoteUserToPremium(uid);
-        } catch (error) {
-            console.error('Error:', error)
-            toast.error('Failed to promote user!')
-        }
-    }
-
+   
     const handleNextPage = () => {
         const totalPages = Math.ceil(users.length / usersPerPage);
         if (currentPage < totalPages) {
@@ -176,7 +160,7 @@ export const ControlUsers = () => {
                                 ) : (
                                     filteredUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
                                         .map((user) => (
-                                            <tr key={user.uid} className="mt-2 text-blue-300">
+                                            <tr key={user.uid} className="mt-2 text-white">
                                                 <td className="border-b border-gray-200  px-6 py-6 text-sm">
                                                     <span className="whitespace-no-wrap">{getCountryNameByCode(user.country)}</span>
                                                 </td>
@@ -224,9 +208,8 @@ export const ControlUsers = () => {
 
                                                 </td>
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
-                                                    <button onClick={() => handleBlockUser(user.uid)} className="bg-blue-500 text-white px-2 py-1 rounded"> Block </button>
+                                                    <button onClick={() => handleBlockUser(user.uid)} className="bg-red-300 mr-4 text-white px-2 py-1 rounded"> Block </button>
                                                     <button onClick={() => handleUnblockUser(user.uid)} className="bg-blue-500 text-white py-1 rounded px-2"> Unblock </button>
-                                                    <button onClick={() => handlePremiumUser(user.uid)} className="bg-purple-700 text-white px-2 py-1 rounded "> Premium </button>
                                                 </td>
                                             </tr>
                                         ))
