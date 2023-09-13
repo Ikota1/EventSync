@@ -14,11 +14,11 @@ import PropTypes from 'prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import DOMPurify from 'dompurify';
 
 const EventForm = ({ onEventCreated, onClose }) => {
   const { userData } = useContext(AuthContext)
   const [defaultPhotoURL, setDefaultPhotoURL] = useState('');
-  const [value, setValue] = useState('');
 
   const schema = Yup.object().shape({
     title: Yup.string()
@@ -78,14 +78,22 @@ const EventForm = ({ onEventCreated, onClose }) => {
     fetchDefaultImgURL();
   }, [])
 
+  const sanitizeHTML = (html) => {
+    const sanitizedHTML = DOMPurify.sanitize(html);
+    return sanitizedHTML;
+  };
+
 
   const handleFormSubmit = async (e) => {
     let tempIdentifier = '';
 
+    const sanitizedDescription = sanitizeHTML(e.description);
+
+
     const newFormData = {
       ...eventData,
       title: e.title,
-      description: e.description,
+      description: sanitizedDescription,
       location: e.location,
       startDateTime: e.start_date,
       endDateTime: e.end_date,

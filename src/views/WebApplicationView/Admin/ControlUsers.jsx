@@ -5,6 +5,7 @@ import AdminLinks from './AdminLinks'
 import getCountryNameByCode from "../../../constants/countries"
 import getUserRoleByCode, { USER_ROLES } from "../../../constants/userRoles"
 import toast from 'react-hot-toast'
+import ReactCountryFlag from 'react-country-flag'
 
 
 export const ControlUsers = () => {
@@ -101,7 +102,7 @@ export const ControlUsers = () => {
             toast.success('Failed to unblock user!')
         }
     }
-   
+
     const handleNextPage = () => {
         const totalPages = Math.ceil(users.length / usersPerPage);
         if (currentPage < totalPages) {
@@ -161,9 +162,19 @@ export const ControlUsers = () => {
                                     filteredUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
                                         .map((user) => (
                                             <tr key={user.uid} className="mt-2 text-white">
-                                                <td className="border-b border-gray-200  px-6 py-6 text-sm">
-                                                    <span className="whitespace-no-wrap">{getCountryNameByCode(user.country)}</span>
+                                                <td className="border-b border-gray-200 px-6 py-6 text-sm">
+                                                    <ReactCountryFlag
+                                                        countryCode={user.country}
+                                                        svg
+                                                        style={{
+                                                            width: '32px',
+                                                            height: '32px',
+                                                            borderRadius: '50%',
+                                                            border: '2px solid white',
+                                                        }} />
+                                                    <span className="whitespace-no-wrap ml-4">{getCountryNameByCode(user.country)}</span>
                                                 </td>
+
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
                                                     <div className="flex items-center">
                                                         {users && user.photo ? (
