@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
-import styles from "../../style";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/UserContext";
 import { getPublicEvents } from "../../services/events.service";
+import styles from "../../style";
 import format from "date-fns/format";
-import ReactQuill from "react-quill";
+import { Link } from "react-router-dom";
 
 export const NewsData = () => {
 
   const [eventsData, setEventsData] = useState([]);
+  const { userData } = useContext(AuthContext)
 
   useEffect(() => {
     const fetchPublicEvents = async () => {
@@ -33,6 +35,7 @@ export const NewsData = () => {
           className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
           {eventsData.slice(-5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
+               <Link to={userData ? `/event/${el.id}` : '/login'}> 
               <div
                 id={el.id}
                 className={`w-96 max-w-xs cursor-pointer rounded-lg hover:scale-105 duration-300 ease-in-out`}
@@ -53,6 +56,7 @@ export const NewsData = () => {
                   </p>
                 </div>
               </div>
+              </Link>
             </div>
           ))}
         </div>
@@ -62,15 +66,15 @@ export const NewsData = () => {
           className="w-full h-full scroll whitespace-nowrap scroll-smooth no-scrollbar">
           {eventsData.slice(-5).map((el) => (
             <div className="inline-block px-3 py-5 hover:text-blue-400 transition-transform transform scale-100 hover:scale-105" key={el.id}>
+                <Link to={userData ? `/event/${el.id}` : '/login'}> 
               <div
                 id={el.id}
                 className={`w-96 max-w-xs cursor-pointer rounded-lg hover:scale-105 duration-300 ease-in-out`}
                 data-te-carousel-active
                 data-te-carousel-item
                 style={{ backfaceVisibility: "hidden" }}>
-                <div
-                  key={el.id}
-                  className="bg-gray-900 text-gray-300 rounded-lg shadow p-4">
+
+                <div key={el.id} className="bg-gray-900 text-gray-300 rounded-lg shadow p-4">
                   <img
                     src={el.photo}
                     alt={el.title}
@@ -82,6 +86,7 @@ export const NewsData = () => {
                   </p>
                 </div>
               </div>
+              </Link>
             </div>
           ))}
         </div>
