@@ -25,15 +25,15 @@ const UserProfileForm = ({ onClose, formData }) => {
         firstName: Yup.string()
             .nullable()
             .transform((curr, orig) => (orig === "" ? null : curr))
-            .min(1, 'Too Short!')
+            .min(3, 'Too Short!')
             .max(30, 'Too Long!')
-            .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
+            .matches(/^[A-Za-z]*$/, 'Please enter valid name'),
         lastName: Yup.string()
             .nullable()
             .transform((curr, orig) => (orig === "" ? null : curr))
-            .min(1, 'Too Short!')
+            .min(3, 'Too Short!')
             .max(30, 'Too Long!')
-            .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
+            .matches(/^[A-Za-z]*$/, 'Please enter valid name'),
         phone: Yup.string()
             .nullable()
             .transform((curr, orig) => (orig === "" ? null : curr))
@@ -52,7 +52,7 @@ const UserProfileForm = ({ onClose, formData }) => {
             .transform((curr, orig) => (orig === "" ? null : curr))
             .min(20, 'Description should be min 20 characters.')
             .max(150, 'Description should be max 150 characters.')
-            .matches(/^[a-zA-Z0-9]+$/, 'Description should contain only characters and numbers')
+            .matches(/^[a-zA-Z0-9/\s/]+$/, 'Description should contain only characters and numbers')
             .notRequired(),
     });
 
