@@ -37,7 +37,6 @@
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -50,6 +49,7 @@
 <!-- project need to be hosted -->
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
+### Description:
 EventSync is a cutting-edge event management application designed to simplify the process of scheduling and organizing events for individuals and teams. With a focus on flexibility and user-friendliness, EventSync empowers users to create and manage events and event series effortlessly. The app boasts a comprehensive set of features, including tags, reminders, and contact lists, to ensure seamless event coordination.
 
 EventSync utilizes Firebase as a back-end service offering a reliable data management. There are three main entities:
@@ -123,6 +123,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 4. Commit your changes ( `git push` )
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- CONTACT -->
 ## Contact
