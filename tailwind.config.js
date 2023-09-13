@@ -7,6 +7,8 @@ export default {
       colors: {
         primary: "#00040f",
         secondary: "#00f6ff",
+        thirdly: '#48B4E9',
+        thirdlyHover: '#3E95BE',
         dimWhite: "rgba(255, 255, 255, 0.7)",
         dimBlue: "rgba(9, 151, 124, 0.1)",
       },
