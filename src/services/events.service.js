@@ -233,15 +233,35 @@ export const getSpecificEventPropsByID = async (id) => {
     : {}
 }
 
-export const deleteEvent = async (eventId) => {
+export const deleteEvent = async (eventId, userId) => {
+
+  const userRefEvents = await get(ref(db, `users/${userId}/events`))
+  const snapshot = userRefEvents.val().find(el => el === eventId)
+  const deleteUserEventId = snapshot.indexOf(snapshot)
+
+  const userRef = ref(db, `users/${userId}`);
+  const userSnapshot = await get(userRef);
+  const userData = userSnapshot.val();
 
   try {
     await remove(ref(db, `events/${eventId}`));
+    await remove(ref(db, `users/${userId}/events/${deleteUserEventId}`));
 
   } catch (error) {
     console.error('Error deleting thread:', error);
     throw error;
   }
+
+  const userStatistics = userData.eventStatistics;
+  const updatedUserStatistics = {
+    ...userStatistics,
+    eventsCreated: (userStatistics.eventsCreated || 0) - 1,
+  };
+  const updateUserEvents = {
+    [`/users/${userId}/eventStatistics`]: updatedUserStatistics,
+  };
+
+  await update(ref(db), updateUserEvents);
 };
 
 
