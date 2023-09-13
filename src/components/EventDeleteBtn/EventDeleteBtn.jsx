@@ -4,10 +4,10 @@ import toast from 'react-hot-toast'
 import PropTypes from 'prop-types';
 
 
-const EventDeleteBtn = ({ eventId, onDelete }) => {
+const EventDeleteBtn = ({ eventId, userId, onDelete }) => {
   const handleDeleteBtnClick = async () => {
     try {
-      await deleteEvent(eventId);
+      await deleteEvent(eventId, userId);
       onDelete()
       toast.success('Event has been deleted successfully!')
     } catch (error) {
