@@ -15,8 +15,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const onlineEventsPercentage = (onlineEvents.length / allPublicEvents.length) * 100;
-  const liveEventsPercentage = (liveEvents.length / allPublicEvents.length) * 100;
+  const onlineEventsPercentage = allPublicEvents.length > 0 ? (onlineEvents.length / allPublicEvents.length) * 100 : 0;
+  const liveEventsPercentage = allPublicEvents.length > 0 ? (liveEvents.length / allPublicEvents.length) * 100 : 0;
 
 
   useEffect(() => {
