@@ -24,6 +24,7 @@ import EventsDetails from "../views/WebApplicationView/EventsDetails/EventsDetai
 import EventHistory from "../views/WebApplicationView/Events.jsx/EventHistory";
 import PropTypes from 'prop-types';
 import ContactUsForm from "../views/WebApplicationView/Support/ContactUsForm";
+import UserDetails from "../views/WebApplicationView/userDetails/UserDetails";
 
 
 const AuthenticatedRoute = ({ element }) => {
@@ -49,22 +50,23 @@ const AppRouter = () => (
 
     {/* Application view */}
     <Route path="/application" element={<AuthenticatedRoute element={<ApplicationView />} />}>
-      <Route path="/application/dashboard" element={<Dashboard />} />
+      <Route exact path="/application/dashboard" element={<Dashboard />} />
       <Route path="events" element={<Events />} />
       <Route path="my-events" element={<MyEvents />} />
       <Route path="event-history" element={<EventHistory />} />
       <Route exact path="events/:id" element={<EventsDetails />} />
+      <Route exact path="user-profile/:id" element={<UserDetails />} />
       <Route path="friends" element={<Friends />} />
       <Route path="pending-friends" element={<PendingFriends />} />
       <Route path="search-friends" element={<SearchFriends />} />
       <Route path="calendar" element={<Calendar />} />
       <Route path="support" element={<ContactUsForm />} />
       <Route path="settings" element={<Settings />} />
-    <Route element={<AdminRoute />}>
-      <Route path="admin" element={<Admin />} />
-      <Route path="control-users" element={<ControlUsers />} />
-      <Route path="control-events" element={<ControlEvents />} /> 
-    </Route>
+      <Route element={<AdminRoute />}>
+        <Route path="admin" element={<Admin />} />
+        <Route path="control-users" element={<ControlUsers />} />
+        <Route path="control-events" element={<ControlEvents />} />
+      </Route>
 
       <Route path="/application" element={<Navigate to="/application/dashboard" />} />
     </Route>
