@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
 
@@ -25,7 +25,7 @@ const EventLocation = ({ userLocation }) => {
     }
 
     return (
-        <div>
+        <div className='font-poppins'>
             <GoogleMap
                 center={userDefLocation}
                 zoom={14}
@@ -37,6 +37,6 @@ const EventLocation = ({ userLocation }) => {
 };
 EventLocation.propTypes = {
     userLocation: PropTypes.string.isRequired, // Assuming userLocation is a string
-  };
-  
+};
+
 export default EventLocation;

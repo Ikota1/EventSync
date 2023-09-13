@@ -117,7 +117,7 @@ export const ControlUsers = () => {
     };
 
     return (
-        <>
+        <div className='font-poppins'>
             <AdminLinks />
             <div className="flex justify-center mt-8">
                 <input
@@ -238,7 +238,7 @@ export const ControlUsers = () => {
                     )}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

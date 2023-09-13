@@ -6,7 +6,7 @@ import { logoIcon } from '../../../assets';
 
 
 const FAQ = () => (
-  <>
+  <div className='font-poppins'>
     <div className={` bg-gray-50 dark:bg-gray-900 md:flex ${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
         <Navbar />
@@ -24,7 +24,7 @@ const FAQ = () => (
         </div>
       </div>
     </div>
-  </>
+  </div>
 )
 
 

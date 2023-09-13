@@ -34,7 +34,7 @@ const SignUpPartOne = ({ stageOneFormData }) => {
 
   return (
 
-    <section className="bg-gray-50 dark:bg-gray-900 md:flex">
+    <section className="bg-gray-50 dark:bg-gray-900 md:flex font-poppins">
       <div className="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0 md:w-[50%] md:border-r-2">
         <NavLink to='/'><img src={logo} alt='eventSync' className='w-[124px] h-[50px] mb-[20px]' /></NavLink>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -50,7 +50,7 @@ const SignUpPartOne = ({ stageOneFormData }) => {
                   id="firstName"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100"
                   placeholder="e.g Donald"
-                  {...register('firstName')}/>
+                  {...register('firstName')} />
                 <div className="invalid-feedback">{errors.firstName?.message}</div>
               </div>
               <div>
@@ -81,15 +81,15 @@ const SignUpPartOne = ({ stageOneFormData }) => {
                 <div className="invalid-feedback">{errors.country?.message}</div>
               </div>
               <div className="flex justify-between">
-                 {/* we can change the button with a back icon or something */}
+                {/* we can change the button with a back icon or something */}
                 <NavLink to='/'>
-                  <button type='submit'className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" >
+                  <button type='submit' className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" >
                     Back
                   </button>
                 </NavLink>
-                <button type='submit'className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Continue</button>
-               </div>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400"> Already got account? <NavLink to='/login' className="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</NavLink>
+                <button type='submit' className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Continue</button>
+              </div>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400"> Already got account? <NavLink to='/login' className="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</NavLink>
               </p>
             </form>
           </div>

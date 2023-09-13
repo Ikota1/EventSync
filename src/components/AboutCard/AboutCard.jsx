@@ -5,7 +5,7 @@ import { FaGitlab, FaLinkedin } from 'react-icons/fa';
 
 const AboutUsCard = () => {
     return (
-        <div className={`${styles.boxWidth}`}>
+        <div className={`${styles.boxWidth} font-poppins`}>
             <div className="container">
                 <div className="services">
                     {developers.map(person => (

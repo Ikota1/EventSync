@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const Day = ({ day, date, onChange, active, events }) => {
   const boxStyles = active
-    ? "min-w-[50px] h-[140px] p-2 bg-pink-600 bg-opacity-50 border-t-5 border-white cursor-pointer border-b-[1px]"
-    : "min-w-[50px] h-[140px] p-2 border-t-1 border-gray-300 cursor-pointer border-b-[1px]";
+    ? "font-poppins min-w-[50px] h-[140px] p-2 bg-pink-600 bg-opacity-50 border-t-5 border-white cursor-pointer border-b-[1px]"
+    : "font-poppins min-w-[50px] h-[140px] p-2 border-t-1 border-gray-300 cursor-pointer border-b-[1px]";
 
   return (
     <div
@@ -29,7 +29,7 @@ const Day = ({ day, date, onChange, active, events }) => {
 }
 
 Day.propTypes = {
-  day: PropTypes.number, 
+  day: PropTypes.number,
   date: PropTypes.instanceOf(Date),
   onChange: PropTypes.func,
   active: PropTypes.bool,

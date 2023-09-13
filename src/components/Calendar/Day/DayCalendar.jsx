@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const DayCalendar = ({ date, setDate }) => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 font-poppins">
       <DayControls date={date} setDate={setDate} />
       <div className="flex">
         <HoursColumn />

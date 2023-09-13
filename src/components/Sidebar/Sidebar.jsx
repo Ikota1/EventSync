@@ -33,7 +33,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={` ${open ? "w-64" : "w-20 "} h-screen p-5 pt-8 relative duration-300 bg-gray-900`}>
+      <div className={` ${open ? "w-64" : "w-20 "} font-poppins h-screen p-5 pt-8 relative duration-300 bg-gray-900`}>
         <img src={control}
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)} />
@@ -46,7 +46,7 @@ const Sidebar = () => {
         <ul className="pt-6">
           {navLinksSidebar.map((nav) => (
             <NavLink key={nav.id} to={nav.id} className=''>
-              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-pink-900  text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
+              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-gray-500  text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
                 <img src={nav.img} className='w-[20px] h-auto' />
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
                   {nav.title}

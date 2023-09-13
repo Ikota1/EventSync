@@ -6,7 +6,7 @@ import Testimonials from '../../../components/Testimonials/Testimonials';
 import Footer from '../../../components/Footer/Footer';
 
 const LandingPage = () => (
-  <>
+  <div className='font-poppins'>
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
         <Navbar />
@@ -27,7 +27,7 @@ const LandingPage = () => (
         <Footer />
       </div>
     </div>
-  </>
+  </div>
 )
 
 export default LandingPage

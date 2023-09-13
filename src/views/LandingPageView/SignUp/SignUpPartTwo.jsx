@@ -61,7 +61,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
         setPasswordShown(!passwordShown)
     }
     return (
-        <section className="bg-gray-50 dark:bg-gray-900 md:flex">
+        <section className="bg-gray-50 dark:bg-gray-900 md:flex font-poppins">
             <div className="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0 md:w-[50%] md:border-r-2">
                 <NavLink to='/'><img src={logo} alt='eventSync' className='w-[124px] h-[50px] mb-[20px]' /></NavLink>
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -105,16 +105,16 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Password </label>
-                                <div className="flex">
+                                <div className="relative">
                                     <input
                                         type={passwordShown ? "text" : "password"}
                                         name="password"
                                         placeholder="••••••••"
                                         className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.password ? 'is-invalid' : ''}`} sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100`}
                                         {...register('password')} />
-                                       <FaEye onClick={togglePassword} />
+                                    <FaEye className='absolute top-[30%] right-[3%] fill-gray-900 w-5 h-5' onClick={togglePassword} />
                                 </div>
-                                   <div className="invalid-feedback text-red-700">{errors.password?.message}</div>
+                                <div className="invalid-feedback text-red-700">{errors.password?.message}</div>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Verify Password </label>
@@ -124,7 +124,7 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
                                     placeholder="••••••••"
                                     {...register('confirmPwd')}
                                     className={`bg-gray-50 border border-gray-300 text-gray-900 ${`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:placeholder-opacity-0 placeholder-opacity-100`} />
-                                    <div className="invalid-feedback text-red-700">{errors.confirmPwd?.message}</div>
+                                <div className="invalid-feedback text-red-700">{errors.confirmPwd?.message}</div>
                             </div>
                             <div className='flex'>
                                 <button onClick={handleBackBtnClick}
@@ -163,6 +163,6 @@ const SignUpPartTwo = ({ stageTwoFormData, handleBackBtnClick }) => {
 SignUpPartTwo.propTypes = {
     stageTwoFormData: PropTypes.func,
     handleBackBtnClick: PropTypes.func,
-  };
+};
 
 export default SignUpPartTwo;

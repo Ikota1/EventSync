@@ -2,7 +2,7 @@ import { hoursWithMinutes } from "../../../constants/UIconstants/calendarHelpers
 
 const HoursColumn = () => {
   return (
-    <div className={`grid border-r border-gray-300 grid-rows-2 gap-1`}>
+    <div className={`grid border-r border-gray-300 grid-rows-2 gap-1 font-poppins`}>
       {hoursWithMinutes.map((hour, i) => (
         <div
           key={hour}

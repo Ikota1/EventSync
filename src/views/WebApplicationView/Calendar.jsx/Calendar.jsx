@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { calendarViews } from "../../../constants/UIconstants/calendarEnumsConstants";
 import MonthCalendar from "../../../components/Calendar/Month/MonthCalendar";
 import ViewControl from "../../../components/Calendar/ViewControl";
@@ -11,7 +11,7 @@ function Calendar() {
   const [date, setDate] = useState(new Date());
 
   return (
-    <div className="flex flex-col lg:flex-row gap-5">
+    <div className="flex flex-col lg:flex-row gap-5 font-poppins">
       <div className="flex-grow">
         <div className="flex justify-between items-center max-h-[800px]">
           <ViewControl view={view} setView={setView} />

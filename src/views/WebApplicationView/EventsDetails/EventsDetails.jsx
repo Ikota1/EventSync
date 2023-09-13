@@ -105,7 +105,7 @@ const EventsDetails = () => {
   }
 
   return (
-    <div className='text-white overflow-y-scroll h-[1000px] '>
+    <div className='text-white overflow-y-scroll h-[1000px] font-poppins'>
       <div className='w-[60%] flex justify-between flex-col items-center mx-auto'>
         <div className='bg-gray-900 p-4 rounded-lg'>
           {eventsDetailed && (

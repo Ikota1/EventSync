@@ -35,7 +35,7 @@ const MonthCalendar = ({ date, setDate }) => {
   const emptyDaysAtEnd = 6 - endDate.getDay() + 1;
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center font-poppins">
       <div>
         <MonthControl date={date} onChange={onChange} />
         <hr className="mb-2" />

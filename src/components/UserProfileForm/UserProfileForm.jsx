@@ -103,8 +103,8 @@ const UserProfileForm = ({ onClose, formData }) => {
     }
 
     return (
-        <section>
-            <div className="overlay w-full bg-primary bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <section className="font-poppins">
+            <div className="font-poppins overlay w-full bg-primary bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <div className="grid justify-items-center">
@@ -192,7 +192,7 @@ const UserProfileForm = ({ onClose, formData }) => {
                                     checked={doNotDisturb || ''}
                                     onChange={handleDoNotDisturb} />
                                 <div className={`w-9 h-5 bg-gray-200 rounded-full peer ${doNotDisturb === true ? 'peer-checked:bg-purple-500' : 'dark:bg-gray-300'}  dark:border-gray-600  dark:peer-checked:after:translate-x-full  dark:peer-checked:bg-purple-500 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:border-white`}></div>
-                                <span className={`${doNotDisturb === true ? `ml-3 text-sm font-normal font-poppins text-purple-500` : `ml-3 text-sm font-normal font-poppins text-gray-900 dark:text-gray-300`} `}>Incognito</span>
+                                <span className={`${doNotDisturb === true ? `ml-3 text-sm font-normal font-poppins text-purple-500` : `ml-3 text-sm font-normal font-poppins text-gray-900 dark:text-gray-300`} `}>Do not disturb</span>
                             </label>
                             <div className="flex items-center justify-between">
                                 <button

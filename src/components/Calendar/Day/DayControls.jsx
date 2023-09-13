@@ -1,5 +1,3 @@
-import React from "react";
-// import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { arrowLeft, arrowRight } from "../../../assets";
 import { add, format, sub } from "date-fns";
 import PropTypes from 'prop-types';
@@ -10,7 +8,7 @@ const DayControls = ({ date, setDate }) => {
   const currentDate = () => setDate(new Date());
 
   return (
-    <div className="flex justify-center gap-3 items-center p-2 top-0 z-20">
+    <div className="flex justify-center gap-3 font-poppins items-center p-2 top-0 z-20">
       <button
         className="text-lg md:text-md px-3 py-1 rounded focus:outline-none"
         onClick={currentDate}>

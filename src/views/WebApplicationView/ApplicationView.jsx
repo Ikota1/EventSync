@@ -17,7 +17,7 @@ const ApplicationView = () => {
   }
 
   return (
-    <div className="flex relative">
+    <div className="flex relative bg-primary">
       <Sidebar />
       <div className='flex-1 h-screen overflow-hidden'>
         <div className='flex justify-end bg-gray-900 px-7 py-2 items-center gap-4'>

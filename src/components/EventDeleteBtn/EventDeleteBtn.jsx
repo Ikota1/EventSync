@@ -22,7 +22,7 @@ const EventDeleteBtn = ({ eventId, userId, onDelete }) => {
 };
 
 EventDeleteBtn.propTypes = {
-  eventId: PropTypes.string.isRequired, // Assuming eventId is a string
+  eventId: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 

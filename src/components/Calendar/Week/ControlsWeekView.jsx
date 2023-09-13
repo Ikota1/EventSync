@@ -1,9 +1,8 @@
-import React from "react";
 import PropTypes from 'prop-types';
 
 const ControlsWeekView = ({ value, onChange, isMonth }) => {
   return (
-    <div className="flex justify-center gap-5 h-10">
+    <div className="flex justify-center gap-5 h-10 font-poppins">
       <span
         className="rounded cursor-pointer"
         onClick={() => onChange("prev")}>

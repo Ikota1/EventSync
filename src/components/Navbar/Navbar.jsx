@@ -4,10 +4,10 @@ import { navLinksNavbar } from '../../constants/navLinks';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-  
+
   const [toggle, setToggle] = useState(false);
   return (
-    <nav className='w-full flex py-6 justify-between items-center navbar'>
+    <nav className='w-full flex py-6 justify-between font-poppins items-center navbar'>
       <NavLink to='/'><img src={logo} alt='eventSync' className='w-[124px] h-[50px]' /></NavLink>
       <ul className='list-none sm:flex hidden justify-end items-center flex-1'>
         {navLinksNavbar.map((nav, index) => (

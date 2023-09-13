@@ -1,4 +1,4 @@
-import { differenceInMinutes, differenceInHours } from "date-fns";
+import { differenceInHours } from "date-fns";
 import { useContext, useEffect, useState } from "react";
 import { getEventsForDate, isIntermediateDate } from "../../../constants/UIconstants/dateContstants";
 import { AuthContext } from "../../../context/UserContext";
@@ -23,7 +23,7 @@ const EventsColumn = ({ date, isUsedInWeek = false }) => {
   const bgColor = 'transparent';
 
   return (
-    <div className="grid" style={{
+    <div className="grid font-poppins" style={{
       backgroundImage: `repeating-linear-gradient(180deg, ${borderColor}, ${borderColor} 1px, ${bgColor} 1px, ${bgColor} 30px)`,
       gridTemplateRows: "repeat(48, 30px)",
       flexGrow: 1,

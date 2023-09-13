@@ -5,7 +5,7 @@ import { getInitials } from "../../../constants/helpersFns/getInitials";
 import { useNavigate } from "react-router";
 import getCountryNameByCode from "../../../constants/countries";
 import ReactCountryFlag from "react-country-flag";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Dashboard = () => {
   const [onlineEvents, setOnlineEvents] = useState([]);
@@ -47,12 +47,12 @@ const Dashboard = () => {
 
 
   return (
-    <div className="flex">
+    <div className="flex font-poppins">
       <div id="main-content" className="h-[800px] w-full relative overflow-y-scroll">
-        <main>
+        <main className="font-poppins">
           <div className="px-4">
             <div className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-              <div className="bg-gray-800 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+              <div className="bg-gray-900 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div className="mb-4 flex items-center justify-between">
                   <div>
                     <h3 className="text-xl font-bold text-white mb-2">Latest Events</h3>
@@ -72,14 +72,14 @@ const Dashboard = () => {
                       <div className="align-middle inline-block min-w-full">
                         <div className="overflow-hidden sm:rounded-lg">
                           <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-800">
+                            <thead className="bg-gray-900">
                               <tr>
                                 <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Events</th>
                                 <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Start Time</th>
                                 <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">Location</th>
                               </tr>
                             </thead>
-                            <tbody className="bg-gray-800">
+                            <tbody className="bg-gray-900">
                               {allPublicEvents.slice(-5).map((ev) => (
                                 <tr key={ev.id}>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-white">
@@ -105,7 +105,7 @@ const Dashboard = () => {
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4"></div>
               ) : (
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
-                  <div className="bg-gray-800 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-gray-900 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
                         <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
@@ -128,7 +128,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gray-800 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-gray-900 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
                         <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
@@ -152,7 +152,7 @@ const Dashboard = () => {
               )}
             </div>
             <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4 gap-3">
-              <div className="bg-gray-800 shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+              <div className="bg-gray-900 shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-xl font-bold leading-none text-white">Latest Users</h3>
                 </div>
@@ -161,19 +161,21 @@ const Dashboard = () => {
                     {allUsers.slice(-5).map((user) => (
                       <li key={user.uid} className="py-3 sm:py-4">
                         <div className="flex items-center justify-between space-x-4">
-                          <div className="flex items-center space-x-2">
-                            {user && user.photo ? (
-                              <img className="h-12 w-12 rounded-full" src={user.photo} alt="Avatar" />
-                            ) : (
-                              <span className="h-12 w-12 rounded-full flex items-center justify-center bg-indigo-100 text-gray-800">
-                                {getInitials(user?.firstName, user?.lastName)}
-                              </span>
-                            )}
-                            <div>
-                              <p className="text-lg font-semibold text-white">{user.userName}</p>
-                              <p className="text-sm text-gray-400">{getCountryNameByCode(user.country)}</p>
+                          <NavLink to={`../user-profile/${user.uid}`}>
+                            <div className="flex items-center space-x-2">
+                              {user && user.photo ? (
+                                <img className="h-12 w-12 rounded-full" src={user.photo} alt="Avatar" />
+                              ) : (
+                                <span className="h-12 w-12 rounded-full flex items-center justify-center bg-indigo-100 text-gray-800">
+                                  {getInitials(user?.firstName, user?.lastName)}
+                                </span>
+                              )}
+                              <div>
+                                <p className="text-lg font-semibold text-white">{user.userName}</p>
+                                <p className="text-sm text-gray-400">{getCountryNameByCode(user.country)}</p>
+                              </div>
                             </div>
-                          </div>
+                          </NavLink>
                           <div>
                             <ReactCountryFlag
                               countryCode={user.country}

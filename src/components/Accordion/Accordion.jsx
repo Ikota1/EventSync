@@ -17,11 +17,11 @@ export const Accordion = () => {
   return (
     <>
       {accordionConstants.map((el, index) => (
-        <div key={el.id}>
+        <div key={el.id} className="font-poppins">
           <h2 id={el.id}>
             <button
               type="button"
-              className="font-poppins font-normal flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border rounded-t-xl border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="font-poppins flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border rounded-t-xl border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
               data-accordion-target="#accordion-collapse-body-1"
               aria-expanded={isBodyVisible[index] ? "true" : "false"}
               aria-controls="accordion-collapse-body-1"

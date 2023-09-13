@@ -88,7 +88,7 @@ const MyEvents = () => {
   };
 
   return (
-    <>
+    <div className='font-poppins'>
       <EventLinks />
       {loading ? (
         <div className="flex justify-center items-center h-full">
@@ -144,7 +144,7 @@ const MyEvents = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

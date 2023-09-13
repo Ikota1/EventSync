@@ -32,7 +32,7 @@ const Login = () => {
 
       if (userRole === USER_ROLES.Blocked) {
         toast.error('Your account is blocked. Contact support for assistance.');
-        return; 
+        return;
       }
       toast.success('Login Successful')
       setAuthState({
@@ -42,14 +42,14 @@ const Login = () => {
     } catch (e) {
       const message = errorHandler(e);
       toast.error(message)
-   
+
     }
   }
 
 
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 md:flex">
+    <section className="bg-gray-50 dark:bg-gray-900 md:flex font-poppins">
       <div className="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0 md:w-[50%] md:border-r-2">
         <NavLink to='/'> <img src={logo} alt='eventSync' className='w-[124px] h-[50px] mb-[20px]' /> </NavLink>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -79,7 +79,7 @@ const Login = () => {
               </div>
               <div className="flex justify-between">
                 {/* we can change the button with a back icon or something */}
-                <NavLink to='/'> <button type='submit'className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Back </button></NavLink>
+                <NavLink to='/'> <button type='submit' className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Back </button></NavLink>
                 <button onClick={onLogin} type='submit' className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"> Login</button>
               </div>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400"> Don&apos;t have an account?  <NavLink to='/signup' className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</NavLink></p>

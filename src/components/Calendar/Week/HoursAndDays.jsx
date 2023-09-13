@@ -1,4 +1,3 @@
-import React from "react";
 import { addDays, startOfWeek } from "date-fns";
 import HoursColumn from "../Day/HoursColumn";
 import DayBox from "./DayBox";
@@ -15,7 +14,7 @@ const HoursAndDays = ({ date, fullWeek }) => {
   );
 
   return (
-    <div className={`grid ${fullWeek ? "grid-cols-[60px,repeat(7,1fr)]" : "grid-cols-[60px,repeat(5,1fr)]"} grid-rows-[40px,1fr]`}>
+    <div className={`font-poppins grid ${fullWeek ? "grid-cols-[60px,repeat(7,1fr)]" : "grid-cols-[60px,repeat(5,1fr)]"} grid-rows-[40px,1fr]`}>
       <hr />
       <div className="col-end-2 row-start-2">
         <HoursColumn />

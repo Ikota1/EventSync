@@ -195,7 +195,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
 
   return (
     <section>
-      <div onClick={handleOverlayClick} className="overlay w-full bg-primary text-white bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div onClick={handleOverlayClick} className="overlay w-full bg-primary font-poppins text-white bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-[600px] bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-[600px] xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-2 md:space-y-1">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"> Create an Event </h1>

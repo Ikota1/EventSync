@@ -51,7 +51,7 @@ const EventHistory = () => {
     const paginatedEvents = myHistoryEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
 
     return (
-        <>
+        <div className="font-poppins">
             <EventLinks />
             {loading ? (
                 <div className="flex justify-center items-center h-full">
@@ -80,7 +80,7 @@ const EventHistory = () => {
                     <button onClick={handleNextPage} className="mr-2 h-12 w-12 rounded-full bg-blue-700 border-blue-600 text-sm  text-white transition duration-150 hover:bg-blue-500">Next</button>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -52,7 +52,7 @@ const SearchFriends = () => {
   return (
     <div>
       <FriendsLinks />
-      <div className="flex justify-center py-8">
+      <div className="flex justify-center py-8 font-poppins">
         <input
           type="text"
           onChange={handleUsernameInput}

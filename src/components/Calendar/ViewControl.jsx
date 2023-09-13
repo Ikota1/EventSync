@@ -10,7 +10,7 @@ const ViewControl = ({ view, setView }) => {
   }
 
   return (
-    <div className="relative inline-block text-left mb-3">
+    <div className="relative inline-block text-left mb-3 font-poppins">
       <button
         onClick={toggleDropdown}
         type="button"

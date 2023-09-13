@@ -131,7 +131,7 @@ const Events = () => {
   return (
     <>
       <EventLinks />
-      <div className="block p-5">
+      <div className="block p-5 font-poppins">
         <div className="flex justify-center pb-3">
           <input
             type="text"

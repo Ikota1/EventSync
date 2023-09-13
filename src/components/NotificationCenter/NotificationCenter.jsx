@@ -42,7 +42,7 @@ const NotificationCenter = () => {
         setExpanded(false);
     };
     return (
-        <div className="notification-center">
+        <div className="notification-center font-poppins">
             <div onClick={handleNotificationCenterClick} className={`notification-badge ${totalNotifications > 0 ? 'bg-pink-900 text-white' : 'text-white'} flex items-center cursor-pointer rounded-full p-1`}>
                 <MdNotifications className="mr-1 fill-white" />
                 {totalNotifications}

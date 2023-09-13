@@ -5,7 +5,7 @@ const Week = () => {
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   return (
-    <div className="grid grid-cols-7 gap-1">
+    <div className="grid grid-cols-7 gap-1 font-poppins">
       {daysOfWeek.map((el, index) => {
         return (
           <div key={index} className="col-span-1">

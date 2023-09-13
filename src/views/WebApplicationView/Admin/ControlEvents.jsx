@@ -70,7 +70,7 @@ const ControlEvents = () => {
   const paginatedEvents = filteredEvents.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
 
   return (
-    <>
+    <div className='font-poppins'>
       <AdminLinks />
       <div className="flex justify-center mt-8">
         <input
@@ -89,7 +89,7 @@ const ControlEvents = () => {
               <div
                 key={event.id}
                 className="bg-gray-900 text-gray-300 rounded-lg shadow p-4 ">
-                <div  className='cursor-pointer' onClick={() => navigate(`../events/${event.id}`)}>
+                <div className='cursor-pointer' onClick={() => navigate(`../events/${event.id}`)}>
                   <img src={event.photo} alt={event.title} className="w-full h-40 object-cover rounded-lg mb-4" />
                   <h2 className="text-lg font-semibold">{event.title}</h2>
                   <p className='pt-6 pb-6'>{event.description}</p>
@@ -99,7 +99,7 @@ const ControlEvents = () => {
                 </div>
                 <EventEditBtn eventId={event.id} />
                 <div onClick={(e) => e.stopPropagation()}>
-                <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
+                  <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
                 </div>
 
               </div>
@@ -114,7 +114,7 @@ const ControlEvents = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

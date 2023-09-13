@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const DropDownFilterBtn = ({ onFilterLive, onFilterOnline, onFilterAll }) => {
@@ -9,7 +9,7 @@ const DropDownFilterBtn = ({ onFilterLive, onFilterOnline, onFilterAll }) => {
   };
 
   return (
-    <React.Fragment>
+    <div className='font-poppins'>
       <button
         onClick={toggleDropdown}
         className="text-white bg-blue-500 hover:bg-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
@@ -29,7 +29,7 @@ const DropDownFilterBtn = ({ onFilterLive, onFilterOnline, onFilterAll }) => {
           </ul>
         </div>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

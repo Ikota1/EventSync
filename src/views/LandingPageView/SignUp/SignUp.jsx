@@ -52,7 +52,7 @@ const SignUp = () => {
   }
 
   return (
-    <div>
+    <div className="font-poppins">
       {stage === 0 && <SignUpPartOne stageOneFormData={stageOneFormData} />}
       {stage === 1 && <SignUpPartTwo stageTwoFormData={stageTwoFormData} handleBackBtnClick={handleBackBtnClick} />}
     </div>

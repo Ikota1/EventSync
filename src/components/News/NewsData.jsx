@@ -22,7 +22,7 @@ export const NewsData = () => {
   }, []);
 
   return (
-    <>
+    <div className="font-poppins">
       <p className={`${styles.flexCenter} font-poppins font-normal pb-5 xs:text-[20px] text-[15px] sx:leading-[26px] leading-[21px] text-gradient uppercase ml-3`}>
         Recent Events
       </p>
@@ -99,7 +99,7 @@ export const NewsData = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

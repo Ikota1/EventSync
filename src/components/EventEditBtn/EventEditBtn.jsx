@@ -8,22 +8,21 @@ const EventEditBtn = ({ eventId }) => {
   const handleShowForm = () => {
     setShowUpdateForm(!showUpdateFrom);
   };
-  
+
   const handleCloseForm = () => {
     setShowUpdateForm(false);
   };
 
   return (
-    // <button  className="bg-blue-700 text-white px-2 py-1 rounded mb-4 ml-1">Edit Event</button>
-  <div>
-    <button className="bg-blue-400 hover:bg-blue-500 font-normal font-poppins text-white px-2 py-1 rounded mt-4"
-     onClick={handleShowForm}>Edit Event</button>
-    {showUpdateFrom && (
-      <div className="overlay">
-        <EventEditForm eventId={eventId} onClose={handleCloseForm}/>
-      </div>
-    )}
-  </div>
+    <div className='font-poppins'>
+      <button className="bg-blue-400 hover:bg-blue-500 font-normal font-poppins text-white px-2 py-1 rounded mt-4"
+        onClick={handleShowForm}>Edit Event</button>
+      {showUpdateFrom && (
+        <div className="overlay">
+          <EventEditForm eventId={eventId} onClose={handleCloseForm} />
+        </div>
+      )}
+    </div>
   )
 }
 
