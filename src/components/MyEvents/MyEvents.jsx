@@ -38,7 +38,7 @@ const MyEvents = () => {
             });
             const eventDataArray = await Promise.all(eventDataPromises);
 
-            setMyEventsData(eventDataArray.filter(eventData => eventData !== null));
+            setMyEventsData(eventDataArray.filter(eventData => eventData !== null));           
           }
         }
       } catch (error) {
@@ -130,7 +130,7 @@ const MyEvents = () => {
                 <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
                 <div className="flex items-center justify-between">
                   <EventEditBtn eventId={event.id} />
-                  <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} />
+                  <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} userId={user.uid}/>
                 </div>
               </div>
             ))}
