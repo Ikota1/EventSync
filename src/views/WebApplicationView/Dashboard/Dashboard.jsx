@@ -160,7 +160,7 @@ const Dashboard = () => {
                   <ul role="list" className="divide-y divide-gray-200">
                     {allUsers.slice(-5).map((user) => (
                       <li key={user.uid} className="py-3 sm:py-4">
-                        <div className="flex items-center justify-between space-x-4">
+                        <div className="flex items-center justify-start space-x-4">
                           <NavLink to={`../user-profile/${user.uid}`}>
                             <div className="flex items-center space-x-2">
                               {user && user.photo ? (

@@ -8,7 +8,8 @@ import toast from 'react-hot-toast'
 import { getInitials } from "../../../constants/helpersFns/getInitials";
 import ReactCountryFlag from "react-country-flag";
 import getCountryNameByCode from "../../../constants/countries";
-
+import animationData from '../../../assets/animation_lmi4803y.json';
+import Lottie from "lottie-react";
 
 const Friends = () => {
   const { userData } = useContext(AuthContext);
@@ -55,18 +56,19 @@ const Friends = () => {
   return (
     <>
       <FriendsLinks />
-      <div className="grid grid-cols-4 gap-2 py-8 font-poppins">
+      <div className=" py-8 font-poppins">
         {userFriends.length === 0 ? (
-          <div className="flex items-center justify-center col-span-4"> {/* Use col-span-4 to span all columns */}
+          <div className="flex flex-col items-center justify-center">
             <p className="text-center text-gray-500 dark:text-gray-400">Your friendlist is empty.</p>
+            <Lottie className="w-[400px] h-[400px]" animationData={animationData} />
           </div>
-        ) : (
-          userFriends.map((user) => (
-            <div key={user?.uid} className="w-full max-w-sm pt-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <NavLink to={`../user-profile/${user.uid}`}>
-                <div className="flex flex-col items-center pb-10">
+        ) : <div className="grid grid-cols-4 gap-4">
+          {userFriends.map((user) => (
+            <div key={user?.uid}>
+              <NavLink to={`../user-profile/${user.uid}`} className={`flex justify-center items-center flex-col my-4 p-4 border border-gray-900 rounded-lg shadow-md bg-gray-900`}>
+                <div className="flex flex-col justify-center items-center">
                   {user && user.photo ? (
-                    <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={user?.photo} alt={`${user?.firstName}'s profile`} />
+                    <img className="w-24 h-24 mb-3 rounded-full shadow-lg mx-auto" src={user?.photo} alt={`${user?.firstName}'s profile`} />
                   ) : (
                     <span className="w-24 h-24 rounded-full flex items-center justify-center bg-indigo-100 cursor:pointer">
                       {getInitials(user?.firstName, user?.lastName)}
@@ -92,14 +94,24 @@ const Friends = () => {
                   <div className="flex mt-4 space-x-3 md:mt-6">
                   </div>
                 </div>
+                <div className="flex justify-end px-4 pt-4">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleRemoveFriendBtnClick(user.uid, user.userName);
+                    }}
+                    className="bg-blue-500 text-white px-2 py-1 rounded mb-4"
+                  >
+                    Remove Friend
+                  </button>
+                </div>
               </NavLink>
-              <div className="flex justify-end px-4 pt-4">
-                <button onClick={() => handleRemoveFriendBtnClick(user.uid, user.userName)} className="bg-blue-500 text-white px-2 py-1 rounded mb-4">Remove Friend</button>
-              </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+
+        </div>}
+      </div >
       <Outlet />
     </>
   );

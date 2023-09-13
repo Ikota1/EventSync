@@ -29,12 +29,6 @@ export const UserProfile = () => {
               </p>
               <p className="text-gray-400 font-poppins dark:text-white">Events created</p>
             </div>
-            <div>
-              <p className="font-bold font-poppins text-gray-700 text-xl dark:text-white">
-                {userData.eventStatistics.ticketsBought}
-              </p>
-              <p className="text-gray-400 font-poppins dark:text-white">Tickets bought</p>
-            </div>
           </div>
           <div className="relative">
             <div className={`w-48 h-48 bg-indigo-100 mx-auto rounded-full border-2 ring-offset-2 ring-4 ${userData && userData.doNotDisturb === false ? "ring-green-500" : "ring-red-500"} ring-green-500 shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500`}>

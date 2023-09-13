@@ -13,6 +13,7 @@ import 'react-quill/dist/quill.snow.css';
 import clockIcon from '../../../assets/animation_lm9dbhqr.json';
 import EventLocation from '../../../components/EventMap/EventLocation';
 import EventInvite from '../../../components/EventInvite/EventInvite';
+import format from 'date-fns/format';
 
 const EventsDetails = () => {
   const params = useParams()
@@ -105,7 +106,7 @@ const EventsDetails = () => {
   }
 
   return (
-    <div className='text-white overflow-y-scroll h-[1000px] font-poppins'>
+    <div className='text-white font-poppins'>
       <div className='w-[60%] flex justify-between flex-col items-center mx-auto'>
         <div className='bg-gray-900 p-4 rounded-lg'>
           {eventsDetailed && (
@@ -123,8 +124,7 @@ const EventsDetails = () => {
                 <div className='flex flex-col w-[50%] gap-5'>
                   <h1 className='text-3xl'>{eventsDetailed.title || ''}</h1>
                   <p>{eventsDetailed.location || ''}</p>
-                  <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.startDate || ''} To {eventsDetailed.startDate || ''}</span>
-                  <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.endDate || ''} To {eventsDetailed.endDate || ''}</span>
+                  <span className='flex items-center gap-2'><Lottie className='w-[30px] bg-white rounded-full' animationData={clockIcon} /> {eventsDetailed.startDate ? format(new Date(eventsDetailed?.startDate), 'Pp') : ''} To {eventsDetailed.startDate ? format(new Date(eventsDetailed?.endDate), 'Pp') : ''}</span>
                   <span>Organized by: {userEventOwner?.userName || ''}</span>
                 </div>
                 <div className='w-[50%]'>

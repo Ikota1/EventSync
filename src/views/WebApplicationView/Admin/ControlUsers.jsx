@@ -119,7 +119,7 @@ export const ControlUsers = () => {
     return (
         <div className='font-poppins'>
             <AdminLinks />
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center gap-2 mt-8">
                 <input
                     type="text"
                     value={searchItem}

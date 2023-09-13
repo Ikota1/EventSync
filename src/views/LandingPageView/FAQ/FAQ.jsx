@@ -1,20 +1,12 @@
 import Navbar from '../../../components/Navbar/Navbar';
 import styles from '../../../style';
 import { Accordion } from '../../../components/Accordion/Accordion';
-import { NavLink } from 'react-router-dom';
-import { logoIcon } from '../../../assets';
-
 
 const FAQ = () => (
   <div className='font-poppins'>
     <div className={` bg-gray-50 dark:bg-gray-900 md:flex ${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
         <Navbar />
-      </div>
-    </div>
-    <div className={`bg-gray-50 dark:bg-gray-900 md:flex${styles.flexStart}`}>
-      <div className={`${styles.boxWidth} ${styles.flexCenter} ${styles.paddingY}`}>
-        <NavLink to='/'><img src={logoIcon} alt='eventSync' className='w-[110px] h-[110px] ' /></NavLink>
       </div>
     </div>
     <div className={`bg-gray-50 dark:bg-gray-900 md:flex ${styles.flexStart}`}>
