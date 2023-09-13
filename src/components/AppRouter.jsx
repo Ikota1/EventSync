@@ -5,7 +5,7 @@ import SignUpPartTwo from "../views/LandingPageView/SignUp/SignUpPartTwo";
 import SignUp from "../views/LandingPageView/SignUp/SignUp";
 import FAQ from "../views/LandingPageView/FAQ/FAQ";
 import ApplicationView from "../views/WebApplicationView/ApplicationView";
-import AboutUs from "../views/AboutUs/AboutUs";
+import AboutUs from "../views/LandingPageView/AboutUs/AboutUs";
 import { auth } from "../firebase/firebase-config";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Dashboard from "../views/WebApplicationView/Dashboard/Dashboard";

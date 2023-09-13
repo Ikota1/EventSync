@@ -1,6 +1,6 @@
-import AboutUsCard from '../../components/AboutCard/AboutCard';
-import Navbar from '../../components/Navbar/Navbar';
-import styles from '../../style';
+import AboutUsCard from '../../../components/AboutCard/AboutCard';
+import Navbar from '../../../components/Navbar/Navbar';
+import styles from '../../../style';
 
 export const AboutUs = () => {
   return (
