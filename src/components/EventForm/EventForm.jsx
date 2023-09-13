@@ -195,7 +195,7 @@ const EventForm = ({ onEventCreated, onClose }) => {
 
   return (
     <section>
-      <div onClick={handleOverlayClick} className="overlay w-full bg-primary font-poppins text-white bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="overlay w-full bg-primary font-poppins text-white bg-opacity-70 h-screen flex justify-center items-center fixed left-0 top-0 px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-[600px] bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-[600px] xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-2 md:space-y-1">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"> Create an Event </h1>
@@ -334,8 +334,20 @@ const EventForm = ({ onEventCreated, onClose }) => {
                   className="bg-gray-50 border border-gray-300 mb-4 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   {...register('file')} />
                 <div className="invalid-feedback text-red-700 text-sm">{errors.file?.message}</div>
-
-                <button type="submit" className="block mx-auto w-50 text-white bg-gray-700 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create</button>
+                <div className="flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose()
+                    }}
+                    className="w-1/2 full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Close
+                  </button>
+                  <button type="submit" className="w-1/2 full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Update
+                  </button>
+                </div>
               </label>
             </form>
           </div>
