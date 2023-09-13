@@ -78,7 +78,7 @@ const EventInvite = () => {
       {isDropdownOpen && (
         <div id="dropdownUsers" className="absolute z-10 bg-white rounded-lg shadow dark:bg-gray-700 mt-2 w-full" >
           {userFriends.length === 0 ? (
-            <p className="py-2 px-4 text-gray-700 dark:text-gray-200">You have no friends at the moment. Go to the <Link to="../dashboard" className="hover:underline dark:text-pink-800">dashboard</Link> to look for new friends.</p>
+            <p className="py-2 px-4 text-gray-700 dark:text-gray-200">Your friendlist is empty. Go to the <Link to="../dashboard" className="hover:underline dark:text-pink-800">dashboard</Link> to discover new people or add your friends to contacts <Link to="../search-friends" className="hover:underline dark:text-yellow-300">here</Link> </p>
           ) : (
             <>
               <ul className="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton" >

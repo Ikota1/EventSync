@@ -30,8 +30,8 @@ const EventForm = ({ onEventCreated, onClose }) => {
       .required('Category is mandatory.').oneOf(eventCategories.map(cat => cat.name), 'Please, select a category.'),
     description: Yup.string()
       .required('Description is required!')
-      .min(3, 'Too Short!')
-      .max(150, 'Too Long!'),
+      .min(30, 'Too Short!')
+      .max(500, 'Too Long!'),
     location: Yup.string()
       .required('Location is required!')
       .min(3, 'Too Short!')

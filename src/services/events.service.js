@@ -5,8 +5,6 @@ import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs';
 import { differenceInMinutes } from "date-fns"
 import { eventReoccurrence } from '../constants/UIconstants/count.days';
-import { useReducer } from 'react';
-
 
 const currentDateTime = dayjs();
 const currentDateTimeString = currentDateTime.format('YYYY-MM-DD HH:mm:ss');

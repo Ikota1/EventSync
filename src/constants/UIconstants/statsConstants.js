@@ -11,7 +11,7 @@ export const stats = [
   },
   {
     id: "stats-3",
-    title: "Events Created By Us",
+    title: "Events Attended",
     value: "30+",
   },
 ];
