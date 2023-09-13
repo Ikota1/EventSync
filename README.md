@@ -98,11 +98,7 @@ _Below are the steps required to get, install, run and use the project._
    ```sh
    npm install
    ```
-3. Enter your Google maps API in `App.jsx`
-   ```js
-   const VITE_GOOGLE_API_FILE = 'ENTER YOUR API';
-   ```
-4. To run the project locally, execute in the terminal
+3. To run the project locally, execute in the terminal
    ```js
    npm run dev
    ```
