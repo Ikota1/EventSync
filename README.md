@@ -137,7 +137,7 @@ Project Link: [EventSync](https://gitlab.com/angel.angelov711/EventSync)
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Useful resources you would find helpful and like to give credit to. We've included a few of my favorites to kick things off!
+Useful resources you would find helpful and like to give credit to. We've included a few of our favorites to kick things off!
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [Firebase Documentation - Realtime Database](https://firebase.google.com/docs/database)
