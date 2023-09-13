@@ -12,7 +12,6 @@ import Dashboard from "../views/WebApplicationView/Dashboard/Dashboard";
 import Calendar from "../views/WebApplicationView/Calendar.jsx/Calendar";
 import Events from "../views/WebApplicationView/Events.jsx/Events";
 import Friends from "../views/WebApplicationView/Friends/Friends";
-import Support from "../views/WebApplicationView/Suppport/Support";
 import Settings from "../views/WebApplicationView/Settings/Settings";
 import Admin from "../views/WebApplicationView/Admin/Admin";
 import MyEvents from "./MyEvents/MyEvents";
@@ -24,6 +23,7 @@ import SearchFriends from "../views/WebApplicationView/Friends/SearchFriends";
 import EventsDetails from "../views/WebApplicationView/EventsDetails/EventsDetails";
 import EventHistory from "../views/WebApplicationView/Events.jsx/EventHistory";
 import PropTypes from 'prop-types';
+import ContactUsForm from "../views/WebApplicationView/Support/ContactUsForm";
 
 
 const AuthenticatedRoute = ({ element }) => {
@@ -58,7 +58,7 @@ const AppRouter = () => (
       <Route path="pending-friends" element={<PendingFriends />} />
       <Route path="search-friends" element={<SearchFriends />} />
       <Route path="calendar" element={<Calendar />} />
-      <Route path="support" element={<Support />} />
+      <Route path="support" element={<ContactUsForm />} />
       <Route path="settings" element={<Settings />} />
     <Route element={<AdminRoute />}>
       <Route path="admin" element={<Admin />} />

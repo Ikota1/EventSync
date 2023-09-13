@@ -4,7 +4,6 @@ import Navbar from '../../../components/Navbar/Navbar';
 import Stats from '../../../components/Stats/Stats';
 import Testimonials from '../../../components/Testimonials/Testimonials';
 import Footer from '../../../components/Footer/Footer';
-import NewsData from '../../../components/News/NewsData';
 
 const LandingPage = () => (
   <>
