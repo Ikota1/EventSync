@@ -50,14 +50,15 @@
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 ### Description:
-EventSync is a cutting-edge event management application designed to simplify the process of scheduling and organizing events for individuals and teams. With a focus on flexibility and user-friendliness, EventSync empowers users to create and manage events and event series effortlessly. The app boasts a comprehensive set of features, including tags, reminders, and contact lists, to ensure seamless event coordination.
+EventSync is a cutting-edge event management application designed to simplify the process of scheduling and organizing events for individuals and teams. With a focus on flexibility and user-friendliness, EventSync empowers users to create and manage events and event series effortlessly. 
 
 EventSync utilizes Firebase as a back-end service offering a reliable data management. There are three main entities:
 * User Management: EventSync utilizes Firebase for authentication, offering a secure login and registration system. Users are required to provide essential information, including a unique username, email, phone number, and profile photo.
 * Event creation: Events in EventSync are identified by a unique ID and feature essential details such as a title, start and end dates, and hours. Events can be part of recurring series or one-time occurrences, and they can be set as either public or private. Additionally, events can include a location with map integration and a concise description.
-* Contact list: User can create friend list
+* Social Features: Easily find and add friends within the app. Strengthen your social circle and stay connected with like-minded individuals.Invite Friends to Events: Hosting an exciting event? Invite your friends with just a few taps. They'll receive notifications about your event and can RSVP to join the fun.
 
-EventSync is your all-in-one solution for hassle-free event planning, designed to meet the diverse needs of individuals, teams, and administrators. Experience seamless event coordination with EventSync today!
+
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
