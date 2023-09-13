@@ -1,13 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, ref } from 'firebase/database';
 import { db } from '../../../firebase/firebase-config';
 import { getInitials } from '../../../constants/helpersFns/getInitials';
+import { AuthContext } from '../../../context/UserContext';
+import { sendFriendRequest } from '../../../services/social.service';
+import toast from 'react-hot-toast';
 
 const UserDetails = () => {
   const params = useParams();
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState(null);
+  const [selectedUserData, setSelectedUserData] = useState(null);
+  const { userData } = useContext(AuthContext)
+  const [friendRequestSent, setFriendRequestSent] = useState(false);
+
+  let selectedUserId = params.id;
+  console.log(params.id)
+
+  const isFriend = userData?.outGoingFriendRequests?.includes(selectedUserId)
+  console.log(isFriend)
+  // selectedUserData?.incomingFriendRequests?.includes(userData?.uid)
+  // console.log(isFriend)
 
   const fetchUserData = async () => {
     setLoading(true);
@@ -18,7 +31,7 @@ const UserDetails = () => {
       if (snapshot.exists()) {
         const data = snapshot.val();
 
-        setUserData(data);
+        setSelectedUserData(data);
       } else {
         console.log('User not found.');
       }
@@ -33,7 +46,24 @@ const UserDetails = () => {
     fetchUserData();
   }, []);
 
-  console.log(userData)
+
+  const handleAddFriendClick = async () => {
+
+    try {
+
+      if (selectedUserData.uid && selectedUserId) {
+        await sendFriendRequest(userData.uid, selectedUserId);
+        setFriendRequestSent(true);
+        toast.success('Friend request has been sent!')
+      }
+
+    } catch (error) {
+      console.error('Unable to send Friend Request', error);
+      toast.error('Unable to send friend request')
+    }
+
+  }
+  console.log(selectedUserData)
 
 
   return (
@@ -42,46 +72,64 @@ const UserDetails = () => {
         <div className="flex gap-6 px-4">
           <div className="col-span-4 sm:col-span-3">
             <div className="bg-gray-800 shadow rounded-lg p-3 w-[300px]">
-              <div className={`flex flex-col items-center ${userData && userData.doNotDisturb === false ? "ring-green-500" : "ring-red-500"} inset-x-0 top-0 flex items-center justify-center`} >
-                {userData && userData?.photo ? (
+              <div className={`flex flex-col items-center ${selectedUserData && selectedUserData.doNotDisturb === false ? "ring-green-500" : "ring-red-500"} inset-x-0 top-0 flex items-center justify-center`} >
+                {selectedUserData && selectedUserData?.photo ? (
                   <div className="relative">
                     <img
                       className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl flex items-center justify-center text-indigo-500"
-                      src={userData?.photo}
-                      alt={getInitials(userData?.firstName, userData?.lastName)}
+                      src={selectedUserData?.photo}
+                      alt={getInitials(selectedUserData?.firstName, selectedUserData?.lastName)}
                     />
                   </div>
                 ) : (
                   <span className="font-normal font-poppins text-5xl bg-white rounded-full p-2 w-48 h-48 mx-auto flex items-center justify-center">
-                    {getInitials(userData?.firstName, userData?.lastName)}
+                    {getInitials(selectedUserData?.firstName, selectedUserData?.lastName)}
                   </span>
                 )}
 
-                <h1 className="text-xl font-bold text-white">{userData?.userName || ''}</h1>
-                <p className="text-white">{userData?.firstName || ''} {userData?.lastName || ''}</p>
-                <p className="text-white">{userData?.email}</p>
-                <p className="text-white">{userData?.country}</p>
+                <h1 className="text-xl font-bold text-white">{selectedUserData?.userName || ''}</h1>
+                <p className="text-white">{selectedUserData?.firstName || ''} {selectedUserData?.lastName || ''}</p>
+                <p className="text-white">{selectedUserData?.email}</p>
+                <p className="text-white">{selectedUserData?.country}</p>
 
                 <div className="mt-4 flex flex-wrap gap-4 justify-center">
                   <div className='flex flex-col justify-between items-center'>
                     <p className='text-lg text-white'>Events Created:</p>
-                    <span className='font-bold text-lg text-white'>{userData?.eventStatistics.eventsCreated || '0'}</span>
+                    <span className='font-bold text-lg text-white'>{selectedUserData?.eventStatistics.eventsCreated || '0'}</span>
                   </div>
                   <div className='flex flex-col justify-between items-center'>
                     <p className='text-lg text-white'>Friends:</p>
-                    <span className='font-bold text-lg text-white'>{userData?.friends ? Object.keys(userData?.friends)?.length : '0'}</span>
+                    <span className='font-bold text-lg text-white'>{selectedUserData?.friends ? Object.keys(selectedUserData?.friends)?.length : '0'}</span>
                   </div>
                 </div>
-                <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                  <a href="#" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Add to Friends</a>
-                </div>
+                {isFriend ? (
+                  <button
+                    disabled
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg cursor-not-allowed" >
+                    Unavailable
+                  </button>
+                ) : friendRequestSent ? (
+                  <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg cursor-not-allowed" >
+                    Friend Request Sent
+                  </button>
+                ) : selectedUserData?.doNotDisturb === false ? (
+                  <button
+                    onClick={handleAddFriendClick} className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`} >
+                    Add Friend
+                  </button>
+                ) : (
+                  <button
+                    disabled className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg cursor-not-allowed">
+                    Unavailable
+                  </button>
+                )}
               </div>
             </div>
           </div>
           <div className="col-span-4 sm:col-span-9 w-[700px]">
             <div className="bg-gray-800 shadow rounded-lg p-6">
               <h2 className="text-xl font-bold mb-4 text-white">About Me</h2>
-              <p className='text-white'>{userData?.about || 'Current user has not provided informaiton about.'}</p>
+              <p className='text-white'>{selectedUserData?.about || 'Current user has not provided informaiton about.'}</p>
               <h3 className="font-semibold text-center mt-3 -mb-2 text-white">
                 Find me on
               </h3>
