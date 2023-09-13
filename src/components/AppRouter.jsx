@@ -25,6 +25,7 @@ import EventHistory from "../views/WebApplicationView/Events.jsx/EventHistory";
 import PropTypes from 'prop-types';
 import ContactUsForm from "../views/WebApplicationView/Support/ContactUsForm";
 import UserDetails from "../views/WebApplicationView/userDetails/UserDetails";
+import ThankYouPage from "../views/WebApplicationView/ThankYouPage/ThankYouPage";
 
 
 const AuthenticatedRoute = ({ element }) => {
@@ -62,6 +63,7 @@ const AppRouter = () => (
       <Route path="calendar" element={<Calendar />} />
       <Route path="support" element={<ContactUsForm />} />
       <Route path="settings" element={<Settings />} />
+      <Route path="thank-you" element={<ThankYouPage />} />
       <Route element={<AdminRoute />}>
         <Route path="admin" element={<Admin />} />
         <Route path="control-users" element={<ControlUsers />} />
