@@ -7,8 +7,6 @@ const Days = ({ date, onChange, emptyDaysAtStart, emptyDaysAtEnd, numDays, event
   const month = date.getMonth();
   const year = date.getFullYear();
 
-  console.log(events)
-
   return (
     <div className="grid grid-cols-7 grid-rows-5 h-[100%] rounded-md font-poppins">
       {Array.from({ length: emptyDaysAtStart }).map((_, index) => (

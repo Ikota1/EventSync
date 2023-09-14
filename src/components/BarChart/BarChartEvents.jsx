@@ -18,7 +18,6 @@ const BarChartEvents = ({ events }) => {
         return event;
       }
     })
-    console.log('all', eventsToday.length)
     return {
       date,
       events: eventsToday.length

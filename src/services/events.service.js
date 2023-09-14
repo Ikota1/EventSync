@@ -214,7 +214,6 @@ const calculateEventTimeProps = (event) => {
 }
 
 export const getSpecificEventPropsByID = async (id) => {
-  console.log(id)
   const snapshot = await get(query(ref(db, "/events"), orderByKey(id), equalTo(id)))
 
   const value = snapshot.val()

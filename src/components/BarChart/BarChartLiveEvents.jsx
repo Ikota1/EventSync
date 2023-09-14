@@ -14,7 +14,6 @@ const BarChartLiveEvents = ({ events }) => {
       if (date === formattedDate && !event.isOnline)
         return event;
     });
-    console.log('live', LiveEventsToday.length)
 
     return {
       date,

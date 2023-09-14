@@ -23,11 +23,9 @@ const Events = () => {
       setLoading(true);
       try {
         const publicEventsData = await getPublicEvents();
-        console.log('Fetched public events:', publicEventsData)
         setPublicEvents(publicEventsData);
 
         const allEventsData = await getAllEvents();
-        console.log('Fetched public events:', allEventsData)
         setAllEvents(allEventsData)
 
       } catch (error) {
