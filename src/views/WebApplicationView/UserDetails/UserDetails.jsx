@@ -123,9 +123,6 @@ const UserDetails = () => {
                     Unavailable
                   </button>
                 )}
-                <div className="mt-2 flex flex-wrap gap-4 justify-center">
-                  <button href="#" className="bg-gray-300 hover:bg-gray-600 text-primary py-2 px-4 rounded">Add to Friends</button>
-                </div>  
               </div>
             </div>
           </div>
