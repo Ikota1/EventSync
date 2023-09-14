@@ -14,7 +14,7 @@ const UserEditProfileButton = ({ formData }) => {
 
   return (
     <div className="font-poppins">
-      <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+      <button className="text-white py-2 px-4 uppercase rounded bg-thirdly hover:bg-thirdlyHover shadow hover:shadow-lg font-medium"
         onClick={handleShowForm}>Edit Profile</button>
       {showUpdateFrom && (
         <div className="overlay">

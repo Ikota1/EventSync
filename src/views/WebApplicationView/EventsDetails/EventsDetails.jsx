@@ -112,10 +112,10 @@ const EventsDetails = () => {
           {eventsDetailed && (
             <>
               <div className='flex justify-between items-cente w-[100%]'>
-                <span className='bg-pink-800 px-2 py-1 rounded'>{eventsDetailed.isPublic ? 'Public' : 'Is not public'}</span>
+                <span className='bg-thirdly px-2 py-1 rounded'>{eventsDetailed.isPublic ? 'Public' : 'Is not public'}</span>
                 <div className='flex gap-4'>
-                  <button onClick={() => navigate('../../application/events')} className="bg-pink-800 hover:bg-pink-900  text-white px-2 py-1 rounded">Back</button>
-                  <button onClick={attendance ? handleUnAttendBtnClick : handleAttendBtnClick} className={`bg-${attendance ? 'pink-800' : 'pink-800'} hover:bg-pink-900  text-white px-2 py-1 rounded`}>
+                  <button onClick={() => navigate('../../application/events')} className="bg-thirdly hover:bg-thirdlyHover  text-white px-2 py-1 rounded">Back</button>
+                  <button onClick={attendance ? handleUnAttendBtnClick : handleAttendBtnClick} className={`bg-${attendance ? 'thirdly' : 'thirdly'} hover:bg-thirdlyHover text-white px-2 py-1 rounded`}>
                     {attendance ? "I'm Staying Home" : "I'm Going"}
                   </button>
                 </div>

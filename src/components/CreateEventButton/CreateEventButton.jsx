@@ -15,7 +15,7 @@ export const CreateEventButton = () => {
 
   return (
     <div className='font-poppins'>
-      <button className="bg-blue-500 text-white px-2 py-1 rounded font-poppins" onClick={handleCreateButtonClick}>Create Event</button>
+      <button className="bg-thirdly hover:bg-thirdlyHover text-white px-2 py-1 rounded font-poppins" onClick={handleCreateButtonClick}>Create Event</button>
       {showCreateForm && (
         <div className="overlay">
           <EventForm onClose={handleCloseForm} />

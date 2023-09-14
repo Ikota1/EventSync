@@ -169,8 +169,6 @@ export const ControlUsers = () => {
                                                         style={{
                                                             width: '32px',
                                                             height: '32px',
-                                                            borderRadius: '50%',
-                                                            border: '2px solid white',
                                                         }} />
                                                     <span className="whitespace-no-wrap ml-4">{getCountryNameByCode(user.country)}</span>
                                                 </td>
@@ -219,8 +217,8 @@ export const ControlUsers = () => {
 
                                                 </td>
                                                 <td className="border-b border-gray-200 px-6 py-6 text-sm">
-                                                    <button onClick={() => handleBlockUser(user.uid)} className="bg-red-300 mr-4 text-white px-2 py-1 rounded"> Block </button>
-                                                    <button onClick={() => handleUnblockUser(user.uid)} className="bg-blue-500 text-white py-1 rounded px-2"> Unblock </button>
+                                                    <button onClick={() => handleBlockUser(user.uid)} className="bg-red-600 hover:bg-red-700 mr-4 text-white px-2 py-1 rounded"> Block </button>
+                                                    <button onClick={() => handleUnblockUser(user.uid)} className="bg-thirdly hover:bg-thirdlyHover text-white py-1 rounded px-2"> Unblock </button>
                                                 </td>
                                             </tr>
                                         ))
@@ -232,8 +230,8 @@ export const ControlUsers = () => {
                 <div className="flex justify-end pt-6">
                     {filteredUsers.length > 0 && (
                         <div className="mt-2 sm:mt-0">
-                            <button onClick={handlePreviousPage} disabled={currentPage === 1} className="mr-2 h-12 w-12 rounded-full border text-sm font-semibold text-gray-600 transition duration-150 hover:bg-gray-100">Prev</button>
-                            <button onClick={handleNextPage} className="h-12 w-12 rounded-full border text-sm font-semibold text-gray-600 transition duration-150 hover:bg-gray-100">Next</button>
+                            <button onClick={handlePreviousPage} disabled={currentPage === 1} className="mr-2 h-12 w-12 rounded-full text-sm font-semibold text-white transition duration-150 bg-thirdly hover:bg-thirdlyHover">Prev</button>
+                            <button onClick={handleNextPage} className="h-12 w-12 rounded-full text-sm font-semibold text-white bg-thirdly transition duration-150 hover:bg-thirdlyHover">Next</button>
                         </div>
                     )}
                 </div>

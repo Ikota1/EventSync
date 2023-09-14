@@ -31,7 +31,7 @@ const EventsColumn = ({ date, isUsedInWeek = false }) => {
     }}>
       {Object.values(events).map((e, i) => (
         <div
-          className={`grid col-span-1 bg-pink-700 bg-opacity-50 border-[0.5px] p-1`}
+          className={`grid col-span-1 bg-thirdly bg-opacity-50 border-[0.5px] p-1`}
           style={{
             gridRowStart:
               areDatesTheSame(date, e.endDate) && !areDatesTheSame(e.startDate, e.endDate)

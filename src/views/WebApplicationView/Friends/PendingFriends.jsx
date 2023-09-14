@@ -64,7 +64,7 @@ const PendingFriends = () => {
   return (
     <>
       <FriendsLinks />
-      <div className=" mx-auto px-4 py-8 sm:px-8 font-poppins">
+      <div className="mx-auto px-4 py-8 sm:px-8 font-poppins">
         {pendingFriends.length === 0 ? (
           <div className="flex flex-col justify-center items-center">
             <p className="text-center text-gray-500 dark:text-gray-400">No Pending requests at the moment.</p>

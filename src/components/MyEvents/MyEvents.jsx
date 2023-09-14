@@ -10,6 +10,8 @@ import { NavLink } from 'react-router-dom';
 
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../firebase/firebase-config';
+import Lottie from 'lottie-react';
+import animationData from '../../assets/animation_lmi4803y.json';
 
 
 const MyEvents = () => {
@@ -38,7 +40,7 @@ const MyEvents = () => {
             });
             const eventDataArray = await Promise.all(eventDataPromises);
 
-            setMyEventsData(eventDataArray.filter(eventData => eventData !== null));           
+            setMyEventsData(eventDataArray.filter(eventData => eventData !== null));
           }
         }
       } catch (error) {
@@ -95,8 +97,9 @@ const MyEvents = () => {
           <div className="animate-spin rounded-full h-8 w-8 border-t-2"></div>
         </div>
       ) : myEventsData.length === 0 ? (
-        <div className="flex justify-center items-center h-full">
-          <p className="text-2xl">No Events Found</p>
+        <div className="flex flex-col justify-center items-center h-full pt-4">
+          <p className="text-center text-gray-500 dark:text-gray-400">No Pending requests at the moment.</p>
+          <Lottie className="w-[400px] h-[400px]" animationData={animationData} />
         </div>
       ) : (
         <div>
@@ -130,7 +133,7 @@ const MyEvents = () => {
                 <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
                 <div className="flex items-center justify-between">
                   <EventEditBtn eventId={event.id} />
-                  <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} userId={user.uid}/>
+                  <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} userId={user.uid} />
                 </div>
               </div>
             ))}

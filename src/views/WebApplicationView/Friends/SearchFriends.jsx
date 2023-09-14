@@ -59,7 +59,7 @@ const SearchFriends = () => {
           value={usernameInput}
           placeholder="Search friends by username..."
           className="bg-white rounded-l-md p-2 focus:outline-none w-64" />
-        <button onClick={handleFindThemClick} className="bg-blue-500 text-white px-2 py-1 rounded">Find them!</button>
+        <button onClick={handleFindThemClick} className="bg-thirdly hover:bg-thirdlyHover text-white px-2 py-1 rounded-r-lg">Find them!</button>
       </div>
       {filteredUser && (
         <div className="text-blue-300 mt-8">

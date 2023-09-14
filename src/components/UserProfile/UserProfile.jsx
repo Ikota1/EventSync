@@ -53,7 +53,7 @@ export const UserProfile = () => {
           </div>
         </div>
 
-        <div className="font-normal font-poppins mt-20 text-center border-b  border-purple-500 pb-12">
+        <div className="font-normal font-poppins mt-20 text-center border-b  border-thirdly pb-12">
           <h1 className="text-4xl font-medium dark:text-white">
             {userData.firstName} {userData.lastName}<span className="font-light dark:text-white">, {userData.country}</span>
           </h1>
@@ -66,7 +66,7 @@ export const UserProfile = () => {
           <p className="font-light dark:text-white mt-3">{`#${userData.userName}`}</p>
         </div>
         <div className="font-normal font-poppins mt-12 flex flex-col justify-center text-justify pb-12">
-          <h3 className="text-center underline dark: text-purple-500 pb-2">About</h3>
+          <h3 className="text-center underline dark: text-thirdly pb-2">About</h3>
           {userData && userData.about ? (
             <p className="text-gray-600 text-center font-light lg:px-16 dark:text-white">
               {userData.about}

@@ -4,6 +4,7 @@ import { getUserByHandle } from '../../services/user.services';
 import { Link, useParams } from 'react-router-dom';
 import { friendEventInvite } from '../../services/social.service';
 import toast from 'react-hot-toast'
+import { getInitials } from '../../constants/helpersFns/getInitials';
 
 const EventInvite = () => {
   const params = useParams()
@@ -71,26 +72,51 @@ const EventInvite = () => {
 
   return (
     <div className='mb-4 relative font-poppins'>
-      <button onClick={toggleDropdown} data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom" className="text-white bg-pink-800 hover:bg-pink-900 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-pink-800 dark:hover:bg-pink-900 w-full" type="button">Add Friends
+      <button onClick={toggleDropdown} data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom" className="text-white bg-thirdly hover:thirdlyHover focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-full" type="button">Add Friends
         <svg className={`w-2.5 h-2.5 ml-2.5 ${isDropdownOpen ? 'rotate-180' : ''}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" /></svg>
       </button>
       {isDropdownOpen && (
-        <div id="dropdownUsers" className="absolute z-10 bg-white rounded-lg shadow dark:bg-gray-700 mt-2 w-full" >
+        <div id="dropdownUsers" className="absolute p-3 z-10 bg-white rounded-lg shadow dark:bg-gray-700 mt-2 w-full" >
           {userFriends.length === 0 ? (
-            <p className="py-2 px-4 text-gray-700 dark:text-gray-200">Your friendlist is empty. Go to the <Link to="../dashboard" className="hover:underline dark:text-pink-800">dashboard</Link> to discover new people or add your friends to contacts <Link to="../search-friends" className="hover:underline dark:text-yellow-300">here</Link> </p>
+            <p className="py-2 px-4 text-gray-700 dark:text-gray-200">Your friendlist is empty. Go to the <Link to="../dashboard" className="hover:underline dark:text-thirdly">dashboard</Link> to discover new people or add your friends to contacts <Link to="../search-friends" className="hover:underline dark:text-thirdly">here</Link> </p>
           ) : (
             <>
-              <ul className="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton" >
-                {userFriends.map((friend) => (
+              <ul className="h-auto overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton" >
+                {/* {userFriends.map((friend) => (
                   <li key={friend.uid}>
                     <button onClick={() => handleFriendSelect(friend.uid)} className={`flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ${selectedFriends.includes(friend.uid) ? 'bg-blue-200 dark:bg-blue-500' : ''}`}>
                       <img className="w-6 h-6 mr-2 rounded-full" src={friend.photo} alt={friend.name} />
                       {friend.firstName} {friend.lastName}
                     </button>
                   </li>
+                ))} */}
+
+                {userFriends.map((friend) => (
+                  <li key={friend?.uid} className="py-3 sm:py-4">
+                    <div className={`flex items-center space-x-4 ${selectedFriends.includes(friend.uid) ? 'bg-thirdly rounded-lg' : ''}`}>
+                      <div className="flex-shrink-0">
+                        {friend && friend?.photo ? (
+                          <img className="h-8 w-8 rounded-full" src={friend?.photo} alt="Avatar" />
+                        ) : (
+                          <button onClick={() => handleFriendSelect(friend.uid)}>
+                            <span className="h-10 w-10 rounded-full flex items-center justify-center bg-indigo-100 text-primary">
+                              {getInitials(friend?.firstName, friend?.lastName)}
+                            </span>
+                          </button>
+                        )}
+                      </div>
+                      <button onClick={() => handleFriendSelect(friend.uid)}>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-white truncate">
+                            {friend?.firstName} {friend?.lastName}
+                          </p>
+                        </div>
+                      </button>
+                    </div>
+                  </li>
                 ))}
               </ul>
-              <button onClick={sendInvites} className="bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2 mx-4">Send Invitations</button>
+              <button onClick={sendInvites} className="bg-thirdly hover:bg-thirdlyHover text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2 mx-4">Send Invitations</button>
             </>
           )}
         </div>

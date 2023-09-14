@@ -4,6 +4,8 @@ import { auth } from "../../../firebase/firebase-config";
 import { useEffect, useState } from "react";
 import { getAllArchivedEvents } from "../../../services/events.service";
 import format from 'date-fns/format';
+import animationData from '../../../assets/animation_lmi4803y.json';
+import Lottie from "lottie-react";
 
 const EventHistory = () => {
     const [user] = useAuthState(auth);
@@ -58,8 +60,9 @@ const EventHistory = () => {
                     <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-400"></div>
                 </div>
             ) : myHistoryEvents.length === 0 ? (
-                <div className="flex justify-center items-center h-full">
-                    <p className="text-blue-300 text-2xl">No Events Found</p>
+                <div className="flex flex-col justify-center items-center h-full pt-4">
+                    <p className="text-blue-300 text-xl">No Events Found</p>
+                    <Lottie className="w-[400px] h-[400px]" animationData={animationData} />
                 </div>
             ) : (
                 <div className="grid grid-cols-4 gap-3 p-5 h-[100%]">

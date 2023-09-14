@@ -55,7 +55,7 @@ const NotificationCenter = () => {
 
     return (
         <div className="notification-center font-poppins" ref={notificationCenterRef}>
-            <div onClick={handleNotificationCenterClick} className={`notification-badge ${totalNotifications > 0 ? 'bg-red-800 text-white' : 'text-white'} flex items-center cursor-pointer rounded-full p-1`}>
+            <div onClick={handleNotificationCenterClick} className={`notification-badge ${totalNotifications > 0 ? 'bg-thirdly text-white' : 'text-white'} flex items-center cursor-pointer rounded-full p-1`}>
                 <MdNotifications className="mr-1 fill-white" />
                 {totalNotifications}
             </div>
