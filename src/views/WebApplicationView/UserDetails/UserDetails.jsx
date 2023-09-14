@@ -125,14 +125,14 @@ const UserDetails = () => {
                 )}
                 <div className="mt-2 flex flex-wrap gap-4 justify-center">
                   <button href="#" className="bg-gray-300 hover:bg-gray-600 text-primary py-2 px-4 rounded">Add to Friends</button>
-                </div>
+                </div>  
               </div>
             </div>
           </div>
           <div className="col-span-4 sm:col-span-9 w-[700px]">
             <div className="bg-gray-900 shadow rounded-lg p-6">
               <h2 className="text-xl font-bold mb-4 text-white">About Me</h2>
-              <p className='text-white'>{userData?.about || 'Current user has not provided information about.'}</p>
+              <p className='text-white'>{selectedUserData?.about || 'Current user has not provided information about.'}</p>
               <h3 className="font-semibold text-center mt-3 -mb-2 text-white">
                 Find me on
               </h3>
