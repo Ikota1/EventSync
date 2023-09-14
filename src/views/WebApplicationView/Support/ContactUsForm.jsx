@@ -66,11 +66,11 @@ const ContactUsForm = () => {
                     rows="6"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Leave a comment..." />
-                )} 
-                />
+                )}
+              />
               <div className="invalid-feedback text-red-700 text-sm">{errors.message?.message}</div>
             </div>
-            <button onClick={() => navigate('../thank-you')}   className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
+            <button onClick={() => navigate('../thank-you')} className="bg-thirdly hover:bg-thirdlyHover text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
               Send Message
             </button>
 

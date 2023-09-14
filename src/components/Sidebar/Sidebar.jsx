@@ -46,7 +46,7 @@ const Sidebar = () => {
         <ul className="pt-6">
           {navLinksSidebar.map((nav) => (
             <NavLink key={nav.id} to={nav.id} className=''>
-              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-gray-500  text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
+              <li className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-thirdlyHover  text-sm ${nav.gap ? "mt-9" : "mt-2"}`}>
                 <img src={nav.img} className='w-[20px] h-auto' />
                 <span className={`${!open && "hidden"} origin-left duration-200`}>
                   {nav.title}
@@ -54,7 +54,7 @@ const Sidebar = () => {
               </li>
             </NavLink>
           ))}
-          {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-pink-900 text-sm items-center gap-x-4 `}>
+          {isAdmin && (<NavLink to='/application/admin' className={`flex rounded-md p-2 cursor-pointer text-white hover:bg-thirdlyHover text-sm items-center gap-x-4 `}>
             <img src={adminIcon} className='w-[20px] h-auto' />
             <span className={`${!open && "hidden"} origin-left duration-200`}>
               Admin
@@ -64,7 +64,7 @@ const Sidebar = () => {
         {open ? (
           <div className='sticky top-[100vh] duration-300'>
             <LocationResults location={city} />
-            <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-pink-900 text-sm items-center gap-x-4' onClick={onLogout}>
+            <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-thirdlyHover text-sm items-center gap-x-4' onClick={onLogout}>
               <img src={signOut} className='w-[20px] h-auto' />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 Logout
@@ -74,7 +74,7 @@ const Sidebar = () => {
         ) : (
           <div className='sticky top-[100vh]'>
             {null}
-            <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-dimWhite text-sm items-center gap-x-4' onClick={onLogout}>
+            <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-bg-thirdlyHover text-sm items-center gap-x-4' onClick={onLogout}>
               <img src={signOut} className='w-[20px] h-auto' />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 Logout
