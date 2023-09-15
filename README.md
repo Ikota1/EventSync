@@ -58,7 +58,11 @@ EventSync utilizes Firebase as a back-end service offering a reliable data manag
 * Social Features: Easily find and add friends within the app. Strengthen your social circle and stay connected with like-minded individuals.Invite Friends to Events: Hosting an exciting event? Invite your friends with just a few taps. They'll receive notifications about your event and can RSVP to join the fun.
 
 
+You can access the live version of the project by following this link:
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-EventSync%20App-blue)](https://event-sync-ew1w.vercel.app/)
+
+Click the badge above or [here](https://event-sync-ew1w.vercel.app/) to explore the application online.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -85,7 +89,7 @@ These are the the main technologies used for the creation of the EventSync app:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Below are the main instruction of how to get, install, run and use the app
+Below are the main instruction of how to get, install, run and use the app locally
 
 ### Installation
 
