@@ -21,6 +21,8 @@ export const Admin = () => {
         setIsUsersFetched(true)
       } catch (error) {
         console.error('Error:', error);
+       
+        
       }
     };
 
