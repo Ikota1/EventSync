@@ -2,7 +2,7 @@ import { getAllUsers } from '../../../services/user.services'
 import { useEffect, useState } from "react"
 import { getAllEvents } from "../../../services/events.service"
 import AdminLinks from "./AdminLinks"
-import BarChartUsers from '../../../components/BarChart/barChartUsers'
+import BarChartUsers from '../../../components/BarChart/BarChartUsers'
 import BarChartEvents from '../../../components/BarChart/BarChartEvents'
 import BarChartOnlineEvents from '../../../components/BarChart/BarChartOnlineEvents'
 import BarChartLiveEvents from '../../../components/BarChart/BarChartLiveEvents'
@@ -22,7 +22,6 @@ export const Admin = () => {
       } catch (error) {
         console.error('Error:', error);
        
-        
       }
     };
 
