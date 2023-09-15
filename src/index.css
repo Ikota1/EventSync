@@ -162,7 +162,7 @@
 
 /* Landing page horizontal scroll */
 @layer utilities {
-  @variants responsive {
+  @layer utilities  {
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }

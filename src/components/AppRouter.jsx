@@ -24,7 +24,7 @@ import EventsDetails from "../views/WebApplicationView/EventsDetails/EventsDetai
 import EventHistory from "../views/WebApplicationView/Events.jsx/EventHistory";
 import PropTypes from 'prop-types';
 import ContactUsForm from "../views/WebApplicationView/Support/ContactUsForm";
-import UserDetails from "../views/WebApplicationView/userDetails/UserDetails";
+import UserDetails from "../views/WebApplicationView/UserDetails/UserDetails";
 import ThankYouPage from "../views/WebApplicationView/ThankYouPage/ThankYouPage";
 
 
