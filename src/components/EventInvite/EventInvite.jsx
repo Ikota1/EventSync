@@ -52,7 +52,6 @@ const EventInvite = () => {
 
   const sendInvites = async () => {
     try {
-      console.log('Selected', selectedFriends)
       await Promise.all(
         selectedFriends.map(async (friendID) => {
           await friendEventInvite(friendID, params.id, userData.uid);

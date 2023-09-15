@@ -38,7 +38,7 @@ const SearchFriends = () => {
   const handleAddFriendClick = async () => {
     try {
       if (filteredUser && filteredUser.length > 0 && filteredUser[0].uid) {
-        console.log('Sent');
+
         await sendFriendRequest(userData.uid, filteredUser[0].uid);
         setFriendRequestSent(true);
         toast.success('Friend request has been sent!')

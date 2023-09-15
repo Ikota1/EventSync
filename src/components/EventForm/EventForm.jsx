@@ -100,8 +100,6 @@ const EventForm = ({ onEventCreated, onClose }) => {
       category: e.category
     };
 
-    console.log(e);
-
     if (eventData.photo) {
       tempIdentifier = await uploadEventPhotoTemporary(eventData.photo);
     }

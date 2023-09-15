@@ -149,8 +149,7 @@ export const uploadProfilePhoto = async (userId, file) => {
     await uploadTask;
 
     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-    console.log(downloadURL)
-    console.log(`File uploaded.`)
+ 
     return downloadURL
   } catch (e) {
     console.error(`Error while uploading: ${e}`)

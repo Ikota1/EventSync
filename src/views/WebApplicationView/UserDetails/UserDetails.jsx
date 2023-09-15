@@ -15,12 +15,8 @@ const UserDetails = () => {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
 
   let selectedUserId = params.id;
-  console.log(params.id)
-
+ 
   const isFriend = userData?.outGoingFriendRequests?.includes(selectedUserId)
-  console.log(isFriend)
-  // selectedUserData?.incomingFriendRequests?.includes(userData?.uid)
-  // console.log(isFriend)
 
   const fetchUserData = async () => {
     setLoading(true);
@@ -63,8 +59,6 @@ const UserDetails = () => {
     }
 
   }
-  console.log(selectedUserData)
-
 
   return (
     <div className="bg-primary font-poppins">

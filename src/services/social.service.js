@@ -35,7 +35,6 @@ export const sendFriendRequest = async (senderID, recipientID) => {
 
 export const acceptFriendRequest = async (senderID, recipientID) => {
     try {
-        console.log('Executing acceptFriend function');
 
         const senderRef = ref(db, `users/${senderID}`);
         const recipientRef = ref(db, `users/${recipientID}`);
@@ -91,7 +90,6 @@ export const rejectFriendRequest = async (recipientID, senderID) => {
 
 
 export const deleteFriend = async (currentUserID, friendToDelete) => {
-    console.log('IDS', currentUserID, friendToDelete)
     try {
         const currentUserRef = ref(db, `users/${currentUserID}`);
         const userToDeleteRef = ref(db, `users/${friendToDelete}`);
@@ -101,9 +99,6 @@ export const deleteFriend = async (currentUserID, friendToDelete) => {
 
         const currentUserData = currentUserSnapshot.val();
         const userToDeleteData = userToDeleteSnapshot.val();
-
-        console.log('datas', currentUserData, userToDeleteData)
-
 
         if (currentUserSnapshot.exists() && userToDeleteSnapshot.exists()) {
 
