@@ -60,7 +60,7 @@ EventSync utilizes Firebase as a back-end service offering a reliable data manag
 
 You can access the live version of the project by following this link:
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-EventSync%20App-blue)](https://event-sync-ew1w.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-EventSync%20App-blue)](https://event-sync.vercel.app/)
 
 Click the badge above or [here](https://event-sync.vercel.app/) to explore the application online.
 
