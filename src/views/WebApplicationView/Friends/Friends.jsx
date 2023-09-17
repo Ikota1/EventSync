@@ -17,8 +17,8 @@ const Friends = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (userData && userData.friends) {
-        const friendIDs = userData.friends;
+      if (userData && userData?.friends) {
+        const friendIDs = userData?.friends;
 
         try {
           const friendsDataPromises = Object.keys(friendIDs).map(async (friendID) => {
@@ -40,9 +40,9 @@ const Friends = () => {
 
   const handleRemoveFriendBtnClick = async (userToDeleteID, deletedUserName) => {
     try {
-      await deleteFriend(userData.uid, userToDeleteID)
+      await deleteFriend(userData?.uid, userToDeleteID)
 
-      const updatedUserFriends = userFriends.filter((user) => user.uid !== userToDeleteID);
+      const updatedUserFriends = userFriends.filter((user) => user?.uid !== userToDeleteID);
 
       setUserFriends(updatedUserFriends);
       toast.success(`${deletedUserName} has been deleted from your Friendlist.`)
@@ -77,7 +77,7 @@ const Friends = () => {
                 <span className="text-lg text-gray-500 dark:text-gray-400">{user?.userName}</span>
                 <div className="flex pt-2">
                   <ReactCountryFlag
-                    countryCode={user.country}
+                    countryCode={user?.country}
                     svg
                     style={{
                       width: '32px',
@@ -98,7 +98,7 @@ const Friends = () => {
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleRemoveFriendBtnClick(user.uid, user.userName);
+                    handleRemoveFriendBtnClick(user?.uid, user?.userName);
                   }}
                   className="bg-thirdly hover:bg-thirdlyHover text-white px-2 py-1 rounded mb-4">
                   Remove Friend
