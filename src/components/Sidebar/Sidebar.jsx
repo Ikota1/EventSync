@@ -17,7 +17,7 @@ const Sidebar = () => {
   useEffect(() => {
     const API_KEY = "66abec26fe034546987185308232907"
 
-    fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${userLocation?.latitude},${userLocation?.longitude}&aqi=no`)
+    fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${userLocation?.latitude},${userLocation?.longitude}&aqi=no`)
       .then(res => res.json())
       .then(setCity);
   }, [])
