@@ -62,11 +62,7 @@ You can access the live version of the project by following this link:
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-EventSync%20App-blue)](https://event-sync-ew1w.vercel.app/)
 
-Click the badge above or [here](https://event-sync-ew1w.vercel.app/) to explore the application online.
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+Click the badge above or [here](https://event-sync.vercel.app/) to explore the application online.
 
 
 ### Built With
@@ -81,9 +77,6 @@ These are the the main technologies used for the creation of the EventSync app:
 * <a href="https://firebase.google.com/?gad=1&gclid=Cj0KCQjw2qKmBhCfARIsAFy8buJpmcsVlLSlOLxynVWpM_INCIau6stZ_d7c05Z1xpz3lpb95c3QNC0aAhvuEALw_wcB&gclsrc=aw.ds">
     <img src="src/assets/Firebase-badge.png" alt="Logo" width="90" height="30">
   </a>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
