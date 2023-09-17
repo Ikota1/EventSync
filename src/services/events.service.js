@@ -315,7 +315,7 @@ export const addUserToEvent = async (userID, eventID) => {
 
       const updateObj = {
         //when click going this line makes so it adds and event as if the participant has created it
-        // [`users/${userID}/events`]: updatedUserEvents,
+        [`users/${userID}/events`]: updatedUserEvents,
         [`events/${eventID}/participants`]: updatedEventParticipants,
       };
 
