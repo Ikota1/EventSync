@@ -15,7 +15,7 @@ const UserDetails = () => {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
 
   let selectedUserId = params.id;
- 
+
   const isFriend = userData?.outGoingFriendRequests?.includes(selectedUserId)
 
   const fetchUserData = async () => {
@@ -44,9 +44,7 @@ const UserDetails = () => {
 
 
   const handleAddFriendClick = async () => {
-
     try {
-
       if (selectedUserData.uid && selectedUserId) {
         await sendFriendRequest(userData.uid, selectedUserId);
         setFriendRequestSent(true);
@@ -66,13 +64,13 @@ const UserDetails = () => {
         <div className="flex gap-6 px-4">
           <div>
             <div className="bg-gray-900 shadow rounded-lg p-3 w-[300px]">
-              <div className={`flex flex-col items-center gap-3 ${userData && userData.doNotDisturb === false ? "ring-green-500" : "ring-red-500"} inset-x-0 top-0 flex items-center justify-center`} >
-                {userData && userData?.photo ? (
+              <div className={`flex flex-col items-center gap-3 ${selectedUserData && selectedUserData.doNotDisturb === false ? "ring-green-500" : "ring-red-500"} inset-x-0 top-0 flex items-center justify-center`} >
+                {selectedUserData && selectedUserData?.photo ? (
                   <div className="relative">
                     <img
                       className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl flex items-center justify-center text-indigo-500"
                       src={selectedUserData?.photo}
-                      alt={getInitials(selectedUserData?.firstName, selectedUserData?.lastName)}
+                      alt='Avatar'
                     />
                   </div>
                 ) : (

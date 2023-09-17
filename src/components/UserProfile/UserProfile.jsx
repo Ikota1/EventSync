@@ -44,7 +44,7 @@ export const UserProfile = () => {
                   <img
                     className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl flex items-center justify-center text-indigo-500"
                     src={userData?.photo}
-                    alt={getInitials(userData.firstName, userData.lastName)}
+                    alt='avatar'
                   />
                 </div>
               ) : (
