@@ -20,10 +20,6 @@ const MyEvents = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [allEvents, setAllEvents] = useState([])
-  const [owner, setOwner] = useState(false)
-
-  console.log(user)
-
 
   const eventsPerPage = 4;
 
@@ -56,7 +52,6 @@ const MyEvents = () => {
     fetchUserEvents();
   }, [allEvents]);
 
-  //listen for changes of any event in events folder
   useEffect(() => {
     const eventsRef = ref(db, 'events');
     onValue(eventsRef, (snapshot) => {
@@ -109,7 +104,6 @@ const MyEvents = () => {
         <div>
           <div className="grid grid-cols-4 gap-4">
             {paginatedEvents.map((event) => (
-              // <div className="bg-gray-900 text-white rounded-lg shadow-md p-4 transition-transform duration-300 hover:-translate-y-2" key={event.id}>
               <div className="bg-gray-900 text-white rounded-lg shadow-md p-4" key={event.id}>
                 <NavLink to={`../events/${event.id}`}>
                   <img src={event.photo} alt={event.title} className="w-full h-60 object-cover rounded-lg mb-4" />
