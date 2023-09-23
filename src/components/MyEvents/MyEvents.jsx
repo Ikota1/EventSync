@@ -20,6 +20,10 @@ const MyEvents = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [allEvents, setAllEvents] = useState([])
+  const [owner, setOwner] = useState(false)
+
+  console.log(user)
+
 
   const eventsPerPage = 4;
 
@@ -131,10 +135,13 @@ const MyEvents = () => {
                 <p className="pb-4">Location: {event.location}</p>
                 <p>{format(new Date(event.startDate), 'do MMM')} | {event.startHour}h - {event.endHour}h</p>
                 <p>Type: {event.isOnline ? 'Online' : 'Live'}</p>
-                <div className="flex items-center justify-between">
-                  <EventEditBtn eventId={event.id} />
-                  <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} userId={user.uid} />
-                </div>
+                {event.eventOwner === user.uid && (
+                  <div className="flex items-center justify-between">
+                    <EventEditBtn eventId={event.id} />
+                    <EventDeleteBtn eventId={event.id} onDelete={() => handleEventDelete(event.id)} userId={user.uid} />
+                  </div>
+                )}
+
               </div>
             ))}
           </div>
