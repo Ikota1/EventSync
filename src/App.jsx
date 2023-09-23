@@ -6,10 +6,11 @@ import { AppContextProvider } from "./context/AppContext";
 import { Toaster } from 'react-hot-toast'
 import { LoadScript } from '@react-google-maps/api';
 
-const VITE_GOOGLE_API_FILE = 'AIzaSyArxnIuFJJezK4Zo99XnTJLy-wm1piTrBw';
+
+const googleK = import.meta.env.VITE_GMAPS;
 
 const App = () => (
-  <LoadScript googleMapsApiKey={VITE_GOOGLE_API_FILE}>
+  <LoadScript googleMapsApiKey={googleK}>
     <AuthContextProvider>
       <AppContextProvider>
         <BrowserRouter>

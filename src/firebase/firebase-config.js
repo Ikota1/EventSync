@@ -3,8 +3,10 @@ import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 import { getStorage } from "firebase/storage";
 
+const fb = import.meta.env.VITE_Firebase;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCdUvQX7adFTAGQTKylxfKOTCvLLFQfxsg",
+  apiKey: fb,
   authDomain: "eventsync-1.firebaseapp.com",
   databaseURL: "https://eventsync-1-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "eventsync-1",
@@ -12,6 +14,7 @@ const firebaseConfig = {
   messagingSenderId: "279476340668",
   appId: "1:279476340668:web:90abfb95a53c13321f4db9"
 };
+
 
 export const app = initializeApp(firebaseConfig);
 

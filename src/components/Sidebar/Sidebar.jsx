@@ -10,16 +10,23 @@ import { LocationResults } from '../Weather/Weather';
 const Sidebar = () => {
   const { userData, setAuthState, userLocation } = useContext(AuthContext)
   const [open, setOpen] = useState(true);
-  const [city, setCity] = useState({})
+  const [weatherInfo, setWeatherInfo] = useState({})
 
   const isAdmin = userData?.userRole === USER_ROLES.Admin;
 
   useEffect(() => {
-    const API_KEY = "66abec26fe034546987185308232907"
 
-    fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${userLocation?.latitude},${userLocation?.longitude}&aqi=no`)
-      .then(res => res.json())
-      .then(setCity);
+    const weather = import.meta.env.VITE_Weather;
+
+    const weatherFetch = async () => {
+
+      const res = await fetch(`http://api.weatherapi.com/v1/current.json?key=${weather}&q=${userLocation?.latitude},${userLocation?.longitude}`)
+      const fetchedWeather = await res.json();
+
+      setWeatherInfo(fetchedWeather)
+   
+    }
+    weatherFetch()
   }, [])
 
   const onLogout = () => {
@@ -63,7 +70,7 @@ const Sidebar = () => {
         </ul>
         {open ? (
           <div className='sticky top-[100vh] duration-300'>
-            <LocationResults location={city} />
+            <LocationResults location={weatherInfo} />
             <NavLink to="/" className='flex rounded-md p-2 cursor-pointer font-normal font-poppins text-white hover:bg-thirdlyHover text-sm items-center gap-x-4' onClick={onLogout}>
               <img src={signOut} className='w-[20px] h-auto' />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
