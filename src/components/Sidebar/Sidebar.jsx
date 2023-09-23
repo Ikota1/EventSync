@@ -20,7 +20,7 @@ const Sidebar = () => {
 
     const weatherFetch = async () => {
 
-      const res = await fetch(`http://api.weatherapi.com/v1/current.json?key=${weather}&q=${userLocation?.latitude},${userLocation?.longitude}`)
+      const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${weather}&q=${userLocation?.latitude},${userLocation?.longitude}`)
       const fetchedWeather = await res.json();
 
       setWeatherInfo(fetchedWeather)
