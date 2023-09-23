@@ -40,10 +40,6 @@ const EventForm = ({ onEventCreated, onClose }) => {
       .required("Start time cannot be empty!"),
     end_date: Yup.date()
       .required("End time is required!"),
-    // file: Yup.mixed().required('You need to provide a file!').test('fileSize', 'Only documents up to 2MB are permitted.', (value) => {
-    //   console.log(value)
-    //   return value && value[0]?.size <= 2000000
-    // }),
   });
 
   const formOptions = { resolver: yupResolver(schema) };

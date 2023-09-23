@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const LocationResults = ({ location: { location, current } }) => {
+
   return (
     <>
       <div className="flex flex-row items-center p-3 justify-start rounded-md w-50 sm:px-5 font-poppins dark:text-gray-100">

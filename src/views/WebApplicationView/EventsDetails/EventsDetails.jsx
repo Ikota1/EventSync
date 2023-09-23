@@ -39,9 +39,7 @@ const EventsDetails = () => {
 
         setEventsDetailed(data);
         setUserEventOwner(userData);
-      } else {
-        console.log('Event not found.');
-      }
+      } 
       setLoading(false);
     } catch (error) {
       console.error('Unable to fetch event data', error);

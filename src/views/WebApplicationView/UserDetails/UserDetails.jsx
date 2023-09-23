@@ -28,9 +28,7 @@ const UserDetails = () => {
         const data = snapshot.val();
 
         setSelectedUserData(data);
-      } else {
-        console.log('User not found.');
-      }
+      } 
       setLoading(false);
     } catch (error) {
       console.error('Unable to fetch event data', error);

@@ -4,7 +4,6 @@ import { db } from "../firebase/firebase-config";
 export const sendFriendRequest = async (senderID, recipientID) => {
 
     try {
-        console.log('Executing sendFriendRequest function');
         const senderRef = ref(db, `users/${senderID}`);
         const recipientRef = ref(db, `users/${recipientID}`);
 
@@ -115,13 +114,8 @@ export const deleteFriend = async (currentUserID, friendToDelete) => {
                 await set(currentUserRef, currentUserData);
                 await set(userToDeleteRef, userToDeleteData);
 
-                console.log(`Successfully removed ${friendToDelete} from your friends list.`);
-            } else {
-                console.log('Both users are not friends.');
             }
-        } else {
-            console.log('One or both users do not exist.');
-        }
+        } 
 
     } catch (error) {
         console.error('Error in deleteFriend:', error);

@@ -70,7 +70,6 @@ export const EventEditForm = ({ eventId, onClose }) => {
         const photo = e.target.files[0];
         setUploadPhoto(photo);
     };
-    console.log(uploadPhoto)
 
     const handleFormSubmit = async () => {
 

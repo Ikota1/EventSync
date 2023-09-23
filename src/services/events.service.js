@@ -202,7 +202,7 @@ export const updatePhotoProperty = async (tempIdentifier, eventId, eventPhoto) =
 };
 
 const calculateEventTimeProps = (event) => {
-  console.log(event)
+
   const startDate = new Date(event.startDate)
   const endDate = new Date(event.endDate)
   const duration = Math.ceil(differenceInMinutes(endDate, startDate) / 60)

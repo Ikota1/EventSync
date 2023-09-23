@@ -19,7 +19,6 @@ const ContactUsForm = () => {
   });
 
   const handleSendMsgBtnClick = async (data) => {
-    console.log(data.subject, data.message);
     await sendSupportTicket(
       userData.uid,
       userData.email,
