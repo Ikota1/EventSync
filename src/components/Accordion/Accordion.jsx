@@ -25,8 +25,7 @@ export const Accordion = () => {
               data-accordion-target="#accordion-collapse-body-1"
               aria-expanded={isBodyVisible[index] ? "true" : "false"}
               aria-controls="accordion-collapse-body-1"
-              onClick={() => toggleAccordion(index)}
-            >
+              onClick={() => toggleAccordion(index)}>
               <span>{el.title}</span>
               <svg
                 data-accordion-icon
@@ -34,22 +33,19 @@ export const Accordion = () => {
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="0 0 10 6"
-              >
+                viewBox="0 0 10 6">
                 <path
                   stroke="currentColor"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M9 5 5 1 1 5"
-                />
+                  d="M9 5 5 1 1 5" />
               </svg>
             </button>
             <div
               id="accordion-collapse-body-1"
               className={isBodyVisible[index] ? "" : "hidden"}
-              aria-labelledby="accordion-collapse-heading-1"
-            >
+              aria-labelledby="accordion-collapse-heading-1">
               <div className="p-5 border rounded-b-xl border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                 <p className="font-poppins font-normal mb-2 text-gray-500 dark:text-gray-400">
                   {el.content}
@@ -60,9 +56,6 @@ export const Accordion = () => {
           ;
         </div>
       ))}
-      <div>
-        <Footer />
-      </div>
     </>
   );
 };
