@@ -6,8 +6,8 @@ import { FaGitlab, FaLinkedin } from 'react-icons/fa';
 const AboutUsCard = () => {
     return (
         <div className={`${styles.boxWidth} font-poppins`}>
-            <div className="container">
-                <div className="services">
+            <div className="flex justify-center items-center flex-col">
+                <div className="flex flex-nowrap justify-center gap-[1.5rem] xsm:flex-col md:flex-row">
                     {developers.map(person => (
                         <div className={person.service} key={person.id}>
                             <div className="front">

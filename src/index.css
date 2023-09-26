@@ -241,31 +241,12 @@
 }
 
 /* flip card start*/
-.container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 90vh;
-	flex-direction: column;
-}
-
-.services {
-	display: flex;
-	flex-wrap: nowrap;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	width: 95%;
-	margin: 50px auto 20px auto;
-}
 .service {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 300px;
-	width: 380px;
-	margin-right: 20px;
-	margin-bottom: 20px;
+	height: 330px;
+	width: 330px;
 	position: relative;
 	transform-style: preserve-3d;
 	perspective: 700px;
